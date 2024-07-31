@@ -11,6 +11,7 @@ export const CompareLlmPageRequestSelectedModelsItem: core.serialization.Schema<
     Gooey.CompareLlmPageRequestSelectedModelsItem
 > = core.serialization.enum_([
     "gpt_4_o",
+    "gpt_4_o_mini",
     "gpt_4_turbo_vision",
     "gpt_4_vision",
     "gpt_4_turbo",
@@ -20,9 +21,12 @@ export const CompareLlmPageRequestSelectedModelsItem: core.serialization.Schema<
     "gpt_3_5_turbo_16k",
     "gpt_3_5_turbo_instruct",
     "llama3_70b",
+    "llama_3_groq_70b_tool_use",
     "llama3_8b",
+    "llama_3_groq_8b_tool_use",
     "llama2_70b_chat",
     "mixtral_8x7b_instruct_0_1",
+    "gemma_2_9b_it",
     "gemma_7b_it",
     "gemini_1_5_pro",
     "gemini_1_pro_vision",
@@ -45,6 +49,7 @@ export const CompareLlmPageRequestSelectedModelsItem: core.serialization.Schema<
 export declare namespace CompareLlmPageRequestSelectedModelsItem {
     type Raw =
         | "gpt_4_o"
+        | "gpt_4_o_mini"
         | "gpt_4_turbo_vision"
         | "gpt_4_vision"
         | "gpt_4_turbo"
@@ -54,9 +59,12 @@ export declare namespace CompareLlmPageRequestSelectedModelsItem {
         | "gpt_3_5_turbo_16k"
         | "gpt_3_5_turbo_instruct"
         | "llama3_70b"
+        | "llama_3_groq_70b_tool_use"
         | "llama3_8b"
+        | "llama_3_groq_8b_tool_use"
         | "llama2_70b_chat"
         | "mixtral_8x7b_instruct_0_1"
+        | "gemma_2_9b_it"
         | "gemma_7b_it"
         | "gemini_1_5_pro"
         | "gemini_1_pro_vision"

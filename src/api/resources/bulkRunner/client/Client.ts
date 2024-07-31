@@ -12,9 +12,7 @@ import * as errors from "../../../../errors/index";
 export declare namespace BulkRunner {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
-        apiKey?: core.Supplier<core.BearerToken | undefined>;
-        /** Override the Authorization header */
-        authorization?: core.Supplier<string | undefined>;
+        token: core.Supplier<core.BearerToken>;
         fetcher?: core.FetchFunction;
     }
 
@@ -25,13 +23,11 @@ export declare namespace BulkRunner {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the Authorization header */
-        authorization?: string | undefined;
     }
 }
 
 export class BulkRunner {
-    constructor(protected readonly _options: BulkRunner.Options = {}) {}
+    constructor(protected readonly _options: BulkRunner.Options) {}
 
     /**
      * @param {Gooey.BulkRunnerPageRequest} request
@@ -68,10 +64,9 @@ export class BulkRunner {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta0",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
@@ -181,10 +176,9 @@ export class BulkRunner {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta0",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
@@ -280,10 +274,9 @@ export class BulkRunner {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta0",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -350,18 +343,6 @@ export class BulkRunner {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["GOOEY_API_KEY"];
-        if (bearer == null) {
-            throw new errors.GooeyError({
-                message: "Please specify GOOEY_API_KEY when instantiating the client.",
-            });
-        }
-
-        return `Bearer ${bearer}`;
-    }
-
-    protected async _getCustomAuthorizationHeaders() {
-        const authorizationValue = await core.Supplier.get(this._options.authorization);
-        return { Authorization: authorizationValue };
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

@@ -7,6 +7,7 @@ import * as Gooey from "../../api/index";
 import * as core from "../../core";
 import { RecipeFunction } from "./RecipeFunction";
 import { SmartGptPageRequestSelectedModel } from "./SmartGptPageRequestSelectedModel";
+import { SmartGptPageRequestResponseFormatType } from "./SmartGptPageRequestResponseFormatType";
 import { RunSettings } from "./RunSettings";
 
 export const SmartGptPageRequest: core.serialization.ObjectSchema<
@@ -25,6 +26,10 @@ export const SmartGptPageRequest: core.serialization.ObjectSchema<
     quality: core.serialization.number().optional(),
     maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
+    responseFormatType: core.serialization.property(
+        "response_format_type",
+        SmartGptPageRequestResponseFormatType.optional()
+    ),
     settings: RunSettings.optional(),
 });
 
@@ -42,6 +47,7 @@ export declare namespace SmartGptPageRequest {
         quality?: number | null;
         max_tokens?: number | null;
         sampling_temperature?: number | null;
+        response_format_type?: SmartGptPageRequestResponseFormatType.Raw | null;
         settings?: RunSettings.Raw | null;
     }
 }
