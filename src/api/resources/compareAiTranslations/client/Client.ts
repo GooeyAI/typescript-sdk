@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index";
 export declare namespace CompareAiTranslations {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -27,7 +27,7 @@ export declare namespace CompareAiTranslations {
 }
 
 export class CompareAiTranslations {
-    constructor(protected readonly _options: CompareAiTranslations.Options) {}
+    constructor(protected readonly _options: CompareAiTranslations.Options = {}) {}
 
     /**
      * @param {Gooey.TranslationPageRequest} request
@@ -325,6 +325,13 @@ export class CompareAiTranslations {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["GOOEY_API_KEY"];
+        if (bearer == null) {
+            throw new errors.GooeyError({
+                message: "Please specify GOOEY_API_KEY when instantiating the client.",
+            });
+        }
+
+        return `Bearer ${bearer}`;
     }
 }

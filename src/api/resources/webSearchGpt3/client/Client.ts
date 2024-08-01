@@ -12,7 +12,7 @@ import * as errors from "../../../../errors/index";
 export declare namespace WebSearchGpt3 {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -27,7 +27,7 @@ export declare namespace WebSearchGpt3 {
 }
 
 export class WebSearchGpt3 {
-    constructor(protected readonly _options: WebSearchGpt3.Options) {}
+    constructor(protected readonly _options: WebSearchGpt3.Options = {}) {}
 
     /**
      * @param {Gooey.GoogleGptPageRequest} request
@@ -331,6 +331,13 @@ export class WebSearchGpt3 {
     }
 
     protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+        const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["GOOEY_API_KEY"];
+        if (bearer == null) {
+            throw new errors.GooeyError({
+                message: "Please specify GOOEY_API_KEY when instantiating the client.",
+            });
+        }
+
+        return `Bearer ${bearer}`;
     }
 }

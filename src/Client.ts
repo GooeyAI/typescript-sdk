@@ -43,7 +43,7 @@ import { Misc } from "./api/resources/misc/client/Client";
 export declare namespace GooeyClient {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
-        token: core.Supplier<core.BearerToken>;
+        apiKey?: core.Supplier<core.BearerToken | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -58,7 +58,7 @@ export declare namespace GooeyClient {
 }
 
 export class GooeyClient {
-    constructor(protected readonly _options: GooeyClient.Options) {}
+    constructor(protected readonly _options: GooeyClient.Options = {}) {}
 
     protected _copilotIntegrations: CopilotIntegrations | undefined;
 
