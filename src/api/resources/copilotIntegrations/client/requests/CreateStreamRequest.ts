@@ -49,6 +49,11 @@ export interface CreateStreamRequest {
     selectedModel?: Gooey.CreateStreamRequestSelectedModel;
     /** When your copilot users upload a photo or pdf, what kind of document are they mostly likely to upload? (via [Azure](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/how-to-guides/use-sdk-rest-api?view=doc-intel-3.1.0&tabs=linux&pivots=programming-language-rest-api)) */
     documentModel?: string;
+    avoidRepetition?: boolean;
+    numOutputs?: number;
+    quality?: number;
+    maxTokens?: number;
+    samplingTemperature?: number;
     taskInstructions?: string;
     queryInstructions?: string;
     keywordInstructions?: string;
@@ -85,12 +90,6 @@ export interface CreateStreamRequest {
     lipsyncModel?: Gooey.CreateStreamRequestLipsyncModel;
     /** Give your copilot superpowers by giving it access to tools. Powered by [Function calling](https://platform.openai.com/docs/guides/function-calling). */
     tools?: Gooey.LlmTools[];
-    avoidRepetition?: boolean;
-    numOutputs?: number;
-    quality?: number;
-    maxTokens?: number;
-    samplingTemperature?: number;
-    responseFormatType?: Gooey.CreateStreamRequestResponseFormatType;
     ttsProvider?: Gooey.CreateStreamRequestTtsProvider;
     uberduckVoiceName?: string;
     uberduckSpeakingRate?: number;

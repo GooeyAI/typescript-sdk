@@ -191,7 +191,7 @@ export type SerpSearchLocation =
     | "vc"
     | "ws"
     | "sm"
-    | "gui"
+    | "st"
     | "sa"
     | "sn"
     | "rs"
@@ -432,7 +432,7 @@ export const SerpSearchLocation = {
     Vc: "vc",
     Ws: "ws",
     Sm: "sm",
-    Gui: "gui",
+    St: "st",
     Sa: "sa",
     Sn: "sn",
     Rs: "rs",

@@ -12,14 +12,13 @@ export interface DocSummaryPageRequest {
     taskInstructions?: string;
     mergeInstructions?: string;
     selectedModel?: Gooey.DocSummaryPageRequestSelectedModel;
-    chainType?: "map_reduce";
-    selectedAsrModel?: Gooey.DocSummaryPageRequestSelectedAsrModel;
-    googleTranslateTarget?: string;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.DocSummaryPageRequestResponseFormatType;
+    chainType?: "map_reduce";
+    selectedAsrModel?: Gooey.DocSummaryPageRequestSelectedAsrModel;
+    googleTranslateTarget?: string;
     settings?: Gooey.RunSettings;
 }

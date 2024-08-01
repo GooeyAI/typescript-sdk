@@ -18,7 +18,7 @@ Instantiate and use the client with the following:
 ```typescript
 import { GooeyClient } from "gooey";
 
-const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
+const client = new GooeyClient({ apiKey: "YOUR_API_KEY", authorization: "YOUR_AUTHORIZATION" });
 await client.copilotIntegrations.videoBotsStreamCreate({
     integrationId: "integration_id",
 });

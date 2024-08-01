@@ -11,11 +11,10 @@ export interface SocialLookupEmailPageRequest {
     emailAddress: string;
     inputPrompt?: string;
     selectedModel?: Gooey.SocialLookupEmailPageRequestSelectedModel;
-    avoidRepetition?: boolean;
     numOutputs?: number;
+    avoidRepetition?: boolean;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.SocialLookupEmailPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }
