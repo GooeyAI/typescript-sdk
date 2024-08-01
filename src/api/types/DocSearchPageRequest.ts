@@ -24,11 +24,12 @@ export interface DocSearchPageRequest {
     taskInstructions?: string;
     queryInstructions?: string;
     selectedModel?: Gooey.DocSearchPageRequestSelectedModel;
+    citationStyle?: Gooey.DocSearchPageRequestCitationStyle;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    citationStyle?: Gooey.DocSearchPageRequestCitationStyle;
+    responseFormatType?: Gooey.DocSearchPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

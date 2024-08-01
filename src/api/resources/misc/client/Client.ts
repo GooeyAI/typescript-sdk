@@ -13,8 +13,6 @@ export declare namespace Misc {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
         apiKey?: core.Supplier<core.BearerToken | undefined>;
-        /** Override the Authorization header */
-        authorization?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -25,8 +23,6 @@ export declare namespace Misc {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the Authorization header */
-        authorization?: string | undefined;
     }
 }
 
@@ -35,8 +31,6 @@ export class Misc {
 
     /**
      * @param {Misc.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Gooey.UnprocessableEntityError}
      *
      * @example
      *     await client.misc.getBalance()
@@ -52,10 +46,9 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.2",
+                "X-Fern-SDK-Version": "0.0.1-beta1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
@@ -74,23 +67,10 @@ export class Misc {
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Gooey.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.GooeyError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
         }
 
         switch (_response.error.reason) {
@@ -143,10 +123,9 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.2",
+                "X-Fern-SDK-Version": "0.0.1-beta1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -195,57 +174,6 @@ export class Misc {
         }
     }
 
-    /**
-     * @param {Misc.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.misc.health()
-     */
-    public async health(requestOptions?: Misc.RequestOptions): Promise<unknown> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return _response.body;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.GooeyError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.GooeyError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.GooeyTimeoutError();
-            case "unknown":
-                throw new errors.GooeyError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
     protected async _getAuthorizationHeader(): Promise<string> {
         const bearer = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["GOOEY_API_KEY"];
         if (bearer == null) {
@@ -255,10 +183,5 @@ export class Misc {
         }
 
         return `Bearer ${bearer}`;
-    }
-
-    protected async _getCustomAuthorizationHeaders() {
-        const authorizationValue = await core.Supplier.get(this._options.authorization);
-        return { Authorization: authorizationValue };
     }
 }

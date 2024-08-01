@@ -10,6 +10,7 @@ import { RelatedQnADocPageRequestKeywordQuery } from "./RelatedQnADocPageRequest
 import { RelatedQnADocPageRequestEmbeddingModel } from "./RelatedQnADocPageRequestEmbeddingModel";
 import { RelatedQnADocPageRequestSelectedModel } from "./RelatedQnADocPageRequestSelectedModel";
 import { RelatedQnADocPageRequestCitationStyle } from "./RelatedQnADocPageRequestCitationStyle";
+import { RelatedQnADocPageRequestResponseFormatType } from "./RelatedQnADocPageRequestResponseFormatType";
 import { SerpSearchLocation } from "./SerpSearchLocation";
 import { SerpSearchType } from "./SerpSearchType";
 import { RunSettings } from "./RunSettings";
@@ -32,12 +33,16 @@ export const RelatedQnADocPageRequest: core.serialization.ObjectSchema<
     taskInstructions: core.serialization.property("task_instructions", core.serialization.string().optional()),
     queryInstructions: core.serialization.property("query_instructions", core.serialization.string().optional()),
     selectedModel: core.serialization.property("selected_model", RelatedQnADocPageRequestSelectedModel.optional()),
+    citationStyle: core.serialization.property("citation_style", RelatedQnADocPageRequestCitationStyle.optional()),
     avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
     numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
     quality: core.serialization.number().optional(),
     maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
-    citationStyle: core.serialization.property("citation_style", RelatedQnADocPageRequestCitationStyle.optional()),
+    responseFormatType: core.serialization.property(
+        "response_format_type",
+        RelatedQnADocPageRequestResponseFormatType.optional()
+    ),
     serpSearchLocation: core.serialization.property("serp_search_location", SerpSearchLocation.optional()),
     scaleserpLocations: core.serialization.property(
         "scaleserp_locations",
@@ -64,12 +69,13 @@ export declare namespace RelatedQnADocPageRequest {
         task_instructions?: string | null;
         query_instructions?: string | null;
         selected_model?: RelatedQnADocPageRequestSelectedModel.Raw | null;
+        citation_style?: RelatedQnADocPageRequestCitationStyle.Raw | null;
         avoid_repetition?: boolean | null;
         num_outputs?: number | null;
         quality?: number | null;
         max_tokens?: number | null;
         sampling_temperature?: number | null;
-        citation_style?: RelatedQnADocPageRequestCitationStyle.Raw | null;
+        response_format_type?: RelatedQnADocPageRequestResponseFormatType.Raw | null;
         serp_search_location?: SerpSearchLocation.Raw | null;
         scaleserp_locations?: string[] | null;
         serp_search_type?: SerpSearchType.Raw | null;

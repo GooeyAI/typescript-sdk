@@ -44,8 +44,6 @@ export declare namespace GooeyClient {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
         apiKey?: core.Supplier<core.BearerToken | undefined>;
-        /** Override the Authorization header */
-        authorization?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -56,8 +54,6 @@ export declare namespace GooeyClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the Authorization header */
-        authorization?: string | undefined;
     }
 }
 

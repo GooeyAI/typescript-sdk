@@ -8,22 +8,11 @@ export interface RelatedQnAPageRequest {
     functions?: Gooey.RecipeFunction[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
-    serpSearchLocation?: Gooey.SerpSearchLocation;
-    /** DEPRECATED: use `serp_search_location` instead */
-    scaleserpLocations?: string[];
-    serpSearchType?: Gooey.SerpSearchType;
-    /** DEPRECATED: use `serp_search_type` instead */
-    scaleserpSearchField?: string;
     searchQuery: string;
     siteFilter: string;
     taskInstructions?: string;
     queryInstructions?: string;
     selectedModel?: Gooey.RelatedQnAPageRequestSelectedModel;
-    avoidRepetition?: boolean;
-    numOutputs?: number;
-    quality?: number;
-    maxTokens?: number;
-    samplingTemperature?: number;
     maxSearchUrls?: number;
     maxReferences?: number;
     maxContextWords?: number;
@@ -34,5 +23,17 @@ export interface RelatedQnAPageRequest {
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
      */
     denseWeight?: number;
+    avoidRepetition?: boolean;
+    numOutputs?: number;
+    quality?: number;
+    maxTokens?: number;
+    samplingTemperature?: number;
+    responseFormatType?: Gooey.RelatedQnAPageRequestResponseFormatType;
+    serpSearchLocation?: Gooey.SerpSearchLocation;
+    /** DEPRECATED: use `serp_search_location` instead */
+    scaleserpLocations?: string[];
+    serpSearchType?: Gooey.SerpSearchType;
+    /** DEPRECATED: use `serp_search_type` instead */
+    scaleserpSearchField?: string;
     settings?: Gooey.RunSettings;
 }

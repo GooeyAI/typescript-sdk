@@ -4,6 +4,7 @@
 
 export type SocialLookupEmailPageRequestSelectedModel =
     | "gpt_4_o"
+    | "gpt_4_o_mini"
     | "gpt_4_turbo_vision"
     | "gpt_4_vision"
     | "gpt_4_turbo"
@@ -13,9 +14,12 @@ export type SocialLookupEmailPageRequestSelectedModel =
     | "gpt_3_5_turbo_16k"
     | "gpt_3_5_turbo_instruct"
     | "llama3_70b"
+    | "llama_3_groq_70b_tool_use"
     | "llama3_8b"
+    | "llama_3_groq_8b_tool_use"
     | "llama2_70b_chat"
     | "mixtral_8x7b_instruct_0_1"
+    | "gemma_2_9b_it"
     | "gemma_7b_it"
     | "gemini_1_5_pro"
     | "gemini_1_pro_vision"
@@ -36,6 +40,7 @@ export type SocialLookupEmailPageRequestSelectedModel =
 
 export const SocialLookupEmailPageRequestSelectedModel = {
     Gpt4O: "gpt_4_o",
+    Gpt4OMini: "gpt_4_o_mini",
     Gpt4TurboVision: "gpt_4_turbo_vision",
     Gpt4Vision: "gpt_4_vision",
     Gpt4Turbo: "gpt_4_turbo",
@@ -45,9 +50,12 @@ export const SocialLookupEmailPageRequestSelectedModel = {
     Gpt35Turbo16K: "gpt_3_5_turbo_16k",
     Gpt35TurboInstruct: "gpt_3_5_turbo_instruct",
     Llama370B: "llama3_70b",
+    Llama3Groq70BToolUse: "llama_3_groq_70b_tool_use",
     Llama38B: "llama3_8b",
+    Llama3Groq8BToolUse: "llama_3_groq_8b_tool_use",
     Llama270BChat: "llama2_70b_chat",
     Mixtral8X7BInstruct01: "mixtral_8x7b_instruct_0_1",
+    Gemma29BIt: "gemma_2_9b_it",
     Gemma7BIt: "gemma_7b_it",
     Gemini15Pro: "gemini_1_5_pro",
     Gemini1ProVision: "gemini_1_pro_vision",

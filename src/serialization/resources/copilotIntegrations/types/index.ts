@@ -4,6 +4,7 @@ export * from "./CreateStreamRequestCitationStyle";
 export * from "./CreateStreamRequestAsrModel";
 export * from "./CreateStreamRequestTranslationModel";
 export * from "./CreateStreamRequestLipsyncModel";
+export * from "./CreateStreamRequestResponseFormatType";
 export * from "./CreateStreamRequestTtsProvider";
 export * from "./CreateStreamRequestOpenaiVoiceName";
 export * from "./CreateStreamRequestOpenaiTtsModel";

@@ -5,12 +5,6 @@
 import * as Gooey from "../index";
 
 export interface SeoSummaryPageRequest {
-    serpSearchLocation?: Gooey.SerpSearchLocation;
-    /** DEPRECATED: use `serp_search_location` instead */
-    scaleserpLocations?: string[];
-    serpSearchType?: Gooey.SerpSearchType;
-    /** DEPRECATED: use `serp_search_type` instead */
-    scaleserpSearchField?: string;
     searchQuery: string;
     keywords: string;
     title: string;
@@ -18,13 +12,20 @@ export interface SeoSummaryPageRequest {
     taskInstructions?: string;
     enableHtml?: boolean;
     selectedModel?: Gooey.SeoSummaryPageRequestSelectedModel;
-    samplingTemperature?: number;
-    maxTokens?: number;
-    numOutputs?: number;
-    quality?: number;
-    avoidRepetition?: boolean;
     maxSearchUrls?: number;
     enableCrosslinks?: boolean;
     seed?: number;
+    avoidRepetition?: boolean;
+    numOutputs?: number;
+    quality?: number;
+    maxTokens?: number;
+    samplingTemperature?: number;
+    responseFormatType?: Gooey.SeoSummaryPageRequestResponseFormatType;
+    serpSearchLocation?: Gooey.SerpSearchLocation;
+    /** DEPRECATED: use `serp_search_location` instead */
+    scaleserpLocations?: string[];
+    serpSearchType?: Gooey.SerpSearchType;
+    /** DEPRECATED: use `serp_search_type` instead */
+    scaleserpSearchField?: string;
     settings?: Gooey.RunSettings;
 }

@@ -24,12 +24,13 @@ export interface RelatedQnADocPageRequest {
     taskInstructions?: string;
     queryInstructions?: string;
     selectedModel?: Gooey.RelatedQnADocPageRequestSelectedModel;
+    citationStyle?: Gooey.RelatedQnADocPageRequestCitationStyle;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    citationStyle?: Gooey.RelatedQnADocPageRequestCitationStyle;
+    responseFormatType?: Gooey.RelatedQnADocPageRequestResponseFormatType;
     serpSearchLocation?: Gooey.SerpSearchLocation;
     /** DEPRECATED: use `serp_search_location` instead */
     scaleserpLocations?: string[];
