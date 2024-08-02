@@ -1,0 +1,1 @@
+export { RelatedQnAPageRequest } from "./RelatedQnAPageRequest";

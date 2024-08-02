@@ -195,7 +195,7 @@ export const SerpSearchLocation: core.serialization.Schema<
     "vc",
     "ws",
     "sm",
-    "st",
+    "gui",
     "sa",
     "sn",
     "rs",
@@ -438,7 +438,7 @@ export declare namespace SerpSearchLocation {
         | "vc"
         | "ws"
         | "sm"
-        | "st"
+        | "gui"
         | "sa"
         | "sn"
         | "rs"

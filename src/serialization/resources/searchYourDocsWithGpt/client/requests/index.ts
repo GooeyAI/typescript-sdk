@@ -1,0 +1,1 @@
+export { DocSearchPageRequest } from "./DocSearchPageRequest";

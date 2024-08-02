@@ -13,8 +13,6 @@ export declare namespace AiImageWithAFace {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
         apiKey?: core.Supplier<core.BearerToken | undefined>;
-        /** Override the Authorization header */
-        authorization?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -25,121 +23,11 @@ export declare namespace AiImageWithAFace {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
-        /** Override the Authorization header */
-        authorization?: string | undefined;
     }
 }
 
 export class AiImageWithAFace {
     constructor(protected readonly _options: AiImageWithAFace.Options = {}) {}
-
-    /**
-     * @param {Gooey.FaceInpaintingPageRequest} request
-     * @param {AiImageWithAFace.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Gooey.PaymentRequiredError}
-     * @throws {@link Gooey.UnprocessableEntityError}
-     * @throws {@link Gooey.TooManyRequestsError}
-     * @throws {@link Gooey.InternalServerError}
-     *
-     * @example
-     *     await client.aiImageWithAFace.faceInpainting({
-     *         inputImage: "input_image",
-     *         textPrompt: "tony stark from the iron man"
-     *     })
-     */
-    public async faceInpainting(
-        request: Gooey.FaceInpaintingPageRequest,
-        requestOptions?: AiImageWithAFace.RequestOptions
-    ): Promise<Gooey.FaceInpaintingPageResponse> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v2/FaceInpainting/"
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta2",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.FaceInpaintingPageRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.FaceInpaintingPageResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 402:
-                    throw new Gooey.PaymentRequiredError(_response.error.body);
-                case 422:
-                    throw new Gooey.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 429:
-                    throw new Gooey.TooManyRequestsError(
-                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Gooey.InternalServerError(
-                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.GooeyError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.GooeyError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.GooeyTimeoutError();
-            case "unknown":
-                throw new errors.GooeyError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
 
     /**
      * @param {Gooey.FaceInpaintingPageRequest} request
@@ -159,6 +47,12 @@ export class AiImageWithAFace {
         request: Gooey.FaceInpaintingPageRequest,
         requestOptions?: AiImageWithAFace.RequestOptions
     ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (exampleId != null) {
+            _queryParams["example_id"] = exampleId;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -169,14 +63,14 @@ export class AiImageWithAFace {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta2",
+                "X-Fern-SDK-Version": "0.0.1-beta3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.FaceInpaintingPageRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.FaceInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -268,10 +162,9 @@ export class AiImageWithAFace {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta2",
+                "X-Fern-SDK-Version": "0.0.1-beta3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -346,10 +239,5 @@ export class AiImageWithAFace {
         }
 
         return `Bearer ${bearer}`;
-    }
-
-    protected async _getCustomAuthorizationHeaders() {
-        const authorizationValue = await core.Supplier.get(this._options.authorization);
-        return { Authorization: authorizationValue };
     }
 }

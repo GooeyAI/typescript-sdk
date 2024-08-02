@@ -15,6 +15,7 @@ import { CreateStreamRequestAsrModel } from "../../types/CreateStreamRequestAsrM
 import { CreateStreamRequestTranslationModel } from "../../types/CreateStreamRequestTranslationModel";
 import { CreateStreamRequestLipsyncModel } from "../../types/CreateStreamRequestLipsyncModel";
 import { LlmTools } from "../../../../types/LlmTools";
+import { CreateStreamRequestResponseFormatType } from "../../types/CreateStreamRequestResponseFormatType";
 import { CreateStreamRequestTtsProvider } from "../../types/CreateStreamRequestTtsProvider";
 import { CreateStreamRequestOpenaiVoiceName } from "../../types/CreateStreamRequestOpenaiVoiceName";
 import { CreateStreamRequestOpenaiTtsModel } from "../../types/CreateStreamRequestOpenaiTtsModel";
@@ -46,11 +47,6 @@ export const CreateStreamRequest: core.serialization.Schema<
     botScript: core.serialization.property("bot_script", core.serialization.string().optional()),
     selectedModel: core.serialization.property("selected_model", CreateStreamRequestSelectedModel.optional()),
     documentModel: core.serialization.property("document_model", core.serialization.string().optional()),
-    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
-    numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
-    quality: core.serialization.number().optional(),
-    maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
-    samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
     taskInstructions: core.serialization.property("task_instructions", core.serialization.string().optional()),
     queryInstructions: core.serialization.property("query_instructions", core.serialization.string().optional()),
     keywordInstructions: core.serialization.property("keyword_instructions", core.serialization.string().optional()),
@@ -76,6 +72,15 @@ export const CreateStreamRequest: core.serialization.Schema<
     ),
     lipsyncModel: core.serialization.property("lipsync_model", CreateStreamRequestLipsyncModel.optional()),
     tools: core.serialization.list(LlmTools).optional(),
+    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
+    numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
+    quality: core.serialization.number().optional(),
+    maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
+    samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
+    responseFormatType: core.serialization.property(
+        "response_format_type",
+        CreateStreamRequestResponseFormatType.optional()
+    ),
     ttsProvider: core.serialization.property("tts_provider", CreateStreamRequestTtsProvider.optional()),
     uberduckVoiceName: core.serialization.property("uberduck_voice_name", core.serialization.string().optional()),
     uberduckSpeakingRate: core.serialization.property("uberduck_speaking_rate", core.serialization.number().optional()),
@@ -127,11 +132,6 @@ export declare namespace CreateStreamRequest {
         bot_script?: string | null;
         selected_model?: CreateStreamRequestSelectedModel.Raw | null;
         document_model?: string | null;
-        avoid_repetition?: boolean | null;
-        num_outputs?: number | null;
-        quality?: number | null;
-        max_tokens?: number | null;
-        sampling_temperature?: number | null;
         task_instructions?: string | null;
         query_instructions?: string | null;
         keyword_instructions?: string | null;
@@ -151,6 +151,12 @@ export declare namespace CreateStreamRequest {
         output_glossary_document?: string | null;
         lipsync_model?: CreateStreamRequestLipsyncModel.Raw | null;
         tools?: LlmTools.Raw[] | null;
+        avoid_repetition?: boolean | null;
+        num_outputs?: number | null;
+        quality?: number | null;
+        max_tokens?: number | null;
+        sampling_temperature?: number | null;
+        response_format_type?: CreateStreamRequestResponseFormatType.Raw | null;
         tts_provider?: CreateStreamRequestTtsProvider.Raw | null;
         uberduck_voice_name?: string | null;
         uberduck_speaking_rate?: number | null;
