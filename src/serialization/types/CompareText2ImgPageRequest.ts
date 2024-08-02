@@ -7,7 +7,7 @@ import * as Gooey from "../../api/index";
 import * as core from "../../core";
 import { RecipeFunction } from "./RecipeFunction";
 import { CompareText2ImgPageRequestSelectedModelsItem } from "./CompareText2ImgPageRequestSelectedModelsItem";
-import { Scheduler } from "./Scheduler";
+import { CompareText2ImgPageRequestScheduler } from "./CompareText2ImgPageRequestScheduler";
 import { RunSettings } from "./RunSettings";
 
 export const CompareText2ImgPageRequest: core.serialization.ObjectSchema<
@@ -31,7 +31,7 @@ export const CompareText2ImgPageRequest: core.serialization.ObjectSchema<
         "selected_models",
         core.serialization.list(CompareText2ImgPageRequestSelectedModelsItem).optional()
     ),
-    scheduler: Scheduler.optional(),
+    scheduler: CompareText2ImgPageRequestScheduler.optional(),
     editInstruction: core.serialization.property("edit_instruction", core.serialization.string().optional()),
     imageGuidanceScale: core.serialization.property("image_guidance_scale", core.serialization.number().optional()),
     settings: RunSettings.optional(),
@@ -53,7 +53,7 @@ export declare namespace CompareText2ImgPageRequest {
         seed?: number | null;
         sd_2_upscaling?: boolean | null;
         selected_models?: CompareText2ImgPageRequestSelectedModelsItem.Raw[] | null;
-        scheduler?: Scheduler.Raw | null;
+        scheduler?: CompareText2ImgPageRequestScheduler.Raw | null;
         edit_instruction?: string | null;
         image_guidance_scale?: number | null;
         settings?: RunSettings.Raw | null;

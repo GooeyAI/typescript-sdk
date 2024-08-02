@@ -29,7 +29,7 @@ export interface QrCodeGeneratorPageRequest {
     controlnetConditioningScale?: number[];
     numOutputs?: number;
     quality?: number;
-    scheduler?: Gooey.Scheduler;
+    scheduler?: Gooey.QrCodeGeneratorPageRequestScheduler;
     seed?: number;
     objScale?: number;
     objPosX?: number;

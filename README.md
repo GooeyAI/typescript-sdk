@@ -1,14 +1,14 @@
 # Gooey TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![npm shield](https://img.shields.io/npm/v/gooey)](https://www.npmjs.com/package/gooey)
+[![npm shield](https://img.shields.io/npm/v/gooeyai)](https://www.npmjs.com/package/gooeyai)
 
 The Gooey TypeScript library provides convenient access to the Gooey API from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s gooey
+npm i -s gooeyai
 ```
 
 ## Usage
@@ -16,9 +16,9 @@ npm i -s gooey
 Instantiate and use the client with the following:
 
 ```typescript
-import { GooeyClient } from "gooey";
+import { GooeyClient } from "gooeyai";
 
-const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
+const client = new GooeyClient({ apiKey: "YOUR_API_KEY", authorization: "YOUR_AUTHORIZATION" });
 await client.copilotIntegrations.videoBotsStreamCreate({
     integrationId: "integration_id",
 });
@@ -30,7 +30,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Gooey } from "gooey";
+import { Gooey } from "gooeyai";
 
 const request: Gooey.CreateStreamRequest = {
     ...
@@ -43,7 +43,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { GooeyError } from "gooey";
+import { GooeyError } from "gooeyai";
 
 try {
     await client.copilotIntegrations.videoBotsStreamCreate(...);
@@ -118,7 +118,7 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { GooeyClient } from "gooey";
+import { GooeyClient } from "gooeyai";
 
 const client = new GooeyClient({
     ...

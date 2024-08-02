@@ -8,6 +8,12 @@ export interface BulkEvalPageRequest {
     functions?: Gooey.RecipeFunction[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
+    selectedModel?: Gooey.BulkEvalPageRequestSelectedModel;
+    avoidRepetition?: boolean;
+    numOutputs?: number;
+    quality?: number;
+    maxTokens?: number;
+    samplingTemperature?: number;
     /**
      * Upload or link to a CSV or google sheet that contains your sample input data.
      * For example, for Copilot, this would sample questions or for Art QR Code, would would be pairs of image descriptions and URLs.
@@ -22,12 +28,5 @@ export interface BulkEvalPageRequest {
     evalPrompts?: Gooey.EvalPrompt[];
     /** Aggregate using one or more operations. Uses [pandas](https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html#dataframegroupby-computations-descriptive-stats). */
     aggFunctions?: Gooey.AggFunction[];
-    selectedModel?: Gooey.BulkEvalPageRequestSelectedModel;
-    avoidRepetition?: boolean;
-    numOutputs?: number;
-    quality?: number;
-    maxTokens?: number;
-    samplingTemperature?: number;
-    responseFormatType?: Gooey.BulkEvalPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

@@ -8,7 +8,6 @@ import * as core from "../../core";
 import { RecipeFunction } from "./RecipeFunction";
 import { DocSummaryPageRequestSelectedModel } from "./DocSummaryPageRequestSelectedModel";
 import { DocSummaryPageRequestSelectedAsrModel } from "./DocSummaryPageRequestSelectedAsrModel";
-import { DocSummaryPageRequestResponseFormatType } from "./DocSummaryPageRequestResponseFormatType";
 import { RunSettings } from "./RunSettings";
 
 export const DocSummaryPageRequest: core.serialization.ObjectSchema<
@@ -21,6 +20,11 @@ export const DocSummaryPageRequest: core.serialization.ObjectSchema<
     taskInstructions: core.serialization.property("task_instructions", core.serialization.string().optional()),
     mergeInstructions: core.serialization.property("merge_instructions", core.serialization.string().optional()),
     selectedModel: core.serialization.property("selected_model", DocSummaryPageRequestSelectedModel.optional()),
+    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
+    numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
+    quality: core.serialization.number().optional(),
+    maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
+    samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
     chainType: core.serialization.property("chain_type", core.serialization.stringLiteral("map_reduce").optional()),
     selectedAsrModel: core.serialization.property(
         "selected_asr_model",
@@ -29,15 +33,6 @@ export const DocSummaryPageRequest: core.serialization.ObjectSchema<
     googleTranslateTarget: core.serialization.property(
         "google_translate_target",
         core.serialization.string().optional()
-    ),
-    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
-    numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
-    quality: core.serialization.number().optional(),
-    maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
-    samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
-    responseFormatType: core.serialization.property(
-        "response_format_type",
-        DocSummaryPageRequestResponseFormatType.optional()
     ),
     settings: RunSettings.optional(),
 });
@@ -50,15 +45,14 @@ export declare namespace DocSummaryPageRequest {
         task_instructions?: string | null;
         merge_instructions?: string | null;
         selected_model?: DocSummaryPageRequestSelectedModel.Raw | null;
-        chain_type?: "map_reduce" | null;
-        selected_asr_model?: DocSummaryPageRequestSelectedAsrModel.Raw | null;
-        google_translate_target?: string | null;
         avoid_repetition?: boolean | null;
         num_outputs?: number | null;
         quality?: number | null;
         max_tokens?: number | null;
         sampling_temperature?: number | null;
-        response_format_type?: DocSummaryPageRequestResponseFormatType.Raw | null;
+        chain_type?: "map_reduce" | null;
+        selected_asr_model?: DocSummaryPageRequestSelectedAsrModel.Raw | null;
+        google_translate_target?: string | null;
         settings?: RunSettings.Raw | null;
     }
 }

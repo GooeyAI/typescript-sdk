@@ -5,17 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Function } from "./Function";
+import { AggFunctionFunction } from "./AggFunctionFunction";
 
 export const AggFunction: core.serialization.ObjectSchema<serializers.AggFunction.Raw, Gooey.AggFunction> =
     core.serialization.object({
         column: core.serialization.string().optional(),
-        function: Function,
+        function: AggFunctionFunction,
     });
 
 export declare namespace AggFunction {
     interface Raw {
         column?: string | null;
-        function: Function.Raw;
+        function: AggFunctionFunction.Raw;
     }
 }

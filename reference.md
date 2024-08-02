@@ -5229,3 +5229,43 @@ await client.misc.videoBotsBroadcast({
 </dd>
 </dl>
 </details>
+
+<details><summary><code>client.misc.<a href="/src/api/resources/misc/client/Client.ts">health</a>() -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.misc.health();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Misc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>

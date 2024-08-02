@@ -6,6 +6,6 @@ import * as Gooey from "../index";
 
 export interface CalledFunctionResponse {
     url: string;
-    trigger: Gooey.Trigger;
+    trigger: Gooey.CalledFunctionResponseTrigger;
     returnValue?: unknown;
 }

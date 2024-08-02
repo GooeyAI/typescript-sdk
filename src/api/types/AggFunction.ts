@@ -6,5 +6,5 @@ import * as Gooey from "../index";
 
 export interface AggFunction {
     column?: string;
-    function: Gooey.Function;
+    function: Gooey.AggFunctionFunction;
 }

@@ -5,22 +5,22 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Role } from "./Role";
-import { Content } from "./Content";
+import { ConversationEntryRole } from "./ConversationEntryRole";
+import { ConversationEntryContent } from "./ConversationEntryContent";
 
 export const ConversationEntry: core.serialization.ObjectSchema<
     serializers.ConversationEntry.Raw,
     Gooey.ConversationEntry
 > = core.serialization.object({
-    role: Role,
-    content: Content,
+    role: ConversationEntryRole,
+    content: ConversationEntryContent,
     displayName: core.serialization.property("display_name", core.serialization.string().optional()),
 });
 
 export declare namespace ConversationEntry {
     interface Raw {
-        role: Role.Raw;
-        content: Content.Raw;
+        role: ConversationEntryRole.Raw;
+        content: ConversationEntryContent.Raw;
         display_name?: string | null;
     }
 }

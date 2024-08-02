@@ -5,6 +5,6 @@
 import * as Gooey from "../index";
 
 export interface ConsoleLogs {
-    level: Gooey.Level;
+    level: Gooey.ConsoleLogsLevel;
     message: string;
 }

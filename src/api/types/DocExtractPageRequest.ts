@@ -24,6 +24,5 @@ export interface DocExtractPageRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.DocExtractPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

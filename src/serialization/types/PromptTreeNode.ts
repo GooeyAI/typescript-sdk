@@ -5,17 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Prompt } from "./Prompt";
+import { PromptTreeNodePrompt } from "./PromptTreeNodePrompt";
 
 export const PromptTreeNode: core.serialization.ObjectSchema<serializers.PromptTreeNode.Raw, Gooey.PromptTreeNode> =
     core.serialization.object({
-        prompt: Prompt,
+        prompt: PromptTreeNodePrompt,
         children: core.serialization.list(core.serialization.lazyObject(() => serializers.PromptTreeNode)),
     });
 
 export declare namespace PromptTreeNode {
     interface Raw {
-        prompt: Prompt.Raw;
+        prompt: PromptTreeNodePrompt.Raw;
         children: serializers.PromptTreeNode.Raw[];
     }
 }

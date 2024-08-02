@@ -5,17 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Trigger } from "./Trigger";
+import { RecipeFunctionTrigger } from "./RecipeFunctionTrigger";
 
 export const RecipeFunction: core.serialization.ObjectSchema<serializers.RecipeFunction.Raw, Gooey.RecipeFunction> =
     core.serialization.object({
         url: core.serialization.string(),
-        trigger: Trigger,
+        trigger: RecipeFunctionTrigger,
     });
 
 export declare namespace RecipeFunction {
     interface Raw {
         url: string;
-        trigger: Trigger.Raw;
+        trigger: RecipeFunctionTrigger.Raw;
     }
 }

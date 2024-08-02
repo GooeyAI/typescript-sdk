@@ -7,7 +7,6 @@ import * as Gooey from "../../api/index";
 import * as core from "../../core";
 import { RecipeFunction } from "./RecipeFunction";
 import { SocialLookupEmailPageRequestSelectedModel } from "./SocialLookupEmailPageRequestSelectedModel";
-import { SocialLookupEmailPageRequestResponseFormatType } from "./SocialLookupEmailPageRequestResponseFormatType";
 import { RunSettings } from "./RunSettings";
 
 export const SocialLookupEmailPageRequest: core.serialization.ObjectSchema<
@@ -19,15 +18,11 @@ export const SocialLookupEmailPageRequest: core.serialization.ObjectSchema<
     emailAddress: core.serialization.property("email_address", core.serialization.string()),
     inputPrompt: core.serialization.property("input_prompt", core.serialization.string().optional()),
     selectedModel: core.serialization.property("selected_model", SocialLookupEmailPageRequestSelectedModel.optional()),
-    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
     numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
+    avoidRepetition: core.serialization.property("avoid_repetition", core.serialization.boolean().optional()),
     quality: core.serialization.number().optional(),
     maxTokens: core.serialization.property("max_tokens", core.serialization.number().optional()),
     samplingTemperature: core.serialization.property("sampling_temperature", core.serialization.number().optional()),
-    responseFormatType: core.serialization.property(
-        "response_format_type",
-        SocialLookupEmailPageRequestResponseFormatType.optional()
-    ),
     settings: RunSettings.optional(),
 });
 
@@ -38,12 +33,11 @@ export declare namespace SocialLookupEmailPageRequest {
         email_address: string;
         input_prompt?: string | null;
         selected_model?: SocialLookupEmailPageRequestSelectedModel.Raw | null;
-        avoid_repetition?: boolean | null;
         num_outputs?: number | null;
+        avoid_repetition?: boolean | null;
         quality?: number | null;
         max_tokens?: number | null;
         sampling_temperature?: number | null;
-        response_format_type?: SocialLookupEmailPageRequestResponseFormatType.Raw | null;
         settings?: RunSettings.Raw | null;
     }
 }

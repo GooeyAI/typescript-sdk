@@ -5,17 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Level } from "./Level";
+import { ConsoleLogsLevel } from "./ConsoleLogsLevel";
 
 export const ConsoleLogs: core.serialization.ObjectSchema<serializers.ConsoleLogs.Raw, Gooey.ConsoleLogs> =
     core.serialization.object({
-        level: Level,
+        level: ConsoleLogsLevel,
         message: core.serialization.string(),
     });
 
 export declare namespace ConsoleLogs {
     interface Raw {
-        level: Level.Raw;
+        level: ConsoleLogsLevel.Raw;
         message: string;
     }
 }

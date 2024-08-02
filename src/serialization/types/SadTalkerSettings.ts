@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Preprocess } from "./Preprocess";
+import { SadTalkerSettingsPreprocess } from "./SadTalkerSettingsPreprocess";
 
 export const SadTalkerSettings: core.serialization.ObjectSchema<
     serializers.SadTalkerSettings.Raw,
     Gooey.SadTalkerSettings
 > = core.serialization.object({
     still: core.serialization.boolean().optional(),
-    preprocess: Preprocess.optional(),
+    preprocess: SadTalkerSettingsPreprocess.optional(),
     poseStyle: core.serialization.property("pose_style", core.serialization.number().optional()),
     expressionScale: core.serialization.property("expression_scale", core.serialization.number().optional()),
     refEyeblink: core.serialization.property("ref_eyeblink", core.serialization.string().optional()),
@@ -31,7 +31,7 @@ export const SadTalkerSettings: core.serialization.ObjectSchema<
 export declare namespace SadTalkerSettings {
     interface Raw {
         still?: boolean | null;
-        preprocess?: Preprocess.Raw | null;
+        preprocess?: SadTalkerSettingsPreprocess.Raw | null;
         pose_style?: number | null;
         expression_scale?: number | null;
         ref_eyeblink?: string | null;

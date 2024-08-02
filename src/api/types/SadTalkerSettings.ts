@@ -7,7 +7,7 @@ import * as Gooey from "../index";
 export interface SadTalkerSettings {
     still?: boolean;
     /** SadTalker only generates 512x512 output. 'crop' handles this by cropping the input to 512x512. 'resize' scales down the input to fit 512x512 and scales it back up after lipsyncing (does not work well for full person images, better for portraits). 'full' processes the cropped region and pastes it back into the original input. 'extcrop' and 'extfull' are similar to 'crop' and 'full' but with extended cropping. */
-    preprocess?: Gooey.Preprocess;
+    preprocess?: Gooey.SadTalkerSettingsPreprocess;
     /** Random seed 0-45 inclusive that affects how the pose is animated. */
     poseStyle?: number;
     /** Scale the amount of expression motion. 1.0 is normal, 0.5 is very reduced, and 2.0 is quite a lot. */

@@ -10,7 +10,7 @@ import { Vcard } from "./Vcard";
 import { QrCodeGeneratorPageRequestImagePromptControlnetModelsItem } from "./QrCodeGeneratorPageRequestImagePromptControlnetModelsItem";
 import { QrCodeGeneratorPageRequestSelectedModel } from "./QrCodeGeneratorPageRequestSelectedModel";
 import { QrCodeGeneratorPageRequestSelectedControlnetModelItem } from "./QrCodeGeneratorPageRequestSelectedControlnetModelItem";
-import { Scheduler } from "./Scheduler";
+import { QrCodeGeneratorPageRequestScheduler } from "./QrCodeGeneratorPageRequestScheduler";
 import { RunSettings } from "./RunSettings";
 
 export const QrCodeGeneratorPageRequest: core.serialization.ObjectSchema<
@@ -49,7 +49,7 @@ export const QrCodeGeneratorPageRequest: core.serialization.ObjectSchema<
     ),
     numOutputs: core.serialization.property("num_outputs", core.serialization.number().optional()),
     quality: core.serialization.number().optional(),
-    scheduler: Scheduler.optional(),
+    scheduler: QrCodeGeneratorPageRequestScheduler.optional(),
     seed: core.serialization.number().optional(),
     objScale: core.serialization.property("obj_scale", core.serialization.number().optional()),
     objPosX: core.serialization.property("obj_pos_x", core.serialization.number().optional()),
@@ -82,7 +82,7 @@ export declare namespace QrCodeGeneratorPageRequest {
         controlnet_conditioning_scale?: number[] | null;
         num_outputs?: number | null;
         quality?: number | null;
-        scheduler?: Scheduler.Raw | null;
+        scheduler?: QrCodeGeneratorPageRequestScheduler.Raw | null;
         seed?: number | null;
         obj_scale?: number | null;
         obj_pos_x?: number | null;

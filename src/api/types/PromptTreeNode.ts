@@ -5,6 +5,6 @@
 import * as Gooey from "../index";
 
 export interface PromptTreeNode {
-    prompt: Gooey.Prompt;
+    prompt: Gooey.PromptTreeNodePrompt;
     children: Gooey.PromptTreeNode[];
 }

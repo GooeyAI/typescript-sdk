@@ -5,17 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Detail } from "./Detail";
+import { ImageUrlDetail } from "./ImageUrlDetail";
 
 export const ImageUrl: core.serialization.ObjectSchema<serializers.ImageUrl.Raw, Gooey.ImageUrl> =
     core.serialization.object({
         url: core.serialization.string().optional(),
-        detail: Detail.optional(),
+        detail: ImageUrlDetail.optional(),
     });
 
 export declare namespace ImageUrl {
     interface Raw {
         url?: string | null;
-        detail?: Detail.Raw | null;
+        detail?: ImageUrlDetail.Raw | null;
     }
 }

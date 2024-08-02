@@ -5,7 +5,7 @@
 import * as Gooey from "../index";
 
 export interface ConversationEntry {
-    role: Gooey.Role;
-    content: Gooey.Content;
+    role: Gooey.ConversationEntryRole;
+    content: Gooey.ConversationEntryContent;
     displayName?: string;
 }

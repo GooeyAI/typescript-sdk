@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Function } from "./Function";
+import { AggFunctionResultFunction } from "./AggFunctionResultFunction";
 
 export const AggFunctionResult: core.serialization.ObjectSchema<
     serializers.AggFunctionResult.Raw,
     Gooey.AggFunctionResult
 > = core.serialization.object({
     column: core.serialization.string(),
-    function: Function,
+    function: AggFunctionResultFunction,
     count: core.serialization.number(),
     value: core.serialization.number(),
 });
@@ -20,7 +20,7 @@ export const AggFunctionResult: core.serialization.ObjectSchema<
 export declare namespace AggFunctionResult {
     interface Raw {
         column: string;
-        function: Function.Raw;
+        function: AggFunctionResultFunction.Raw;
         count: number;
         value: number;
     }

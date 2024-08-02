@@ -18,6 +18,5 @@ export interface SmartGptPageRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.SmartGptPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

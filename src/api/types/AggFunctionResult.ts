@@ -6,7 +6,7 @@ import * as Gooey from "../index";
 
 export interface AggFunctionResult {
     column: string;
-    function: Gooey.Function;
+    function: Gooey.AggFunctionResultFunction;
     count: number;
     value: number;
 }

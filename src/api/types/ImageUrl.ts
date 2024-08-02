@@ -6,5 +6,5 @@ import * as Gooey from "../index";
 
 export interface ImageUrl {
     url?: string;
-    detail?: Gooey.Detail;
+    detail?: Gooey.ImageUrlDetail;
 }

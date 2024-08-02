@@ -13,6 +13,8 @@ export declare namespace AiImageWithAFace {
     interface Options {
         environment?: core.Supplier<environments.GooeyEnvironment | string>;
         apiKey?: core.Supplier<core.BearerToken | undefined>;
+        /** Override the Authorization header */
+        authorization?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -23,6 +25,8 @@ export declare namespace AiImageWithAFace {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Override the Authorization header */
+        authorization?: string | undefined;
     }
 }
 
@@ -57,10 +61,11 @@ export class AiImageWithAFace {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta1",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
@@ -163,10 +168,11 @@ export class AiImageWithAFace {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta1",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             requestType: "json",
@@ -261,10 +267,11 @@ export class AiImageWithAFace {
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooey",
-                "X-Fern-SDK-Version": "0.0.1-beta1",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
             queryParameters: _queryParams,
@@ -339,5 +346,10 @@ export class AiImageWithAFace {
         }
 
         return `Bearer ${bearer}`;
+    }
+
+    protected async _getCustomAuthorizationHeaders() {
+        const authorizationValue = await core.Supplier.get(this._options.authorization);
+        return { Authorization: authorizationValue };
     }
 }
