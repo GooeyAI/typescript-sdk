@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace CompareAiImageGenerators {
@@ -30,7 +30,7 @@ export class CompareAiImageGenerators {
     constructor(protected readonly _options: CompareAiImageGenerators.Options = {}) {}
 
     /**
-     * @param {Gooey.CompareText2ImgPageRequest} request
+     * @param {Gooey.CompareAiImageGeneratorsStatusRequest} request
      * @param {CompareAiImageGenerators.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.PaymentRequiredError}
@@ -38,114 +38,12 @@ export class CompareAiImageGenerators {
      * @throws {@link Gooey.TooManyRequestsError}
      *
      * @example
-     *     await client.compareAiImageGenerators.asyncCompareText2Img({
-     *         textPrompt: "text_prompt"
-     *     })
-     */
-    public async asyncCompareText2Img(
-        request: Gooey.CompareText2ImgPageRequest,
-        requestOptions?: CompareAiImageGenerators.RequestOptions
-    ): Promise<Gooey.AsyncApiResponseModelV3> {
-        const { exampleId, ..._body } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/CompareText2Img/async/"
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta3",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.CompareText2ImgPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 402:
-                    throw new Gooey.PaymentRequiredError(_response.error.body);
-                case 422:
-                    throw new Gooey.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 429:
-                    throw new Gooey.TooManyRequestsError(
-                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.GooeyError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.GooeyError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.GooeyTimeoutError();
-            case "unknown":
-                throw new errors.GooeyError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * @param {Gooey.StatusCompareText2ImgRequest} request
-     * @param {CompareAiImageGenerators.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Gooey.PaymentRequiredError}
-     * @throws {@link Gooey.UnprocessableEntityError}
-     * @throws {@link Gooey.TooManyRequestsError}
-     *
-     * @example
-     *     await client.compareAiImageGenerators.statusCompareText2Img({
+     *     await client.compareAiImageGenerators.status({
      *         runId: "run_id"
      *     })
      */
-    public async statusCompareText2Img(
-        request: Gooey.StatusCompareText2ImgRequest,
+    public async status(
+        request: Gooey.CompareAiImageGeneratorsStatusRequest,
         requestOptions?: CompareAiImageGenerators.RequestOptions
     ): Promise<Gooey.CompareText2ImgPageStatusResponse> {
         const { runId } = request;
@@ -161,7 +59,7 @@ export class CompareAiImageGenerators {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta3",
+                "X-Fern-SDK-Version": "0.0.1-beta0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

@@ -100,9 +100,9 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 </dl>
 </details>
 
-## CopilotForYourEnterprise
+## Copilot
 
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncVideoBots</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.copilot.<a href="/src/api/resources/copilot/client/Client.ts">status</a>({ ...params }) -> Gooey.VideoBotsPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -115,55 +115,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 <dd>
 
 ```typescript
-await client.copilotForYourEnterprise.asyncVideoBots();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.VideoBotsPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CopilotForYourEnterprise.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">statusVideoBots</a>({ ...params }) -> Gooey.VideoBotsPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.copilotForYourEnterprise.statusVideoBots({
+await client.copilot.status({
     runId: "run_id",
 });
 ```
@@ -181,7 +133,7 @@ await client.copilotForYourEnterprise.statusVideoBots({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusVideoBotsRequest`
+**request:** `Gooey.CopilotStatusRequest`
 
 </dd>
 </dl>
@@ -189,7 +141,7 @@ await client.copilotForYourEnterprise.statusVideoBots({
 <dl>
 <dd>
 
-**requestOptions:** `CopilotForYourEnterprise.RequestOptions`
+**requestOptions:** `Copilot.RequestOptions`
 
 </dd>
 </dl>
@@ -200,9 +152,9 @@ await client.copilotForYourEnterprise.statusVideoBots({
 </dl>
 </details>
 
-## AiAnimationGenerator
+## AnimationGenerator
 
-<details><summary><code>client.aiAnimationGenerator.<a href="/src/api/resources/aiAnimationGenerator/client/Client.ts">asyncDeforumSd</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.animationGenerator.<a href="/src/api/resources/animationGenerator/client/Client.ts">status</a>({ ...params }) -> Gooey.DeforumSdPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -215,62 +167,7 @@ await client.copilotForYourEnterprise.statusVideoBots({
 <dd>
 
 ```typescript
-await client.aiAnimationGenerator.asyncDeforumSd({
-    animationPrompts: [
-        {
-            frame: "frame",
-            prompt: "prompt",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.DeforumSdPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiAnimationGenerator.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.aiAnimationGenerator.<a href="/src/api/resources/aiAnimationGenerator/client/Client.ts">statusDeforumSd</a>({ ...params }) -> Gooey.DeforumSdPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiAnimationGenerator.statusDeforumSd({
+await client.animationGenerator.status({
     runId: "run_id",
 });
 ```
@@ -288,7 +185,7 @@ await client.aiAnimationGenerator.statusDeforumSd({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusDeforumSdRequest`
+**request:** `Gooey.AnimationGeneratorStatusRequest`
 
 </dd>
 </dl>
@@ -296,7 +193,7 @@ await client.aiAnimationGenerator.statusDeforumSd({
 <dl>
 <dd>
 
-**requestOptions:** `AiAnimationGenerator.RequestOptions`
+**requestOptions:** `AnimationGenerator.RequestOptions`
 
 </dd>
 </dl>
@@ -307,9 +204,9 @@ await client.aiAnimationGenerator.statusDeforumSd({
 </dl>
 </details>
 
-## AiArtQrCode
+## QrCode
 
-<details><summary><code>client.aiArtQrCode.<a href="/src/api/resources/aiArtQrCode/client/Client.ts">asyncArtQrCode</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.qrCode.<a href="/src/api/resources/qrCode/client/Client.ts">status</a>({ ...params }) -> Gooey.QrCodeGeneratorPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -322,57 +219,7 @@ await client.aiAnimationGenerator.statusDeforumSd({
 <dd>
 
 ```typescript
-await client.aiArtQrCode.asyncArtQrCode({
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.QrCodeGeneratorPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiArtQrCode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.aiArtQrCode.<a href="/src/api/resources/aiArtQrCode/client/Client.ts">statusArtQrCode</a>({ ...params }) -> Gooey.QrCodeGeneratorPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiArtQrCode.statusArtQrCode({
+await client.qrCode.status({
     runId: "run_id",
 });
 ```
@@ -390,7 +237,7 @@ await client.aiArtQrCode.statusArtQrCode({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusArtQrCodeRequest`
+**request:** `Gooey.QrCodeStatusRequest`
 
 </dd>
 </dl>
@@ -398,7 +245,7 @@ await client.aiArtQrCode.statusArtQrCode({
 <dl>
 <dd>
 
-**requestOptions:** `AiArtQrCode.RequestOptions`
+**requestOptions:** `QrCode.RequestOptions`
 
 </dd>
 </dl>
@@ -409,9 +256,9 @@ await client.aiArtQrCode.statusArtQrCode({
 </dl>
 </details>
 
-## GeneratePeopleAlsoAskSeoContent
+## RelatedQnaMaker
 
-<details><summary><code>client.generatePeopleAlsoAskSeoContent.<a href="/src/api/resources/generatePeopleAlsoAskSeoContent/client/Client.ts">asyncRelatedQnaMaker</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.relatedQnaMaker.<a href="/src/api/resources/relatedQnaMaker/client/Client.ts">status</a>({ ...params }) -> Gooey.RelatedQnAPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -424,58 +271,7 @@ await client.aiArtQrCode.statusArtQrCode({
 <dd>
 
 ```typescript
-await client.generatePeopleAlsoAskSeoContent.asyncRelatedQnaMaker({
-    searchQuery: "search_query",
-    siteFilter: "site_filter",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.RelatedQnAPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `GeneratePeopleAlsoAskSeoContent.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.generatePeopleAlsoAskSeoContent.<a href="/src/api/resources/generatePeopleAlsoAskSeoContent/client/Client.ts">statusRelatedQnaMaker</a>({ ...params }) -> Gooey.RelatedQnAPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.generatePeopleAlsoAskSeoContent.statusRelatedQnaMaker({
+await client.relatedQnaMaker.status({
     runId: "run_id",
 });
 ```
@@ -493,7 +289,7 @@ await client.generatePeopleAlsoAskSeoContent.statusRelatedQnaMaker({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusRelatedQnaMakerRequest`
+**request:** `Gooey.RelatedQnaMakerStatusRequest`
 
 </dd>
 </dl>
@@ -501,7 +297,7 @@ await client.generatePeopleAlsoAskSeoContent.statusRelatedQnaMaker({
 <dl>
 <dd>
 
-**requestOptions:** `GeneratePeopleAlsoAskSeoContent.RequestOptions`
+**requestOptions:** `RelatedQnaMaker.RequestOptions`
 
 </dd>
 </dl>
@@ -512,9 +308,9 @@ await client.generatePeopleAlsoAskSeoContent.statusRelatedQnaMaker({
 </dl>
 </details>
 
-## CreateAPerfectSeoOptimizedTitleParagraph
+## SeoParagraphGenerator
 
-<details><summary><code>client.createAPerfectSeoOptimizedTitleParagraph.<a href="/src/api/resources/createAPerfectSeoOptimizedTitleParagraph/client/Client.ts">asyncSeoSummary</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.seoParagraphGenerator.<a href="/src/api/resources/seoParagraphGenerator/client/Client.ts">status</a>({ ...params }) -> Gooey.SeoSummaryPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -527,60 +323,7 @@ await client.generatePeopleAlsoAskSeoContent.statusRelatedQnaMaker({
 <dd>
 
 ```typescript
-await client.createAPerfectSeoOptimizedTitleParagraph.asyncSeoSummary({
-    searchQuery: "search_query",
-    keywords: "keywords",
-    title: "title",
-    companyUrl: "company_url",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.SeoSummaryPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CreateAPerfectSeoOptimizedTitleParagraph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.createAPerfectSeoOptimizedTitleParagraph.<a href="/src/api/resources/createAPerfectSeoOptimizedTitleParagraph/client/Client.ts">statusSeoSummary</a>({ ...params }) -> Gooey.SeoSummaryPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.createAPerfectSeoOptimizedTitleParagraph.statusSeoSummary({
+await client.seoParagraphGenerator.status({
     runId: "run_id",
 });
 ```
@@ -598,7 +341,7 @@ await client.createAPerfectSeoOptimizedTitleParagraph.statusSeoSummary({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusSeoSummaryRequest`
+**request:** `Gooey.SeoParagraphGeneratorStatusRequest`
 
 </dd>
 </dl>
@@ -606,7 +349,7 @@ await client.createAPerfectSeoOptimizedTitleParagraph.statusSeoSummary({
 <dl>
 <dd>
 
-**requestOptions:** `CreateAPerfectSeoOptimizedTitleParagraph.RequestOptions`
+**requestOptions:** `SeoParagraphGenerator.RequestOptions`
 
 </dd>
 </dl>
@@ -617,9 +360,9 @@ await client.createAPerfectSeoOptimizedTitleParagraph.statusSeoSummary({
 </dl>
 </details>
 
-## WebSearchGpt3
+## GoogleGpt
 
-<details><summary><code>client.webSearchGpt3.<a href="/src/api/resources/webSearchGpt3/client/Client.ts">asyncGoogleGpt</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.googleGpt.<a href="/src/api/resources/googleGpt/client/Client.ts">status</a>({ ...params }) -> Gooey.GoogleGptPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -632,58 +375,7 @@ await client.createAPerfectSeoOptimizedTitleParagraph.statusSeoSummary({
 <dd>
 
 ```typescript
-await client.webSearchGpt3.asyncGoogleGpt({
-    searchQuery: "search_query",
-    siteFilter: "site_filter",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.GoogleGptPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `WebSearchGpt3.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.webSearchGpt3.<a href="/src/api/resources/webSearchGpt3/client/Client.ts">statusGoogleGpt</a>({ ...params }) -> Gooey.GoogleGptPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.webSearchGpt3.statusGoogleGpt({
+await client.googleGpt.status({
     runId: "run_id",
 });
 ```
@@ -701,7 +393,7 @@ await client.webSearchGpt3.statusGoogleGpt({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusGoogleGptRequest`
+**request:** `Gooey.GoogleGptStatusRequest`
 
 </dd>
 </dl>
@@ -709,7 +401,7 @@ await client.webSearchGpt3.statusGoogleGpt({
 <dl>
 <dd>
 
-**requestOptions:** `WebSearchGpt3.RequestOptions`
+**requestOptions:** `GoogleGpt.RequestOptions`
 
 </dd>
 </dl>
@@ -720,9 +412,9 @@ await client.webSearchGpt3.statusGoogleGpt({
 </dl>
 </details>
 
-## ProfileLookupGpt3ForAiPersonalizedEmails
+## EmailWriterWithProfileLookup
 
-<details><summary><code>client.profileLookupGpt3ForAiPersonalizedEmails.<a href="/src/api/resources/profileLookupGpt3ForAiPersonalizedEmails/client/Client.ts">asyncSocialLookupEmail</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.emailWriterWithProfileLookup.<a href="/src/api/resources/emailWriterWithProfileLookup/client/Client.ts">status</a>({ ...params }) -> Gooey.SocialLookupEmailPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -735,57 +427,7 @@ await client.webSearchGpt3.statusGoogleGpt({
 <dd>
 
 ```typescript
-await client.profileLookupGpt3ForAiPersonalizedEmails.asyncSocialLookupEmail({
-    emailAddress: "email_address",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.SocialLookupEmailPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ProfileLookupGpt3ForAiPersonalizedEmails.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.profileLookupGpt3ForAiPersonalizedEmails.<a href="/src/api/resources/profileLookupGpt3ForAiPersonalizedEmails/client/Client.ts">statusSocialLookupEmail</a>({ ...params }) -> Gooey.SocialLookupEmailPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.profileLookupGpt3ForAiPersonalizedEmails.statusSocialLookupEmail({
+await client.emailWriterWithProfileLookup.status({
     runId: "run_id",
 });
 ```
@@ -803,7 +445,7 @@ await client.profileLookupGpt3ForAiPersonalizedEmails.statusSocialLookupEmail({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusSocialLookupEmailRequest`
+**request:** `Gooey.EmailWriterWithProfileLookupStatusRequest`
 
 </dd>
 </dl>
@@ -811,7 +453,7 @@ await client.profileLookupGpt3ForAiPersonalizedEmails.statusSocialLookupEmail({
 <dl>
 <dd>
 
-**requestOptions:** `ProfileLookupGpt3ForAiPersonalizedEmails.RequestOptions`
+**requestOptions:** `EmailWriterWithProfileLookup.RequestOptions`
 
 </dd>
 </dl>
@@ -822,9 +464,9 @@ await client.profileLookupGpt3ForAiPersonalizedEmails.statusSocialLookupEmail({
 </dl>
 </details>
 
-## BulkRunner
+## Bulk
 
-<details><summary><code>client.bulkRunner.<a href="/src/api/resources/bulkRunner/client/Client.ts">asyncBulkRunner</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.bulk.<a href="/src/api/resources/bulk/client/Client.ts">status</a>({ ...params }) -> Gooey.BulkRunnerPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -837,64 +479,7 @@ await client.profileLookupGpt3ForAiPersonalizedEmails.statusSocialLookupEmail({
 <dd>
 
 ```typescript
-await client.bulkRunner.asyncBulkRunner({
-    documents: ["documents"],
-    runUrls: ["run_urls"],
-    inputColumns: {
-        key: "value",
-    },
-    outputColumns: {
-        key: "value",
-    },
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.BulkRunnerPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `BulkRunner.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.bulkRunner.<a href="/src/api/resources/bulkRunner/client/Client.ts">statusBulkRunner</a>({ ...params }) -> Gooey.BulkRunnerPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.bulkRunner.statusBulkRunner({
+await client.bulk.status({
     runId: "run_id",
 });
 ```
@@ -912,7 +497,7 @@ await client.bulkRunner.statusBulkRunner({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusBulkRunnerRequest`
+**request:** `Gooey.BulkStatusRequest`
 
 </dd>
 </dl>
@@ -920,7 +505,7 @@ await client.bulkRunner.statusBulkRunner({
 <dl>
 <dd>
 
-**requestOptions:** `BulkRunner.RequestOptions`
+**requestOptions:** `Bulk.RequestOptions`
 
 </dd>
 </dl>
@@ -931,9 +516,9 @@ await client.bulkRunner.statusBulkRunner({
 </dl>
 </details>
 
-## Evaluator
+## Eval
 
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncBulkEval</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.eval.<a href="/src/api/resources/eval/client/Client.ts">status</a>({ ...params }) -> Gooey.BulkEvalPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -946,57 +531,7 @@ await client.bulkRunner.statusBulkRunner({
 <dd>
 
 ```typescript
-await client.evaluator.asyncBulkEval({
-    documents: ["documents"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.BulkEvalPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Evaluator.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">statusBulkEval</a>({ ...params }) -> Gooey.BulkEvalPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.evaluator.statusBulkEval({
+await client.eval.status({
     runId: "run_id",
 });
 ```
@@ -1014,7 +549,7 @@ await client.evaluator.statusBulkEval({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusBulkEvalRequest`
+**request:** `Gooey.EvalStatusRequest`
 
 </dd>
 </dl>
@@ -1022,7 +557,7 @@ await client.evaluator.statusBulkEval({
 <dl>
 <dd>
 
-**requestOptions:** `Evaluator.RequestOptions`
+**requestOptions:** `Eval.RequestOptions`
 
 </dd>
 </dl>
@@ -1033,9 +568,9 @@ await client.evaluator.statusBulkEval({
 </dl>
 </details>
 
-## SyntheticDataMakerForVideosPdFs
+## DocExtract
 
-<details><summary><code>client.syntheticDataMakerForVideosPdFs.<a href="/src/api/resources/syntheticDataMakerForVideosPdFs/client/Client.ts">asyncDocExtract</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.docExtract.<a href="/src/api/resources/docExtract/client/Client.ts">status</a>({ ...params }) -> Gooey.DocExtractPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1048,57 +583,7 @@ await client.evaluator.statusBulkEval({
 <dd>
 
 ```typescript
-await client.syntheticDataMakerForVideosPdFs.asyncDocExtract({
-    documents: ["documents"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.DocExtractPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SyntheticDataMakerForVideosPdFs.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.syntheticDataMakerForVideosPdFs.<a href="/src/api/resources/syntheticDataMakerForVideosPdFs/client/Client.ts">statusDocExtract</a>({ ...params }) -> Gooey.DocExtractPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.syntheticDataMakerForVideosPdFs.statusDocExtract({
+await client.docExtract.status({
     runId: "run_id",
 });
 ```
@@ -1116,7 +601,7 @@ await client.syntheticDataMakerForVideosPdFs.statusDocExtract({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusDocExtractRequest`
+**request:** `Gooey.DocExtractStatusRequest`
 
 </dd>
 </dl>
@@ -1124,7 +609,7 @@ await client.syntheticDataMakerForVideosPdFs.statusDocExtract({
 <dl>
 <dd>
 
-**requestOptions:** `SyntheticDataMakerForVideosPdFs.RequestOptions`
+**requestOptions:** `DocExtract.RequestOptions`
 
 </dd>
 </dl>
@@ -1135,9 +620,9 @@ await client.syntheticDataMakerForVideosPdFs.statusDocExtract({
 </dl>
 </details>
 
-## LargeLanguageModelsGpt3
+## CompareLargeLanguageModels
 
-<details><summary><code>client.largeLanguageModelsGpt3.<a href="/src/api/resources/largeLanguageModelsGpt3/client/Client.ts">asyncCompareLlm</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.compareLargeLanguageModels.<a href="/src/api/resources/compareLargeLanguageModels/client/Client.ts">status</a>({ ...params }) -> Gooey.CompareLlmPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1150,55 +635,7 @@ await client.syntheticDataMakerForVideosPdFs.statusDocExtract({
 <dd>
 
 ```typescript
-await client.largeLanguageModelsGpt3.asyncCompareLlm();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.CompareLlmPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `LargeLanguageModelsGpt3.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.largeLanguageModelsGpt3.<a href="/src/api/resources/largeLanguageModelsGpt3/client/Client.ts">statusCompareLlm</a>({ ...params }) -> Gooey.CompareLlmPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.largeLanguageModelsGpt3.statusCompareLlm({
+await client.compareLargeLanguageModels.status({
     runId: "run_id",
 });
 ```
@@ -1216,7 +653,7 @@ await client.largeLanguageModelsGpt3.statusCompareLlm({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusCompareLlmRequest`
+**request:** `Gooey.CompareLargeLanguageModelsStatusRequest`
 
 </dd>
 </dl>
@@ -1224,7 +661,7 @@ await client.largeLanguageModelsGpt3.statusCompareLlm({
 <dl>
 <dd>
 
-**requestOptions:** `LargeLanguageModelsGpt3.RequestOptions`
+**requestOptions:** `CompareLargeLanguageModels.RequestOptions`
 
 </dd>
 </dl>
@@ -1235,9 +672,9 @@ await client.largeLanguageModelsGpt3.statusCompareLlm({
 </dl>
 </details>
 
-## SearchYourDocsWithGpt
+## DocSearch
 
-<details><summary><code>client.searchYourDocsWithGpt.<a href="/src/api/resources/searchYourDocsWithGpt/client/Client.ts">asyncDocSearch</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.docSearch.<a href="/src/api/resources/docSearch/client/Client.ts">status</a>({ ...params }) -> Gooey.DocSearchPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1250,57 +687,7 @@ await client.largeLanguageModelsGpt3.statusCompareLlm({
 <dd>
 
 ```typescript
-await client.searchYourDocsWithGpt.asyncDocSearch({
-    searchQuery: "search_query",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.DocSearchPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SearchYourDocsWithGpt.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.searchYourDocsWithGpt.<a href="/src/api/resources/searchYourDocsWithGpt/client/Client.ts">statusDocSearch</a>({ ...params }) -> Gooey.DocSearchPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.searchYourDocsWithGpt.statusDocSearch({
+await client.docSearch.status({
     runId: "run_id",
 });
 ```
@@ -1318,7 +705,7 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusDocSearchRequest`
+**request:** `Gooey.DocSearchStatusRequest`
 
 </dd>
 </dl>
@@ -1326,7 +713,7 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 <dl>
 <dd>
 
-**requestOptions:** `SearchYourDocsWithGpt.RequestOptions`
+**requestOptions:** `DocSearch.RequestOptions`
 
 </dd>
 </dl>
@@ -1337,9 +724,9 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 </dl>
 </details>
 
-## SmartGpt
+## Smartgpt
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncSmartGpt</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.smartgpt.<a href="/src/api/resources/smartgpt/client/Client.ts">status</a>({ ...params }) -> Gooey.SmartGptPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1352,57 +739,7 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 <dd>
 
 ```typescript
-await client.smartGpt.asyncSmartGpt({
-    inputPrompt: "input_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.SmartGptPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SmartGpt.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">statusSmartGpt</a>({ ...params }) -> Gooey.SmartGptPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.smartGpt.statusSmartGpt({
+await client.smartgpt.status({
     runId: "run_id",
 });
 ```
@@ -1420,7 +757,7 @@ await client.smartGpt.statusSmartGpt({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusSmartGptRequest`
+**request:** `Gooey.SmartgptStatusRequest`
 
 </dd>
 </dl>
@@ -1428,7 +765,7 @@ await client.smartGpt.statusSmartGpt({
 <dl>
 <dd>
 
-**requestOptions:** `SmartGpt.RequestOptions`
+**requestOptions:** `Smartgpt.RequestOptions`
 
 </dd>
 </dl>
@@ -1439,9 +776,9 @@ await client.smartGpt.statusSmartGpt({
 </dl>
 </details>
 
-## SummarizeYourDocsWithGpt
+## DocSummary
 
-<details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">asyncDocSummary</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.docSummary.<a href="/src/api/resources/docSummary/client/Client.ts">status</a>({ ...params }) -> Gooey.DocSummaryPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1454,57 +791,7 @@ await client.smartGpt.statusSmartGpt({
 <dd>
 
 ```typescript
-await client.summarizeYourDocsWithGpt.asyncDocSummary({
-    documents: ["documents"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.DocSummaryPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummarizeYourDocsWithGpt.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">statusDocSummary</a>({ ...params }) -> Gooey.DocSummaryPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summarizeYourDocsWithGpt.statusDocSummary({
+await client.docSummary.status({
     runId: "run_id",
 });
 ```
@@ -1522,7 +809,7 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusDocSummaryRequest`
+**request:** `Gooey.DocSummaryStatusRequest`
 
 </dd>
 </dl>
@@ -1530,7 +817,7 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 <dl>
 <dd>
 
-**requestOptions:** `SummarizeYourDocsWithGpt.RequestOptions`
+**requestOptions:** `DocSummary.RequestOptions`
 
 </dd>
 </dl>
@@ -1543,7 +830,7 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 
 ## Functions
 
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFunctions</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">status</a>({ ...params }) -> Gooey.FunctionsPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1556,7 +843,9 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 <dd>
 
 ```typescript
-await client.functions.asyncFunctions();
+await client.functions.status({
+    runId: "run_id",
+});
 ```
 
 </dd>
@@ -1572,7 +861,7 @@ await client.functions.asyncFunctions();
 <dl>
 <dd>
 
-**request:** `Gooey.FunctionsPageRequest`
+**request:** `Gooey.FunctionsStatusRequest`
 
 </dd>
 </dl>
@@ -1591,7 +880,9 @@ await client.functions.asyncFunctions();
 </dl>
 </details>
 
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">statusFunctions</a>({ ...params }) -> Gooey.FunctionsPageStatusResponse</code></summary>
+## Lipsync
+
+<details><summary><code>client.lipsync.<a href="/src/api/resources/lipsync/client/Client.ts">status</a>({ ...params }) -> Gooey.LipsyncPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1604,7 +895,7 @@ await client.functions.asyncFunctions();
 <dd>
 
 ```typescript
-await client.functions.statusFunctions({
+await client.lipsync.status({
     runId: "run_id",
 });
 ```
@@ -1622,7 +913,7 @@ await client.functions.statusFunctions({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusFunctionsRequest`
+**request:** `Gooey.LipsyncStatusRequest`
 
 </dd>
 </dl>
@@ -1630,7 +921,7 @@ await client.functions.statusFunctions({
 <dl>
 <dd>
 
-**requestOptions:** `Functions.RequestOptions`
+**requestOptions:** `Lipsync.RequestOptions`
 
 </dd>
 </dl>
@@ -1641,9 +932,9 @@ await client.functions.statusFunctions({
 </dl>
 </details>
 
-## LipSyncing
+## LipsyncMaker
 
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncLipsync</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.lipsyncMaker.<a href="/src/api/resources/lipsyncMaker/client/Client.ts">status</a>({ ...params }) -> Gooey.LipsyncTtsPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1656,55 +947,7 @@ await client.functions.statusFunctions({
 <dd>
 
 ```typescript
-await client.lipSyncing.asyncLipsync();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.LipsyncPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `LipSyncing.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">statusLipsync</a>({ ...params }) -> Gooey.LipsyncPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.lipSyncing.statusLipsync({
+await client.lipsyncMaker.status({
     runId: "run_id",
 });
 ```
@@ -1722,7 +965,7 @@ await client.lipSyncing.statusLipsync({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusLipsyncRequest`
+**request:** `Gooey.LipsyncMakerStatusRequest`
 
 </dd>
 </dl>
@@ -1730,7 +973,7 @@ await client.lipSyncing.statusLipsync({
 <dl>
 <dd>
 
-**requestOptions:** `LipSyncing.RequestOptions`
+**requestOptions:** `LipsyncMaker.RequestOptions`
 
 </dd>
 </dl>
@@ -1741,9 +984,9 @@ await client.lipSyncing.statusLipsync({
 </dl>
 </details>
 
-## LipsyncVideoWithAnyText
+## CompareTextToSpeechEngines
 
-<details><summary><code>client.lipsyncVideoWithAnyText.<a href="/src/api/resources/lipsyncVideoWithAnyText/client/Client.ts">asyncLipsyncTts</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.compareTextToSpeechEngines.<a href="/src/api/resources/compareTextToSpeechEngines/client/Client.ts">status</a>({ ...params }) -> Gooey.TextToSpeechPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1756,57 +999,7 @@ await client.lipSyncing.statusLipsync({
 <dd>
 
 ```typescript
-await client.lipsyncVideoWithAnyText.asyncLipsyncTts({
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.LipsyncTtsPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `LipsyncVideoWithAnyText.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.lipsyncVideoWithAnyText.<a href="/src/api/resources/lipsyncVideoWithAnyText/client/Client.ts">statusLipsyncTts</a>({ ...params }) -> Gooey.LipsyncTtsPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.lipsyncVideoWithAnyText.statusLipsyncTts({
+await client.compareTextToSpeechEngines.status({
     runId: "run_id",
 });
 ```
@@ -1824,7 +1017,7 @@ await client.lipsyncVideoWithAnyText.statusLipsyncTts({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusLipsyncTtsRequest`
+**request:** `Gooey.CompareTextToSpeechEnginesStatusRequest`
 
 </dd>
 </dl>
@@ -1832,7 +1025,7 @@ await client.lipsyncVideoWithAnyText.statusLipsyncTts({
 <dl>
 <dd>
 
-**requestOptions:** `LipsyncVideoWithAnyText.RequestOptions`
+**requestOptions:** `CompareTextToSpeechEngines.RequestOptions`
 
 </dd>
 </dl>
@@ -1843,9 +1036,9 @@ await client.lipsyncVideoWithAnyText.statusLipsyncTts({
 </dl>
 </details>
 
-## CompareAiVoiceGenerators
+## Speech
 
-<details><summary><code>client.compareAiVoiceGenerators.<a href="/src/api/resources/compareAiVoiceGenerators/client/Client.ts">asyncTextToSpeech</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.speech.<a href="/src/api/resources/speech/client/Client.ts">status</a>({ ...params }) -> Gooey.AsrPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1858,57 +1051,7 @@ await client.lipsyncVideoWithAnyText.statusLipsyncTts({
 <dd>
 
 ```typescript
-await client.compareAiVoiceGenerators.asyncTextToSpeech({
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.TextToSpeechPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CompareAiVoiceGenerators.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.compareAiVoiceGenerators.<a href="/src/api/resources/compareAiVoiceGenerators/client/Client.ts">statusTextToSpeech</a>({ ...params }) -> Gooey.TextToSpeechPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.compareAiVoiceGenerators.statusTextToSpeech({
+await client.speech.status({
     runId: "run_id",
 });
 ```
@@ -1926,7 +1069,7 @@ await client.compareAiVoiceGenerators.statusTextToSpeech({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusTextToSpeechRequest`
+**request:** `Gooey.SpeechStatusRequest`
 
 </dd>
 </dl>
@@ -1934,7 +1077,7 @@ await client.compareAiVoiceGenerators.statusTextToSpeech({
 <dl>
 <dd>
 
-**requestOptions:** `CompareAiVoiceGenerators.RequestOptions`
+**requestOptions:** `Speech.RequestOptions`
 
 </dd>
 </dl>
@@ -1945,9 +1088,9 @@ await client.compareAiVoiceGenerators.statusTextToSpeech({
 </dl>
 </details>
 
-## SpeechRecognitionTranslation
+## Text2Audio
 
-<details><summary><code>client.speechRecognitionTranslation.<a href="/src/api/resources/speechRecognitionTranslation/client/Client.ts">asyncAsr</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.text2Audio.<a href="/src/api/resources/text2Audio/client/Client.ts">status</a>({ ...params }) -> Gooey.Text2AudioPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -1960,57 +1103,7 @@ await client.compareAiVoiceGenerators.statusTextToSpeech({
 <dd>
 
 ```typescript
-await client.speechRecognitionTranslation.asyncAsr({
-    documents: ["documents"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.AsrPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SpeechRecognitionTranslation.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.speechRecognitionTranslation.<a href="/src/api/resources/speechRecognitionTranslation/client/Client.ts">statusAsr</a>({ ...params }) -> Gooey.AsrPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.speechRecognitionTranslation.statusAsr({
+await client.text2Audio.status({
     runId: "run_id",
 });
 ```
@@ -2028,7 +1121,7 @@ await client.speechRecognitionTranslation.statusAsr({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusAsrRequest`
+**request:** `Gooey.Text2AudioStatusRequest`
 
 </dd>
 </dl>
@@ -2036,7 +1129,7 @@ await client.speechRecognitionTranslation.statusAsr({
 <dl>
 <dd>
 
-**requestOptions:** `SpeechRecognitionTranslation.RequestOptions`
+**requestOptions:** `Text2Audio.RequestOptions`
 
 </dd>
 </dl>
@@ -2047,9 +1140,9 @@ await client.speechRecognitionTranslation.statusAsr({
 </dl>
 </details>
 
-## TextGuidedAudioGenerator
+## CompareAiTranslation
 
-<details><summary><code>client.textGuidedAudioGenerator.<a href="/src/api/resources/textGuidedAudioGenerator/client/Client.ts">asyncText2Audio</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.compareAiTranslation.<a href="/src/api/resources/compareAiTranslation/client/Client.ts">status</a>({ ...params }) -> Gooey.TranslationPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2062,57 +1155,7 @@ await client.speechRecognitionTranslation.statusAsr({
 <dd>
 
 ```typescript
-await client.textGuidedAudioGenerator.asyncText2Audio({
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.Text2AudioPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `TextGuidedAudioGenerator.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.textGuidedAudioGenerator.<a href="/src/api/resources/textGuidedAudioGenerator/client/Client.ts">statusText2Audio</a>({ ...params }) -> Gooey.Text2AudioPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.textGuidedAudioGenerator.statusText2Audio({
+await client.compareAiTranslation.status({
     runId: "run_id",
 });
 ```
@@ -2130,7 +1173,7 @@ await client.textGuidedAudioGenerator.statusText2Audio({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusText2AudioRequest`
+**request:** `Gooey.CompareAiTranslationStatusRequest`
 
 </dd>
 </dl>
@@ -2138,7 +1181,7 @@ await client.textGuidedAudioGenerator.statusText2Audio({
 <dl>
 <dd>
 
-**requestOptions:** `TextGuidedAudioGenerator.RequestOptions`
+**requestOptions:** `CompareAiTranslation.RequestOptions`
 
 </dd>
 </dl>
@@ -2149,9 +1192,9 @@ await client.textGuidedAudioGenerator.statusText2Audio({
 </dl>
 </details>
 
-## CompareAiTranslations
+## AiPhotoEditor
 
-<details><summary><code>client.compareAiTranslations.<a href="/src/api/resources/compareAiTranslations/client/Client.ts">asyncTranslate</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.aiPhotoEditor.<a href="/src/api/resources/aiPhotoEditor/client/Client.ts">status</a>({ ...params }) -> Gooey.Img2ImgPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2164,55 +1207,7 @@ await client.textGuidedAudioGenerator.statusText2Audio({
 <dd>
 
 ```typescript
-await client.compareAiTranslations.asyncTranslate();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.TranslationPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CompareAiTranslations.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.compareAiTranslations.<a href="/src/api/resources/compareAiTranslations/client/Client.ts">statusTranslate</a>({ ...params }) -> Gooey.TranslationPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.compareAiTranslations.statusTranslate({
+await client.aiPhotoEditor.status({
     runId: "run_id",
 });
 ```
@@ -2230,7 +1225,7 @@ await client.compareAiTranslations.statusTranslate({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusTranslateRequest`
+**request:** `Gooey.AiPhotoEditorStatusRequest`
 
 </dd>
 </dl>
@@ -2238,109 +1233,7 @@ await client.compareAiTranslations.statusTranslate({
 <dl>
 <dd>
 
-**requestOptions:** `CompareAiTranslations.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## EditAnImageWithAiPrompt
-
-<details><summary><code>client.editAnImageWithAiPrompt.<a href="/src/api/resources/editAnImageWithAiPrompt/client/Client.ts">asyncImg2Img</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.editAnImageWithAiPrompt.asyncImg2Img({
-    inputImage: "input_image",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.Img2ImgPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EditAnImageWithAiPrompt.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.editAnImageWithAiPrompt.<a href="/src/api/resources/editAnImageWithAiPrompt/client/Client.ts">statusImg2Img</a>({ ...params }) -> Gooey.Img2ImgPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.editAnImageWithAiPrompt.statusImg2Img({
-    runId: "run_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.StatusImg2ImgRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EditAnImageWithAiPrompt.RequestOptions`
+**requestOptions:** `AiPhotoEditor.RequestOptions`
 
 </dd>
 </dl>
@@ -2353,7 +1246,7 @@ await client.editAnImageWithAiPrompt.statusImg2Img({
 
 ## CompareAiImageGenerators
 
-<details><summary><code>client.compareAiImageGenerators.<a href="/src/api/resources/compareAiImageGenerators/client/Client.ts">asyncCompareText2Img</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.compareAiImageGenerators.<a href="/src/api/resources/compareAiImageGenerators/client/Client.ts">status</a>({ ...params }) -> Gooey.CompareText2ImgPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2366,8 +1259,8 @@ await client.editAnImageWithAiPrompt.statusImg2Img({
 <dd>
 
 ```typescript
-await client.compareAiImageGenerators.asyncCompareText2Img({
-    textPrompt: "text_prompt",
+await client.compareAiImageGenerators.status({
+    runId: "run_id",
 });
 ```
 
@@ -2384,7 +1277,7 @@ await client.compareAiImageGenerators.asyncCompareText2Img({
 <dl>
 <dd>
 
-**request:** `Gooey.CompareText2ImgPageRequest`
+**request:** `Gooey.CompareAiImageGeneratorsStatusRequest`
 
 </dd>
 </dl>
@@ -2403,7 +1296,9 @@ await client.compareAiImageGenerators.asyncCompareText2Img({
 </dl>
 </details>
 
-<details><summary><code>client.compareAiImageGenerators.<a href="/src/api/resources/compareAiImageGenerators/client/Client.ts">statusCompareText2Img</a>({ ...params }) -> Gooey.CompareText2ImgPageStatusResponse</code></summary>
+## ProductPhotoBackgroundGenerator
+
+<details><summary><code>client.productPhotoBackgroundGenerator.<a href="/src/api/resources/productPhotoBackgroundGenerator/client/Client.ts">status</a>({ ...params }) -> Gooey.ObjectInpaintingPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2416,7 +1311,7 @@ await client.compareAiImageGenerators.asyncCompareText2Img({
 <dd>
 
 ```typescript
-await client.compareAiImageGenerators.statusCompareText2Img({
+await client.productPhotoBackgroundGenerator.status({
     runId: "run_id",
 });
 ```
@@ -2434,7 +1329,7 @@ await client.compareAiImageGenerators.statusCompareText2Img({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusCompareText2ImgRequest`
+**request:** `Gooey.ProductPhotoBackgroundGeneratorStatusRequest`
 
 </dd>
 </dl>
@@ -2442,7 +1337,7 @@ await client.compareAiImageGenerators.statusCompareText2Img({
 <dl>
 <dd>
 
-**requestOptions:** `CompareAiImageGenerators.RequestOptions`
+**requestOptions:** `ProductPhotoBackgroundGenerator.RequestOptions`
 
 </dd>
 </dl>
@@ -2453,9 +1348,9 @@ await client.compareAiImageGenerators.statusCompareText2Img({
 </dl>
 </details>
 
-## GenerateProductPhotoBackgrounds
+## FaceInAiGeneratedPhoto
 
-<details><summary><code>client.generateProductPhotoBackgrounds.<a href="/src/api/resources/generateProductPhotoBackgrounds/client/Client.ts">asyncObjectInpainting</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.faceInAiGeneratedPhoto.<a href="/src/api/resources/faceInAiGeneratedPhoto/client/Client.ts">status</a>({ ...params }) -> Gooey.FaceInpaintingPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2468,58 +1363,7 @@ await client.compareAiImageGenerators.statusCompareText2Img({
 <dd>
 
 ```typescript
-await client.generateProductPhotoBackgrounds.asyncObjectInpainting({
-    inputImage: "input_image",
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.ObjectInpaintingPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `GenerateProductPhotoBackgrounds.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.generateProductPhotoBackgrounds.<a href="/src/api/resources/generateProductPhotoBackgrounds/client/Client.ts">statusObjectInpainting</a>({ ...params }) -> Gooey.ObjectInpaintingPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.generateProductPhotoBackgrounds.statusObjectInpainting({
+await client.faceInAiGeneratedPhoto.status({
     runId: "run_id",
 });
 ```
@@ -2537,7 +1381,7 @@ await client.generateProductPhotoBackgrounds.statusObjectInpainting({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusObjectInpaintingRequest`
+**request:** `Gooey.FaceInAiGeneratedPhotoStatusRequest`
 
 </dd>
 </dl>
@@ -2545,7 +1389,7 @@ await client.generateProductPhotoBackgrounds.statusObjectInpainting({
 <dl>
 <dd>
 
-**requestOptions:** `GenerateProductPhotoBackgrounds.RequestOptions`
+**requestOptions:** `FaceInAiGeneratedPhoto.RequestOptions`
 
 </dd>
 </dl>
@@ -2556,9 +1400,9 @@ await client.generateProductPhotoBackgrounds.statusObjectInpainting({
 </dl>
 </details>
 
-## AiImageWithAFace
+## AiImageFromEmailLookup
 
-<details><summary><code>client.aiImageWithAFace.<a href="/src/api/resources/aiImageWithAFace/client/Client.ts">asyncFaceInpainting</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.aiImageFromEmailLookup.<a href="/src/api/resources/aiImageFromEmailLookup/client/Client.ts">status</a>({ ...params }) -> Gooey.EmailFaceInpaintingPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2571,58 +1415,7 @@ await client.generateProductPhotoBackgrounds.statusObjectInpainting({
 <dd>
 
 ```typescript
-await client.aiImageWithAFace.asyncFaceInpainting({
-    inputImage: "input_image",
-    textPrompt: "tony stark from the iron man",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.FaceInpaintingPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiImageWithAFace.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.aiImageWithAFace.<a href="/src/api/resources/aiImageWithAFace/client/Client.ts">statusFaceInpainting</a>({ ...params }) -> Gooey.FaceInpaintingPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiImageWithAFace.statusFaceInpainting({
+await client.aiImageFromEmailLookup.status({
     runId: "run_id",
 });
 ```
@@ -2640,7 +1433,7 @@ await client.aiImageWithAFace.statusFaceInpainting({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusFaceInpaintingRequest`
+**request:** `Gooey.AiImageFromEmailLookupStatusRequest`
 
 </dd>
 </dl>
@@ -2648,7 +1441,7 @@ await client.aiImageWithAFace.statusFaceInpainting({
 <dl>
 <dd>
 
-**requestOptions:** `AiImageWithAFace.RequestOptions`
+**requestOptions:** `AiImageFromEmailLookup.RequestOptions`
 
 </dd>
 </dl>
@@ -2659,9 +1452,9 @@ await client.aiImageWithAFace.statusFaceInpainting({
 </dl>
 </details>
 
-## AiGeneratedPhotoFromEmailProfileLookup
+## RenderImagesWithAi
 
-<details><summary><code>client.aiGeneratedPhotoFromEmailProfileLookup.<a href="/src/api/resources/aiGeneratedPhotoFromEmailProfileLookup/client/Client.ts">asyncEmailFaceInpainting</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.renderImagesWithAi.<a href="/src/api/resources/renderImagesWithAi/client/Client.ts">status</a>({ ...params }) -> Gooey.GoogleImageGenPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2674,58 +1467,7 @@ await client.aiImageWithAFace.statusFaceInpainting({
 <dd>
 
 ```typescript
-await client.aiGeneratedPhotoFromEmailProfileLookup.asyncEmailFaceInpainting({
-    emailAddress: "sean@dara.network",
-    textPrompt: "winter's day in paris",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.EmailFaceInpaintingPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiGeneratedPhotoFromEmailProfileLookup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.aiGeneratedPhotoFromEmailProfileLookup.<a href="/src/api/resources/aiGeneratedPhotoFromEmailProfileLookup/client/Client.ts">statusEmailFaceInpainting</a>({ ...params }) -> Gooey.EmailFaceInpaintingPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiGeneratedPhotoFromEmailProfileLookup.statusEmailFaceInpainting({
+await client.renderImagesWithAi.status({
     runId: "run_id",
 });
 ```
@@ -2743,7 +1485,7 @@ await client.aiGeneratedPhotoFromEmailProfileLookup.statusEmailFaceInpainting({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusEmailFaceInpaintingRequest`
+**request:** `Gooey.RenderImagesWithAiStatusRequest`
 
 </dd>
 </dl>
@@ -2751,7 +1493,7 @@ await client.aiGeneratedPhotoFromEmailProfileLookup.statusEmailFaceInpainting({
 <dl>
 <dd>
 
-**requestOptions:** `AiGeneratedPhotoFromEmailProfileLookup.RequestOptions`
+**requestOptions:** `RenderImagesWithAi.RequestOptions`
 
 </dd>
 </dl>
@@ -2762,9 +1504,9 @@ await client.aiGeneratedPhotoFromEmailProfileLookup.statusEmailFaceInpainting({
 </dl>
 </details>
 
-## RenderImageSearchResultsWithAi
+## RemoveImageBackgroundWithAi
 
-<details><summary><code>client.renderImageSearchResultsWithAi.<a href="/src/api/resources/renderImageSearchResultsWithAi/client/Client.ts">asyncGoogleImageGen</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.removeImageBackgroundWithAi.<a href="/src/api/resources/removeImageBackgroundWithAi/client/Client.ts">status</a>({ ...params }) -> Gooey.ImageSegmentationPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2777,58 +1519,7 @@ await client.aiGeneratedPhotoFromEmailProfileLookup.statusEmailFaceInpainting({
 <dd>
 
 ```typescript
-await client.renderImageSearchResultsWithAi.asyncGoogleImageGen({
-    searchQuery: "search_query",
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.GoogleImageGenPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RenderImageSearchResultsWithAi.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.renderImageSearchResultsWithAi.<a href="/src/api/resources/renderImageSearchResultsWithAi/client/Client.ts">statusGoogleImageGen</a>({ ...params }) -> Gooey.GoogleImageGenPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.renderImageSearchResultsWithAi.statusGoogleImageGen({
+await client.removeImageBackgroundWithAi.status({
     runId: "run_id",
 });
 ```
@@ -2846,7 +1537,7 @@ await client.renderImageSearchResultsWithAi.statusGoogleImageGen({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusGoogleImageGenRequest`
+**request:** `Gooey.RemoveImageBackgroundWithAiStatusRequest`
 
 </dd>
 </dl>
@@ -2854,7 +1545,7 @@ await client.renderImageSearchResultsWithAi.statusGoogleImageGen({
 <dl>
 <dd>
 
-**requestOptions:** `RenderImageSearchResultsWithAi.RequestOptions`
+**requestOptions:** `RemoveImageBackgroundWithAi.RequestOptions`
 
 </dd>
 </dl>
@@ -2865,9 +1556,9 @@ await client.renderImageSearchResultsWithAi.statusGoogleImageGen({
 </dl>
 </details>
 
-## AiBackgroundChanger
+## CompareAiUpscalers
 
-<details><summary><code>client.aiBackgroundChanger.<a href="/src/api/resources/aiBackgroundChanger/client/Client.ts">asyncImageSegmentation</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.compareAiUpscalers.<a href="/src/api/resources/compareAiUpscalers/client/Client.ts">status</a>({ ...params }) -> Gooey.CompareUpscalerPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2880,57 +1571,7 @@ await client.renderImageSearchResultsWithAi.statusGoogleImageGen({
 <dd>
 
 ```typescript
-await client.aiBackgroundChanger.asyncImageSegmentation({
-    inputImage: "input_image",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.ImageSegmentationPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiBackgroundChanger.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.aiBackgroundChanger.<a href="/src/api/resources/aiBackgroundChanger/client/Client.ts">statusImageSegmentation</a>({ ...params }) -> Gooey.ImageSegmentationPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiBackgroundChanger.statusImageSegmentation({
+await client.compareAiUpscalers.status({
     runId: "run_id",
 });
 ```
@@ -2948,7 +1589,7 @@ await client.aiBackgroundChanger.statusImageSegmentation({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusImageSegmentationRequest`
+**request:** `Gooey.CompareAiUpscalersStatusRequest`
 
 </dd>
 </dl>
@@ -2956,7 +1597,7 @@ await client.aiBackgroundChanger.statusImageSegmentation({
 <dl>
 <dd>
 
-**requestOptions:** `AiBackgroundChanger.RequestOptions`
+**requestOptions:** `CompareAiUpscalers.RequestOptions`
 
 </dd>
 </dl>
@@ -2967,9 +1608,9 @@ await client.aiBackgroundChanger.statusImageSegmentation({
 </dl>
 </details>
 
-## CompareAiImageUpscalers
+## Chyronplant
 
-<details><summary><code>client.compareAiImageUpscalers.<a href="/src/api/resources/compareAiImageUpscalers/client/Client.ts">asyncCompareAiUpscalers</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.chyronplant.<a href="/src/api/resources/chyronplant/client/Client.ts">status</a>({ ...params }) -> Gooey.ChyronPlantPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -2982,57 +1623,7 @@ await client.aiBackgroundChanger.statusImageSegmentation({
 <dd>
 
 ```typescript
-await client.compareAiImageUpscalers.asyncCompareAiUpscalers({
-    scale: 1,
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.CompareUpscalerPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CompareAiImageUpscalers.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.compareAiImageUpscalers.<a href="/src/api/resources/compareAiImageUpscalers/client/Client.ts">statusCompareAiUpscalers</a>({ ...params }) -> Gooey.CompareUpscalerPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.compareAiImageUpscalers.statusCompareAiUpscalers({
+await client.chyronplant.status({
     runId: "run_id",
 });
 ```
@@ -3050,7 +1641,7 @@ await client.compareAiImageUpscalers.statusCompareAiUpscalers({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusCompareAiUpscalersRequest`
+**request:** `Gooey.ChyronplantStatusRequest`
 
 </dd>
 </dl>
@@ -3058,7 +1649,7 @@ await client.compareAiImageUpscalers.statusCompareAiUpscalers({
 <dl>
 <dd>
 
-**requestOptions:** `CompareAiImageUpscalers.RequestOptions`
+**requestOptions:** `Chyronplant.RequestOptions`
 
 </dd>
 </dl>
@@ -3069,9 +1660,9 @@ await client.compareAiImageUpscalers.statusCompareAiUpscalers({
 </dl>
 </details>
 
-## ChyronPlantBot
+## Letterwriter
 
-<details><summary><code>client.chyronPlantBot.<a href="/src/api/resources/chyronPlantBot/client/Client.ts">asyncChyronPlant</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.letterwriter.<a href="/src/api/resources/letterwriter/client/Client.ts">status</a>({ ...params }) -> Gooey.LetterWriterPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -3084,57 +1675,7 @@ await client.compareAiImageUpscalers.statusCompareAiUpscalers({
 <dd>
 
 ```typescript
-await client.chyronPlantBot.asyncChyronPlant({
-    midiNotes: "C#1 B6 A2 A1 A3 A2",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.ChyronPlantPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ChyronPlantBot.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chyronPlantBot.<a href="/src/api/resources/chyronPlantBot/client/Client.ts">statusChyronPlant</a>({ ...params }) -> Gooey.ChyronPlantPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.chyronPlantBot.statusChyronPlant({
+await client.letterwriter.status({
     runId: "run_id",
 });
 ```
@@ -3152,7 +1693,7 @@ await client.chyronPlantBot.statusChyronPlant({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusChyronPlantRequest`
+**request:** `Gooey.LetterwriterStatusRequest`
 
 </dd>
 </dl>
@@ -3160,7 +1701,7 @@ await client.chyronPlantBot.statusChyronPlant({
 <dl>
 <dd>
 
-**requestOptions:** `ChyronPlantBot.RequestOptions`
+**requestOptions:** `Letterwriter.RequestOptions`
 
 </dd>
 </dl>
@@ -3171,9 +1712,9 @@ await client.chyronPlantBot.statusChyronPlant({
 </dl>
 </details>
 
-## LetterWriter
+## TextEmbedings
 
-<details><summary><code>client.letterWriter.<a href="/src/api/resources/letterWriter/client/Client.ts">asyncLetterWriter</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.textEmbedings.<a href="/src/api/resources/textEmbedings/client/Client.ts">status</a>({ ...params }) -> Gooey.EmbeddingsPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -3186,57 +1727,7 @@ await client.chyronPlantBot.statusChyronPlant({
 <dd>
 
 ```typescript
-await client.letterWriter.asyncLetterWriter({
-    actionId: "action_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.LetterWriterPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `LetterWriter.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.letterWriter.<a href="/src/api/resources/letterWriter/client/Client.ts">statusLetterWriter</a>({ ...params }) -> Gooey.LetterWriterPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.letterWriter.statusLetterWriter({
+await client.textEmbedings.status({
     runId: "run_id",
 });
 ```
@@ -3254,7 +1745,7 @@ await client.letterWriter.statusLetterWriter({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusLetterWriterRequest`
+**request:** `Gooey.TextEmbedingsStatusRequest`
 
 </dd>
 </dl>
@@ -3262,7 +1753,7 @@ await client.letterWriter.statusLetterWriter({
 <dl>
 <dd>
 
-**requestOptions:** `LetterWriter.RequestOptions`
+**requestOptions:** `TextEmbedings.RequestOptions`
 
 </dd>
 </dl>
@@ -3273,9 +1764,9 @@ await client.letterWriter.statusLetterWriter({
 </dl>
 </details>
 
-## Embeddings
+## RelatedQnaMakerDoc
 
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">asyncEmbeddings</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.relatedQnaMakerDoc.<a href="/src/api/resources/relatedQnaMakerDoc/client/Client.ts">status</a>({ ...params }) -> Gooey.RelatedQnADocPageStatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -3288,57 +1779,7 @@ await client.letterWriter.statusLetterWriter({
 <dd>
 
 ```typescript
-await client.embeddings.asyncEmbeddings({
-    texts: ["texts"],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.EmbeddingsPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Embeddings.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">statusEmbeddings</a>({ ...params }) -> Gooey.EmbeddingsPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.embeddings.statusEmbeddings({
+await client.relatedQnaMakerDoc.status({
     runId: "run_id",
 });
 ```
@@ -3356,7 +1797,7 @@ await client.embeddings.statusEmbeddings({
 <dl>
 <dd>
 
-**request:** `Gooey.StatusEmbeddingsRequest`
+**request:** `Gooey.RelatedQnaMakerDocStatusRequest`
 
 </dd>
 </dl>
@@ -3364,109 +1805,7 @@ await client.embeddings.statusEmbeddings({
 <dl>
 <dd>
 
-**requestOptions:** `Embeddings.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## PeopleAlsoAskAnswersFromADoc
-
-<details><summary><code>client.peopleAlsoAskAnswersFromADoc.<a href="/src/api/resources/peopleAlsoAskAnswersFromADoc/client/Client.ts">asyncRelatedQnaMakerDoc</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.peopleAlsoAskAnswersFromADoc.asyncRelatedQnaMakerDoc({
-    searchQuery: "search_query",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.RelatedQnADocPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PeopleAlsoAskAnswersFromADoc.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.peopleAlsoAskAnswersFromADoc.<a href="/src/api/resources/peopleAlsoAskAnswersFromADoc/client/Client.ts">statusRelatedQnaMakerDoc</a>({ ...params }) -> Gooey.RelatedQnADocPageStatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.peopleAlsoAskAnswersFromADoc.statusRelatedQnaMakerDoc({
-    runId: "run_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.StatusRelatedQnaMakerDocRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PeopleAlsoAskAnswersFromADoc.RequestOptions`
+**requestOptions:** `RelatedQnaMakerDoc.RequestOptions`
 
 </dd>
 </dl>

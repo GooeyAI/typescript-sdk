@@ -5,39 +5,39 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { CopilotIntegrations } from "./api/resources/copilotIntegrations/client/Client";
-import { CopilotForYourEnterprise } from "./api/resources/copilotForYourEnterprise/client/Client";
-import { AiAnimationGenerator } from "./api/resources/aiAnimationGenerator/client/Client";
-import { AiArtQrCode } from "./api/resources/aiArtQrCode/client/Client";
-import { GeneratePeopleAlsoAskSeoContent } from "./api/resources/generatePeopleAlsoAskSeoContent/client/Client";
-import { CreateAPerfectSeoOptimizedTitleParagraph } from "./api/resources/createAPerfectSeoOptimizedTitleParagraph/client/Client";
-import { WebSearchGpt3 } from "./api/resources/webSearchGpt3/client/Client";
-import { ProfileLookupGpt3ForAiPersonalizedEmails } from "./api/resources/profileLookupGpt3ForAiPersonalizedEmails/client/Client";
-import { BulkRunner } from "./api/resources/bulkRunner/client/Client";
-import { Evaluator } from "./api/resources/evaluator/client/Client";
-import { SyntheticDataMakerForVideosPdFs } from "./api/resources/syntheticDataMakerForVideosPdFs/client/Client";
-import { LargeLanguageModelsGpt3 } from "./api/resources/largeLanguageModelsGpt3/client/Client";
-import { SearchYourDocsWithGpt } from "./api/resources/searchYourDocsWithGpt/client/Client";
-import { SmartGpt } from "./api/resources/smartGpt/client/Client";
-import { SummarizeYourDocsWithGpt } from "./api/resources/summarizeYourDocsWithGpt/client/Client";
+import { Copilot } from "./api/resources/copilot/client/Client";
+import { AnimationGenerator } from "./api/resources/animationGenerator/client/Client";
+import { QrCode } from "./api/resources/qrCode/client/Client";
+import { RelatedQnaMaker } from "./api/resources/relatedQnaMaker/client/Client";
+import { SeoParagraphGenerator } from "./api/resources/seoParagraphGenerator/client/Client";
+import { GoogleGpt } from "./api/resources/googleGpt/client/Client";
+import { EmailWriterWithProfileLookup } from "./api/resources/emailWriterWithProfileLookup/client/Client";
+import { Bulk } from "./api/resources/bulk/client/Client";
+import { Eval } from "./api/resources/eval/client/Client";
+import { DocExtract } from "./api/resources/docExtract/client/Client";
+import { CompareLargeLanguageModels } from "./api/resources/compareLargeLanguageModels/client/Client";
+import { DocSearch } from "./api/resources/docSearch/client/Client";
+import { Smartgpt } from "./api/resources/smartgpt/client/Client";
+import { DocSummary } from "./api/resources/docSummary/client/Client";
 import { Functions } from "./api/resources/functions/client/Client";
-import { LipSyncing } from "./api/resources/lipSyncing/client/Client";
-import { LipsyncVideoWithAnyText } from "./api/resources/lipsyncVideoWithAnyText/client/Client";
-import { CompareAiVoiceGenerators } from "./api/resources/compareAiVoiceGenerators/client/Client";
-import { SpeechRecognitionTranslation } from "./api/resources/speechRecognitionTranslation/client/Client";
-import { TextGuidedAudioGenerator } from "./api/resources/textGuidedAudioGenerator/client/Client";
-import { CompareAiTranslations } from "./api/resources/compareAiTranslations/client/Client";
-import { EditAnImageWithAiPrompt } from "./api/resources/editAnImageWithAiPrompt/client/Client";
+import { Lipsync } from "./api/resources/lipsync/client/Client";
+import { LipsyncMaker } from "./api/resources/lipsyncMaker/client/Client";
+import { CompareTextToSpeechEngines } from "./api/resources/compareTextToSpeechEngines/client/Client";
+import { Speech } from "./api/resources/speech/client/Client";
+import { Text2Audio } from "./api/resources/text2Audio/client/Client";
+import { CompareAiTranslation } from "./api/resources/compareAiTranslation/client/Client";
+import { AiPhotoEditor } from "./api/resources/aiPhotoEditor/client/Client";
 import { CompareAiImageGenerators } from "./api/resources/compareAiImageGenerators/client/Client";
-import { GenerateProductPhotoBackgrounds } from "./api/resources/generateProductPhotoBackgrounds/client/Client";
-import { AiImageWithAFace } from "./api/resources/aiImageWithAFace/client/Client";
-import { AiGeneratedPhotoFromEmailProfileLookup } from "./api/resources/aiGeneratedPhotoFromEmailProfileLookup/client/Client";
-import { RenderImageSearchResultsWithAi } from "./api/resources/renderImageSearchResultsWithAi/client/Client";
-import { AiBackgroundChanger } from "./api/resources/aiBackgroundChanger/client/Client";
-import { CompareAiImageUpscalers } from "./api/resources/compareAiImageUpscalers/client/Client";
-import { ChyronPlantBot } from "./api/resources/chyronPlantBot/client/Client";
-import { LetterWriter } from "./api/resources/letterWriter/client/Client";
-import { Embeddings } from "./api/resources/embeddings/client/Client";
-import { PeopleAlsoAskAnswersFromADoc } from "./api/resources/peopleAlsoAskAnswersFromADoc/client/Client";
+import { ProductPhotoBackgroundGenerator } from "./api/resources/productPhotoBackgroundGenerator/client/Client";
+import { FaceInAiGeneratedPhoto } from "./api/resources/faceInAiGeneratedPhoto/client/Client";
+import { AiImageFromEmailLookup } from "./api/resources/aiImageFromEmailLookup/client/Client";
+import { RenderImagesWithAi } from "./api/resources/renderImagesWithAi/client/Client";
+import { RemoveImageBackgroundWithAi } from "./api/resources/removeImageBackgroundWithAi/client/Client";
+import { CompareAiUpscalers } from "./api/resources/compareAiUpscalers/client/Client";
+import { Chyronplant } from "./api/resources/chyronplant/client/Client";
+import { Letterwriter } from "./api/resources/letterwriter/client/Client";
+import { TextEmbedings } from "./api/resources/textEmbedings/client/Client";
+import { RelatedQnaMakerDoc } from "./api/resources/relatedQnaMakerDoc/client/Client";
 import { Misc } from "./api/resources/misc/client/Client";
 
 export declare namespace GooeyClient {
@@ -66,92 +66,88 @@ export class GooeyClient {
         return (this._copilotIntegrations ??= new CopilotIntegrations(this._options));
     }
 
-    protected _copilotForYourEnterprise: CopilotForYourEnterprise | undefined;
+    protected _copilot: Copilot | undefined;
 
-    public get copilotForYourEnterprise(): CopilotForYourEnterprise {
-        return (this._copilotForYourEnterprise ??= new CopilotForYourEnterprise(this._options));
+    public get copilot(): Copilot {
+        return (this._copilot ??= new Copilot(this._options));
     }
 
-    protected _aiAnimationGenerator: AiAnimationGenerator | undefined;
+    protected _animationGenerator: AnimationGenerator | undefined;
 
-    public get aiAnimationGenerator(): AiAnimationGenerator {
-        return (this._aiAnimationGenerator ??= new AiAnimationGenerator(this._options));
+    public get animationGenerator(): AnimationGenerator {
+        return (this._animationGenerator ??= new AnimationGenerator(this._options));
     }
 
-    protected _aiArtQrCode: AiArtQrCode | undefined;
+    protected _qrCode: QrCode | undefined;
 
-    public get aiArtQrCode(): AiArtQrCode {
-        return (this._aiArtQrCode ??= new AiArtQrCode(this._options));
+    public get qrCode(): QrCode {
+        return (this._qrCode ??= new QrCode(this._options));
     }
 
-    protected _generatePeopleAlsoAskSeoContent: GeneratePeopleAlsoAskSeoContent | undefined;
+    protected _relatedQnaMaker: RelatedQnaMaker | undefined;
 
-    public get generatePeopleAlsoAskSeoContent(): GeneratePeopleAlsoAskSeoContent {
-        return (this._generatePeopleAlsoAskSeoContent ??= new GeneratePeopleAlsoAskSeoContent(this._options));
+    public get relatedQnaMaker(): RelatedQnaMaker {
+        return (this._relatedQnaMaker ??= new RelatedQnaMaker(this._options));
     }
 
-    protected _createAPerfectSeoOptimizedTitleParagraph: CreateAPerfectSeoOptimizedTitleParagraph | undefined;
+    protected _seoParagraphGenerator: SeoParagraphGenerator | undefined;
 
-    public get createAPerfectSeoOptimizedTitleParagraph(): CreateAPerfectSeoOptimizedTitleParagraph {
-        return (this._createAPerfectSeoOptimizedTitleParagraph ??= new CreateAPerfectSeoOptimizedTitleParagraph(
-            this._options
-        ));
+    public get seoParagraphGenerator(): SeoParagraphGenerator {
+        return (this._seoParagraphGenerator ??= new SeoParagraphGenerator(this._options));
     }
 
-    protected _webSearchGpt3: WebSearchGpt3 | undefined;
+    protected _googleGpt: GoogleGpt | undefined;
 
-    public get webSearchGpt3(): WebSearchGpt3 {
-        return (this._webSearchGpt3 ??= new WebSearchGpt3(this._options));
+    public get googleGpt(): GoogleGpt {
+        return (this._googleGpt ??= new GoogleGpt(this._options));
     }
 
-    protected _profileLookupGpt3ForAiPersonalizedEmails: ProfileLookupGpt3ForAiPersonalizedEmails | undefined;
+    protected _emailWriterWithProfileLookup: EmailWriterWithProfileLookup | undefined;
 
-    public get profileLookupGpt3ForAiPersonalizedEmails(): ProfileLookupGpt3ForAiPersonalizedEmails {
-        return (this._profileLookupGpt3ForAiPersonalizedEmails ??= new ProfileLookupGpt3ForAiPersonalizedEmails(
-            this._options
-        ));
+    public get emailWriterWithProfileLookup(): EmailWriterWithProfileLookup {
+        return (this._emailWriterWithProfileLookup ??= new EmailWriterWithProfileLookup(this._options));
     }
 
-    protected _bulkRunner: BulkRunner | undefined;
+    protected _bulk: Bulk | undefined;
 
-    public get bulkRunner(): BulkRunner {
-        return (this._bulkRunner ??= new BulkRunner(this._options));
+    public get bulk(): Bulk {
+        return (this._bulk ??= new Bulk(this._options));
     }
 
-    protected _evaluator: Evaluator | undefined;
+    protected _eval: Eval | undefined;
 
-    public get evaluator(): Evaluator {
-        return (this._evaluator ??= new Evaluator(this._options));
+    public get eval(): Eval {
+        return (this._eval ??= new Eval(this._options));
     }
 
-    protected _syntheticDataMakerForVideosPdFs: SyntheticDataMakerForVideosPdFs | undefined;
+    protected _docExtract: DocExtract | undefined;
 
-    public get syntheticDataMakerForVideosPdFs(): SyntheticDataMakerForVideosPdFs {
-        return (this._syntheticDataMakerForVideosPdFs ??= new SyntheticDataMakerForVideosPdFs(this._options));
+    public get docExtract(): DocExtract {
+        return (this._docExtract ??= new DocExtract(this._options));
     }
 
-    protected _largeLanguageModelsGpt3: LargeLanguageModelsGpt3 | undefined;
+    protected _compareLargeLanguageModels: CompareLargeLanguageModels | undefined;
 
-    public get largeLanguageModelsGpt3(): LargeLanguageModelsGpt3 {
-        return (this._largeLanguageModelsGpt3 ??= new LargeLanguageModelsGpt3(this._options));
+    public get compareLargeLanguageModels(): CompareLargeLanguageModels {
+        return (this._compareLargeLanguageModels ??= new CompareLargeLanguageModels(this._options));
     }
 
-    protected _searchYourDocsWithGpt: SearchYourDocsWithGpt | undefined;
+    protected _docSearch: DocSearch | undefined;
 
-    public get searchYourDocsWithGpt(): SearchYourDocsWithGpt {
-        return (this._searchYourDocsWithGpt ??= new SearchYourDocsWithGpt(this._options));
+    public get docSearch(): DocSearch {
+        return (this._docSearch ??= new DocSearch(this._options));
     }
 
-    protected _smartGpt: SmartGpt | undefined;
+    protected _smartgpt: Smartgpt | undefined;
 
-    public get smartGpt(): SmartGpt {
-        return (this._smartGpt ??= new SmartGpt(this._options));
+    public get smartgpt(): Smartgpt {
+        return (this._smartgpt ??= new Smartgpt(this._options));
     }
 
-    protected _summarizeYourDocsWithGpt: SummarizeYourDocsWithGpt | undefined;
+    protected _docSummary: DocSummary | undefined;
 
-    public get summarizeYourDocsWithGpt(): SummarizeYourDocsWithGpt {
-        return (this._summarizeYourDocsWithGpt ??= new SummarizeYourDocsWithGpt(this._options));
+    public get docSummary(): DocSummary {
+        return (this._docSummary ??= new DocSummary(this._options));
     }
 
     protected _functions: Functions | undefined;
@@ -160,46 +156,46 @@ export class GooeyClient {
         return (this._functions ??= new Functions(this._options));
     }
 
-    protected _lipSyncing: LipSyncing | undefined;
+    protected _lipsync: Lipsync | undefined;
 
-    public get lipSyncing(): LipSyncing {
-        return (this._lipSyncing ??= new LipSyncing(this._options));
+    public get lipsync(): Lipsync {
+        return (this._lipsync ??= new Lipsync(this._options));
     }
 
-    protected _lipsyncVideoWithAnyText: LipsyncVideoWithAnyText | undefined;
+    protected _lipsyncMaker: LipsyncMaker | undefined;
 
-    public get lipsyncVideoWithAnyText(): LipsyncVideoWithAnyText {
-        return (this._lipsyncVideoWithAnyText ??= new LipsyncVideoWithAnyText(this._options));
+    public get lipsyncMaker(): LipsyncMaker {
+        return (this._lipsyncMaker ??= new LipsyncMaker(this._options));
     }
 
-    protected _compareAiVoiceGenerators: CompareAiVoiceGenerators | undefined;
+    protected _compareTextToSpeechEngines: CompareTextToSpeechEngines | undefined;
 
-    public get compareAiVoiceGenerators(): CompareAiVoiceGenerators {
-        return (this._compareAiVoiceGenerators ??= new CompareAiVoiceGenerators(this._options));
+    public get compareTextToSpeechEngines(): CompareTextToSpeechEngines {
+        return (this._compareTextToSpeechEngines ??= new CompareTextToSpeechEngines(this._options));
     }
 
-    protected _speechRecognitionTranslation: SpeechRecognitionTranslation | undefined;
+    protected _speech: Speech | undefined;
 
-    public get speechRecognitionTranslation(): SpeechRecognitionTranslation {
-        return (this._speechRecognitionTranslation ??= new SpeechRecognitionTranslation(this._options));
+    public get speech(): Speech {
+        return (this._speech ??= new Speech(this._options));
     }
 
-    protected _textGuidedAudioGenerator: TextGuidedAudioGenerator | undefined;
+    protected _text2Audio: Text2Audio | undefined;
 
-    public get textGuidedAudioGenerator(): TextGuidedAudioGenerator {
-        return (this._textGuidedAudioGenerator ??= new TextGuidedAudioGenerator(this._options));
+    public get text2Audio(): Text2Audio {
+        return (this._text2Audio ??= new Text2Audio(this._options));
     }
 
-    protected _compareAiTranslations: CompareAiTranslations | undefined;
+    protected _compareAiTranslation: CompareAiTranslation | undefined;
 
-    public get compareAiTranslations(): CompareAiTranslations {
-        return (this._compareAiTranslations ??= new CompareAiTranslations(this._options));
+    public get compareAiTranslation(): CompareAiTranslation {
+        return (this._compareAiTranslation ??= new CompareAiTranslation(this._options));
     }
 
-    protected _editAnImageWithAiPrompt: EditAnImageWithAiPrompt | undefined;
+    protected _aiPhotoEditor: AiPhotoEditor | undefined;
 
-    public get editAnImageWithAiPrompt(): EditAnImageWithAiPrompt {
-        return (this._editAnImageWithAiPrompt ??= new EditAnImageWithAiPrompt(this._options));
+    public get aiPhotoEditor(): AiPhotoEditor {
+        return (this._aiPhotoEditor ??= new AiPhotoEditor(this._options));
     }
 
     protected _compareAiImageGenerators: CompareAiImageGenerators | undefined;
@@ -208,66 +204,64 @@ export class GooeyClient {
         return (this._compareAiImageGenerators ??= new CompareAiImageGenerators(this._options));
     }
 
-    protected _generateProductPhotoBackgrounds: GenerateProductPhotoBackgrounds | undefined;
+    protected _productPhotoBackgroundGenerator: ProductPhotoBackgroundGenerator | undefined;
 
-    public get generateProductPhotoBackgrounds(): GenerateProductPhotoBackgrounds {
-        return (this._generateProductPhotoBackgrounds ??= new GenerateProductPhotoBackgrounds(this._options));
+    public get productPhotoBackgroundGenerator(): ProductPhotoBackgroundGenerator {
+        return (this._productPhotoBackgroundGenerator ??= new ProductPhotoBackgroundGenerator(this._options));
     }
 
-    protected _aiImageWithAFace: AiImageWithAFace | undefined;
+    protected _faceInAiGeneratedPhoto: FaceInAiGeneratedPhoto | undefined;
 
-    public get aiImageWithAFace(): AiImageWithAFace {
-        return (this._aiImageWithAFace ??= new AiImageWithAFace(this._options));
+    public get faceInAiGeneratedPhoto(): FaceInAiGeneratedPhoto {
+        return (this._faceInAiGeneratedPhoto ??= new FaceInAiGeneratedPhoto(this._options));
     }
 
-    protected _aiGeneratedPhotoFromEmailProfileLookup: AiGeneratedPhotoFromEmailProfileLookup | undefined;
+    protected _aiImageFromEmailLookup: AiImageFromEmailLookup | undefined;
 
-    public get aiGeneratedPhotoFromEmailProfileLookup(): AiGeneratedPhotoFromEmailProfileLookup {
-        return (this._aiGeneratedPhotoFromEmailProfileLookup ??= new AiGeneratedPhotoFromEmailProfileLookup(
-            this._options
-        ));
+    public get aiImageFromEmailLookup(): AiImageFromEmailLookup {
+        return (this._aiImageFromEmailLookup ??= new AiImageFromEmailLookup(this._options));
     }
 
-    protected _renderImageSearchResultsWithAi: RenderImageSearchResultsWithAi | undefined;
+    protected _renderImagesWithAi: RenderImagesWithAi | undefined;
 
-    public get renderImageSearchResultsWithAi(): RenderImageSearchResultsWithAi {
-        return (this._renderImageSearchResultsWithAi ??= new RenderImageSearchResultsWithAi(this._options));
+    public get renderImagesWithAi(): RenderImagesWithAi {
+        return (this._renderImagesWithAi ??= new RenderImagesWithAi(this._options));
     }
 
-    protected _aiBackgroundChanger: AiBackgroundChanger | undefined;
+    protected _removeImageBackgroundWithAi: RemoveImageBackgroundWithAi | undefined;
 
-    public get aiBackgroundChanger(): AiBackgroundChanger {
-        return (this._aiBackgroundChanger ??= new AiBackgroundChanger(this._options));
+    public get removeImageBackgroundWithAi(): RemoveImageBackgroundWithAi {
+        return (this._removeImageBackgroundWithAi ??= new RemoveImageBackgroundWithAi(this._options));
     }
 
-    protected _compareAiImageUpscalers: CompareAiImageUpscalers | undefined;
+    protected _compareAiUpscalers: CompareAiUpscalers | undefined;
 
-    public get compareAiImageUpscalers(): CompareAiImageUpscalers {
-        return (this._compareAiImageUpscalers ??= new CompareAiImageUpscalers(this._options));
+    public get compareAiUpscalers(): CompareAiUpscalers {
+        return (this._compareAiUpscalers ??= new CompareAiUpscalers(this._options));
     }
 
-    protected _chyronPlantBot: ChyronPlantBot | undefined;
+    protected _chyronplant: Chyronplant | undefined;
 
-    public get chyronPlantBot(): ChyronPlantBot {
-        return (this._chyronPlantBot ??= new ChyronPlantBot(this._options));
+    public get chyronplant(): Chyronplant {
+        return (this._chyronplant ??= new Chyronplant(this._options));
     }
 
-    protected _letterWriter: LetterWriter | undefined;
+    protected _letterwriter: Letterwriter | undefined;
 
-    public get letterWriter(): LetterWriter {
-        return (this._letterWriter ??= new LetterWriter(this._options));
+    public get letterwriter(): Letterwriter {
+        return (this._letterwriter ??= new Letterwriter(this._options));
     }
 
-    protected _embeddings: Embeddings | undefined;
+    protected _textEmbedings: TextEmbedings | undefined;
 
-    public get embeddings(): Embeddings {
-        return (this._embeddings ??= new Embeddings(this._options));
+    public get textEmbedings(): TextEmbedings {
+        return (this._textEmbedings ??= new TextEmbedings(this._options));
     }
 
-    protected _peopleAlsoAskAnswersFromADoc: PeopleAlsoAskAnswersFromADoc | undefined;
+    protected _relatedQnaMakerDoc: RelatedQnaMakerDoc | undefined;
 
-    public get peopleAlsoAskAnswersFromADoc(): PeopleAlsoAskAnswersFromADoc {
-        return (this._peopleAlsoAskAnswersFromADoc ??= new PeopleAlsoAskAnswersFromADoc(this._options));
+    public get relatedQnaMakerDoc(): RelatedQnaMakerDoc {
+        return (this._relatedQnaMakerDoc ??= new RelatedQnaMakerDoc(this._options));
     }
 
     protected _misc: Misc | undefined;

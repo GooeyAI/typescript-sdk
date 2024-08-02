@@ -1,1 +1,0 @@
-export { TranslationPageRequest } from "./TranslationPageRequest";

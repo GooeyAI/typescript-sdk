@@ -1,2 +1,1 @@
-export { type FunctionsPageRequest } from "./FunctionsPageRequest";
-export { type StatusFunctionsRequest } from "./StatusFunctionsRequest";
+export { type FunctionsStatusRequest } from "./FunctionsStatusRequest";

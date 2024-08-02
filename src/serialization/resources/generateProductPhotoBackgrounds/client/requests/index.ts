@@ -1,1 +1,0 @@
-export { ObjectInpaintingPageRequest } from "./ObjectInpaintingPageRequest";

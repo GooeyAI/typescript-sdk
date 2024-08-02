@@ -1,1 +1,0 @@
-export { GoogleGptPageRequest } from "./GoogleGptPageRequest";

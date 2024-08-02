@@ -1,1 +1,0 @@
-export { GoogleImageGenPageRequest } from "./GoogleImageGenPageRequest";
