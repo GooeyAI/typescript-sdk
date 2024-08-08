@@ -19,9 +19,7 @@ Instantiate and use the client with the following:
 import { GooeyClient } from "gooeyai";
 
 const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
-await client.copilotIntegrations.videoBotsStreamCreate({
-    integrationId: "integration_id",
-});
+await client.copilotAsync();
 ```
 
 ## Request And Response Types
@@ -46,7 +44,7 @@ will be thrown.
 import { GooeyError } from "gooeyai";
 
 try {
-    await client.copilotIntegrations.videoBotsStreamCreate(...);
+    await client.copilotAsync(...);
 } catch (err) {
     if (err instanceof GooeyError) {
         console.log(err.statusCode);
@@ -73,7 +71,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.copilotIntegrations.videoBotsStreamCreate(..., {
+const response = await client.copilotAsync(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -83,7 +81,7 @@ const response = await client.copilotIntegrations.videoBotsStreamCreate(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.copilotIntegrations.videoBotsStreamCreate(..., {
+const response = await client.copilotAsync(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -94,7 +92,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.copilotIntegrations.videoBotsStreamCreate(..., {
+const response = await client.copilotAsync(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
