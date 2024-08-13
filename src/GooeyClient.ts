@@ -23,6 +23,7 @@ export class GooeyClient extends GooeyInternalClient {
                                 url: location,
                                 method: "GET",
                                 headers: {
+                                    ...args.headers,
                                     Authorization: `Bearer ${options.apiKey}`,
                                 },
                             })) as SuccessfulResponse<any>;
