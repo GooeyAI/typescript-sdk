@@ -19,8 +19,6 @@ export { TextToSpeechPageRequest } from "./TextToSpeechPageRequest";
 export { AsrPageRequest } from "./AsrPageRequest";
 export { Text2AudioPageRequest } from "./Text2AudioPageRequest";
 export { TranslationPageRequest } from "./TranslationPageRequest";
-export { Img2ImgPageRequest } from "./Img2ImgPageRequest";
-export { CompareText2ImgPageRequest } from "./CompareText2ImgPageRequest";
 export { ObjectInpaintingPageRequest } from "./ObjectInpaintingPageRequest";
 export { FaceInpaintingPageRequest } from "./FaceInpaintingPageRequest";
 export { EmailFaceInpaintingPageRequest } from "./EmailFaceInpaintingPageRequest";
