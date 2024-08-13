@@ -1,10 +1,10 @@
-import { GooeyClient } from ".";
+import { GooeyClient as GooeyInternalClient } from "./Client";
 import { AsyncApiResponseModelV3 } from "./api";
 import { Fetcher, fetcher } from "./core";
 import { FailedResponse, SuccessfulResponse } from "./core/fetcher/APIResponse";
 
-export class PollingClient extends GooeyClient {
-    constructor(options: GooeyClient.Options) {
+export class GooeyClient extends GooeyInternalClient {
+    constructor(options: GooeyInternalClient.Options) {
         super({
             ...options,
             fetcher: async (args: Fetcher.Args) => {
