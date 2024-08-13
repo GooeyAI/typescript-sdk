@@ -1,7 +1,7 @@
-import { AsyncApiResponseModelV3 } from "api";
-import { GooeyClient } from "Client";
-import { Fetcher, fetcher } from "core";
-import { FailedResponse, SuccessfulResponse } from "core/fetcher/APIResponse";
+import { GooeyClient } from ".";
+import { AsyncApiResponseModelV3 } from "./api";
+import { Fetcher, fetcher } from "./core";
+import { FailedResponse, SuccessfulResponse } from "./core/fetcher/APIResponse";
 
 export class PollingClient extends GooeyClient {
     constructor(options: GooeyClient.Options) {
@@ -14,21 +14,18 @@ export class PollingClient extends GooeyClient {
                     const location = response.headers?.get("Location") || response.body.statusUrl;
 
                     if (location) {
-                        let polling = true;
-                        new Promise(resolve => setTimeout(resolve, 15000)).then( () => {
-                            polling = false;
-                        });
+                        const startTime = Date.now();
 
-                        while (polling) {
-                            const statusResponse = await fetcher<{
-                                status: "completed" | "failed"
+                        while (Date.now() - startTime < 30000) {
+                            const statusResponse = (await fetcher<{
+                                status: "completed" | "failed";
                             }>({
                                 url: location,
                                 method: "GET",
                                 headers: {
-                                    Authorization: `Bearer ${options.apiKey}`
-                                }
-                            }) as SuccessfulResponse<any>;
+                                    Authorization: `Bearer ${options.apiKey}`,
+                                },
+                            })) as SuccessfulResponse<any>;
 
                             if (statusResponse.ok && statusResponse.body.status === "completed") {
                                 return statusResponse;
@@ -36,27 +33,27 @@ export class PollingClient extends GooeyClient {
                                 return {
                                     ok: false,
                                     error: {
-                                        reason: 'status-code',
-                                        body: statusResponse.body
-                                    }
+                                        reason: "status-code",
+                                        body: statusResponse.body,
+                                    },
                                 } as FailedResponse<Fetcher.Error>;
+                            } else if (!statusResponse.ok) {
+                                return statusResponse;
                             }
                         }
 
-                        if (!polling) {
-                            return {
-                                ok: false,
-                                error: {
-                                    reason: 'timeout',
-                                    errorMessage: 'async response timed out'
-                                }
-                            }
-                        }
-                    } 
+                        return {
+                            ok: false,
+                            error: {
+                                reason: "timeout",
+                                errorMessage: "async response timed out",
+                            },
+                        };
+                    }
                 }
 
                 return response;
-            }
+            },
         });
     }
 }
