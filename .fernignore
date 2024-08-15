@@ -1,3 +1,4 @@
 # Specify files that shouldn't be modified by Fern
 src/GooeyClient.ts
 src/index.ts
+src/core/fetcher/requestWithRetries.ts
