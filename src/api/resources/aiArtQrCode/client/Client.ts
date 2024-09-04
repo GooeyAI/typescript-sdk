@@ -45,7 +45,7 @@ export class AiArtQrCode {
     public async asyncArtQrCode(
         request: Gooey.QrCodeGeneratorPageRequest,
         requestOptions?: AiArtQrCode.RequestOptions
-    ): Promise<Gooey.AsyncApiResponseModelV3> {
+    ): Promise<Gooey.QrCodeGeneratorPageResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -62,7 +62,7 @@ export class AiArtQrCode {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta10",
+                "X-Fern-SDK-Version": "0.0.1-beta11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -75,7 +75,7 @@ export class AiArtQrCode {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
+            return serializers.QrCodeGeneratorPageResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

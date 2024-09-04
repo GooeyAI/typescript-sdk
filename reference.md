@@ -144,7 +144,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 
 ## CopilotForYourEnterprise
 
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncVideoBots</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncVideoBots</a>({ ...params }) -> Gooey.VideoBotsPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -194,7 +194,7 @@ await client.copilotForYourEnterprise.asyncVideoBots();
 
 ## AiArtQrCode
 
-<details><summary><code>client.aiArtQrCode.<a href="/src/api/resources/aiArtQrCode/client/Client.ts">asyncArtQrCode</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.aiArtQrCode.<a href="/src/api/resources/aiArtQrCode/client/Client.ts">asyncArtQrCode</a>({ ...params }) -> Gooey.QrCodeGeneratorPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -246,7 +246,7 @@ await client.aiArtQrCode.asyncArtQrCode({
 
 ## Evaluator
 
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncBulkEval</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncBulkEval</a>({ ...params }) -> Gooey.BulkEvalPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -298,7 +298,7 @@ await client.evaluator.asyncBulkEval({
 
 ## SmartGpt
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncSmartGpt</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncSmartGpt</a>({ ...params }) -> Gooey.SmartGptPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -390,7 +390,7 @@ await client.smartGpt.post();
 
 ## SummarizeYourDocsWithGpt
 
-<details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">asyncDocSummary</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">asyncDocSummary</a>({ ...params }) -> Gooey.DocSummaryPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -442,7 +442,7 @@ await client.summarizeYourDocsWithGpt.asyncDocSummary({
 
 ## LipSyncing
 
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncLipsync</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncLipsync</a>({ ...params }) -> Gooey.LipsyncPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -624,48 +624,6 @@ await client.bulkRunner.post();
 </dl>
 </details>
 
-## Functions
-
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.functions.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Functions.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Embeddings
 
 <details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">post</a>() -> void</code></summary>
@@ -698,6 +656,48 @@ await client.embeddings.post();
 <dd>
 
 **requestOptions:** `Embeddings.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Functions
+
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.functions.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Functions.RequestOptions`
 
 </dd>
 </dl>
