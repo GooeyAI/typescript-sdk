@@ -25,7 +25,7 @@ describe("Test exponential backoff", () => {
             .mockResolvedValueOnce(new Response("", { status: 408 }))
             .mockResolvedValueOnce(new Response("", { status: 409 }))
             .mockResolvedValueOnce(new Response("", { status: 429 }))
-            .mockResolvedValueOnce(new Response("", { status: 500 }))
+            .mockResolvedValueOnce(new Response("", { status: 503 }))
             .mockResolvedValueOnce(new Response("", { status: 502 }))
             .mockResolvedValueOnce(new Response("", { status: 200 }))
             .mockResolvedValueOnce(new Response("", { status: 408 }));
@@ -69,7 +69,7 @@ describe("Test exponential backoff", () => {
     });
 
     it("should retry with exponential backoff timing", async () => {
-        mockFetch.mockResolvedValue(new Response("", { status: 500 }));
+        mockFetch.mockResolvedValue(new Response("", { status: 502 }));
         const maxRetries = 7;
         const responsePromise = requestWithRetries(() => mockFetch(), maxRetries);
         expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -80,6 +80,6 @@ describe("Test exponential backoff", () => {
             expect(mockFetch).toHaveBeenCalledTimes(Math.min(i + 2, maxRetries + 1));
         }
         const response = await responsePromise;
-        expect(response.status).toBe(500);
+        expect(response.status).toBe(502);
     });
 });
