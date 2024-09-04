@@ -1,0 +1,1 @@
+export { QrCodeGeneratorPageRequest } from "./QrCodeGeneratorPageRequest";
