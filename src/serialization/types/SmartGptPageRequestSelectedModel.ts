@@ -12,6 +12,7 @@ export const SmartGptPageRequestSelectedModel: core.serialization.Schema<
 > = core.serialization.enum_([
     "gpt_4_o",
     "gpt_4_o_mini",
+    "chatgpt_4_o",
     "gpt_4_turbo_vision",
     "gpt_4_vision",
     "gpt_4_turbo",
@@ -28,6 +29,7 @@ export const SmartGptPageRequestSelectedModel: core.serialization.Schema<
     "mixtral_8x7b_instruct_0_1",
     "gemma_2_9b_it",
     "gemma_7b_it",
+    "gemini_1_5_flash",
     "gemini_1_5_pro",
     "gemini_1_pro_vision",
     "gemini_1_pro",
@@ -38,6 +40,8 @@ export const SmartGptPageRequestSelectedModel: core.serialization.Schema<
     "claude_3_sonnet",
     "claude_3_haiku",
     "sea_lion_7b_instruct",
+    "llama3_8b_cpt_sea_lion_v2_instruct",
+    "sarvam_2b",
     "text_davinci_003",
     "text_davinci_002",
     "code_davinci_002",
@@ -50,6 +54,7 @@ export declare namespace SmartGptPageRequestSelectedModel {
     type Raw =
         | "gpt_4_o"
         | "gpt_4_o_mini"
+        | "chatgpt_4_o"
         | "gpt_4_turbo_vision"
         | "gpt_4_vision"
         | "gpt_4_turbo"
@@ -66,6 +71,7 @@ export declare namespace SmartGptPageRequestSelectedModel {
         | "mixtral_8x7b_instruct_0_1"
         | "gemma_2_9b_it"
         | "gemma_7b_it"
+        | "gemini_1_5_flash"
         | "gemini_1_5_pro"
         | "gemini_1_pro_vision"
         | "gemini_1_pro"
@@ -76,6 +82,8 @@ export declare namespace SmartGptPageRequestSelectedModel {
         | "claude_3_sonnet"
         | "claude_3_haiku"
         | "sea_lion_7b_instruct"
+        | "llama3_8b_cpt_sea_lion_v2_instruct"
+        | "sarvam_2b"
         | "text_davinci_003"
         | "text_davinci_002"
         | "code_davinci_002"

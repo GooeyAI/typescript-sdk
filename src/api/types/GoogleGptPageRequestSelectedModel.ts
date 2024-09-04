@@ -5,6 +5,7 @@
 export type GoogleGptPageRequestSelectedModel =
     | "gpt_4_o"
     | "gpt_4_o_mini"
+    | "chatgpt_4_o"
     | "gpt_4_turbo_vision"
     | "gpt_4_vision"
     | "gpt_4_turbo"
@@ -21,6 +22,7 @@ export type GoogleGptPageRequestSelectedModel =
     | "mixtral_8x7b_instruct_0_1"
     | "gemma_2_9b_it"
     | "gemma_7b_it"
+    | "gemini_1_5_flash"
     | "gemini_1_5_pro"
     | "gemini_1_pro_vision"
     | "gemini_1_pro"
@@ -31,6 +33,8 @@ export type GoogleGptPageRequestSelectedModel =
     | "claude_3_sonnet"
     | "claude_3_haiku"
     | "sea_lion_7b_instruct"
+    | "llama3_8b_cpt_sea_lion_v2_instruct"
+    | "sarvam_2b"
     | "text_davinci_003"
     | "text_davinci_002"
     | "code_davinci_002"
@@ -41,6 +45,7 @@ export type GoogleGptPageRequestSelectedModel =
 export const GoogleGptPageRequestSelectedModel = {
     Gpt4O: "gpt_4_o",
     Gpt4OMini: "gpt_4_o_mini",
+    Chatgpt4O: "chatgpt_4_o",
     Gpt4TurboVision: "gpt_4_turbo_vision",
     Gpt4Vision: "gpt_4_vision",
     Gpt4Turbo: "gpt_4_turbo",
@@ -57,6 +62,7 @@ export const GoogleGptPageRequestSelectedModel = {
     Mixtral8X7BInstruct01: "mixtral_8x7b_instruct_0_1",
     Gemma29BIt: "gemma_2_9b_it",
     Gemma7BIt: "gemma_7b_it",
+    Gemini15Flash: "gemini_1_5_flash",
     Gemini15Pro: "gemini_1_5_pro",
     Gemini1ProVision: "gemini_1_pro_vision",
     Gemini1Pro: "gemini_1_pro",
@@ -67,6 +73,8 @@ export const GoogleGptPageRequestSelectedModel = {
     Claude3Sonnet: "claude_3_sonnet",
     Claude3Haiku: "claude_3_haiku",
     SeaLion7BInstruct: "sea_lion_7b_instruct",
+    Llama38BCptSeaLionV2Instruct: "llama3_8b_cpt_sea_lion_v2_instruct",
+    Sarvam2B: "sarvam_2b",
     TextDavinci003: "text_davinci_003",
     TextDavinci002: "text_davinci_002",
     CodeDavinci002: "code_davinci_002",

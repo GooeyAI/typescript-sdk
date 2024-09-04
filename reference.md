@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">relatedQnaMakerDocStatus</a>({ ...params }) -> Gooey.RelatedQnADocPageStatusResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">healthStatusGet</a>() -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -13,9 +13,7 @@
 <dd>
 
 ```typescript
-await client.relatedQnaMakerDocStatus({
-    runId: "run_id",
-});
+await client.healthStatusGet();
 ```
 
 </dd>
@@ -27,14 +25,6 @@ await client.relatedQnaMakerDocStatus({
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.RelatedQnaMakerDocStatusRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -234,6 +224,174 @@ await client.misc.videoBotsBroadcast({
 <dd>
 
 **requestOptions:** `Misc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## BulkRunner
+
+<details><summary><code>client.bulkRunner.<a href="/src/api/resources/bulkRunner/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.bulkRunner.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `BulkRunner.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## SmartGpt
+
+<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.smartGpt.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `SmartGpt.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Functions
+
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.functions.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Functions.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Embeddings
+
+<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.embeddings.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Embeddings.RequestOptions`
 
 </dd>
 </dl>

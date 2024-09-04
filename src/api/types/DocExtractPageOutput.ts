@@ -5,5 +5,6 @@
 import * as Gooey from "../index";
 
 export interface DocExtractPageOutput {
+    outputDocuments?: string[];
     calledFunctions?: Gooey.CalledFunctionResponse[];
 }

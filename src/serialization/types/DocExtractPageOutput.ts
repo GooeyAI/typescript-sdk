@@ -11,6 +11,10 @@ export const DocExtractPageOutput: core.serialization.ObjectSchema<
     serializers.DocExtractPageOutput.Raw,
     Gooey.DocExtractPageOutput
 > = core.serialization.object({
+    outputDocuments: core.serialization.property(
+        "output_documents",
+        core.serialization.list(core.serialization.string()).optional()
+    ),
     calledFunctions: core.serialization.property(
         "called_functions",
         core.serialization.list(CalledFunctionResponse).optional()
@@ -19,6 +23,7 @@ export const DocExtractPageOutput: core.serialization.ObjectSchema<
 
 export declare namespace DocExtractPageOutput {
     interface Raw {
+        output_documents?: string[] | null;
         called_functions?: CalledFunctionResponse.Raw[] | null;
     }
 }

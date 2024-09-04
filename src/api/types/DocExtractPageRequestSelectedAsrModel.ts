@@ -14,8 +14,9 @@ export type DocExtractPageRequestSelectedAsrModel =
     | "usm"
     | "deepgram"
     | "azure"
-    | "seamless_m4t"
-    | "mms_1b_all";
+    | "seamless_m4t_v2"
+    | "mms_1b_all"
+    | "seamless_m4t";
 
 export const DocExtractPageRequestSelectedAsrModel = {
     WhisperLargeV2: "whisper_large_v2",
@@ -29,6 +30,7 @@ export const DocExtractPageRequestSelectedAsrModel = {
     Usm: "usm",
     Deepgram: "deepgram",
     Azure: "azure",
-    SeamlessM4T: "seamless_m4t",
+    SeamlessM4TV2: "seamless_m4t_v2",
     Mms1BAll: "mms_1b_all",
+    SeamlessM4T: "seamless_m4t",
 } as const;

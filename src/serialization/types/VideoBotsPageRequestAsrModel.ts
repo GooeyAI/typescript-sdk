@@ -21,8 +21,9 @@ export const VideoBotsPageRequestAsrModel: core.serialization.Schema<
     "usm",
     "deepgram",
     "azure",
-    "seamless_m4t",
+    "seamless_m4t_v2",
     "mms_1b_all",
+    "seamless_m4t",
 ]);
 
 export declare namespace VideoBotsPageRequestAsrModel {
@@ -38,6 +39,7 @@ export declare namespace VideoBotsPageRequestAsrModel {
         | "usm"
         | "deepgram"
         | "azure"
-        | "seamless_m4t"
-        | "mms_1b_all";
+        | "seamless_m4t_v2"
+        | "mms_1b_all"
+        | "seamless_m4t";
 }

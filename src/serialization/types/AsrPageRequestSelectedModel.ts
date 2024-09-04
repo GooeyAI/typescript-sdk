@@ -21,8 +21,9 @@ export const AsrPageRequestSelectedModel: core.serialization.Schema<
     "usm",
     "deepgram",
     "azure",
-    "seamless_m4t",
+    "seamless_m4t_v2",
     "mms_1b_all",
+    "seamless_m4t",
 ]);
 
 export declare namespace AsrPageRequestSelectedModel {
@@ -38,6 +39,7 @@ export declare namespace AsrPageRequestSelectedModel {
         | "usm"
         | "deepgram"
         | "azure"
-        | "seamless_m4t"
-        | "mms_1b_all";
+        | "seamless_m4t_v2"
+        | "mms_1b_all"
+        | "seamless_m4t";
 }
