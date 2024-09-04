@@ -2,3 +2,4 @@
 src/GooeyClient.ts
 src/index.ts
 src/core/fetcher/requestWithRetries.ts
+tests/unit/fetcher/requestWithRetries.test.ts
