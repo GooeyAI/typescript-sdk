@@ -1,1 +1,0 @@
-export { DocSummaryPageRequest } from "./DocSummaryPageRequest";

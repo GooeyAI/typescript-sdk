@@ -1,4 +1,5 @@
 export { type DeforumSdPageRequest } from "./DeforumSdPageRequest";
+export { type QrCodeGeneratorPageRequest } from "./QrCodeGeneratorPageRequest";
 export { type RelatedQnAPageRequest } from "./RelatedQnAPageRequest";
 export { type SeoSummaryPageRequest } from "./SeoSummaryPageRequest";
 export { type GoogleGptPageRequest } from "./GoogleGptPageRequest";
@@ -7,6 +8,7 @@ export { type BulkRunnerPageRequest } from "./BulkRunnerPageRequest";
 export { type DocExtractPageRequest } from "./DocExtractPageRequest";
 export { type CompareLlmPageRequest } from "./CompareLlmPageRequest";
 export { type DocSearchPageRequest } from "./DocSearchPageRequest";
+export { type DocSummaryPageRequest } from "./DocSummaryPageRequest";
 export { type LipsyncTtsPageRequest } from "./LipsyncTtsPageRequest";
 export { type TextToSpeechPageRequest } from "./TextToSpeechPageRequest";
 export { type AsrPageRequest } from "./AsrPageRequest";
@@ -20,4 +22,5 @@ export { type EmailFaceInpaintingPageRequest } from "./EmailFaceInpaintingPageRe
 export { type GoogleImageGenPageRequest } from "./GoogleImageGenPageRequest";
 export { type ImageSegmentationPageRequest } from "./ImageSegmentationPageRequest";
 export { type CompareUpscalerPageRequest } from "./CompareUpscalerPageRequest";
+export { type EmbeddingsPageRequest } from "./EmbeddingsPageRequest";
 export { type RelatedQnADocPageRequest } from "./RelatedQnADocPageRequest";

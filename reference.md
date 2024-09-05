@@ -192,58 +192,6 @@ await client.copilotForYourEnterprise.asyncVideoBots();
 </dl>
 </details>
 
-## AiArtQrCode
-
-<details><summary><code>client.aiArtQrCode.<a href="/src/api/resources/aiArtQrCode/client/Client.ts">asyncArtQrCode</a>({ ...params }) -> Gooey.QrCodeGeneratorPageResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.aiArtQrCode.asyncArtQrCode({
-    textPrompt: "text_prompt",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.QrCodeGeneratorPageRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AiArtQrCode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Evaluator
 
 <details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncBulkEval</a>({ ...params }) -> Gooey.BulkEvalPageResponse</code></summary>
@@ -388,9 +336,9 @@ await client.smartGpt.post();
 </dl>
 </details>
 
-## SummarizeYourDocsWithGpt
+## Functions
 
-<details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">asyncDocSummary</a>({ ...params }) -> Gooey.DocSummaryPageResponse</code></summary>
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFunctions</a>({ ...params }) -> Gooey.FunctionsPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -403,9 +351,7 @@ await client.smartGpt.post();
 <dd>
 
 ```typescript
-await client.summarizeYourDocsWithGpt.asyncDocSummary({
-    documents: ["documents"],
-});
+await client.functions.asyncFunctions();
 ```
 
 </dd>
@@ -421,7 +367,7 @@ await client.summarizeYourDocsWithGpt.asyncDocSummary({
 <dl>
 <dd>
 
-**request:** `Gooey.DocSummaryPageRequest`
+**request:** `Gooey.FunctionsPageRequest`
 
 </dd>
 </dl>
@@ -429,7 +375,47 @@ await client.summarizeYourDocsWithGpt.asyncDocSummary({
 <dl>
 <dd>
 
-**requestOptions:** `SummarizeYourDocsWithGpt.RequestOptions`
+**requestOptions:** `Functions.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.functions.post();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Functions.RequestOptions`
 
 </dd>
 </dl>
@@ -656,48 +642,6 @@ await client.embeddings.post();
 <dd>
 
 **requestOptions:** `Embeddings.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Functions
-
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.functions.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `Functions.RequestOptions`
 
 </dd>
 </dl>
