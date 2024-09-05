@@ -144,7 +144,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 
 ## CopilotForYourEnterprise
 
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncFormVideoBots</a>({ ...params }) -> Gooey.BodyAsyncFormVideoBots</code></summary>
+<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncFormVideoBots</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -157,7 +157,97 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 <dd>
 
 ```typescript
-await client.copilotForYourEnterprise.asyncFormVideoBots();
+await client.copilotForYourEnterprise.asyncFormVideoBots({
+    exampleId: "string",
+    functions: [
+        {
+            url: "string",
+            trigger: Gooey.RecipeFunctionTrigger.Pre,
+        },
+    ],
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    inputPrompt: "string",
+    inputAudio: "string",
+    inputImages: ["string"],
+    inputDocuments: ["string"],
+    docExtractUrl: "string",
+    messages: [
+        {
+            role: Gooey.ConversationEntryRole.User,
+            content: "string",
+            displayName: "string",
+        },
+    ],
+    botScript: "string",
+    selectedModel: Gooey.VideoBotsPageRequestSelectedModel.Gpt4O,
+    documentModel: "string",
+    taskInstructions: "string",
+    queryInstructions: "string",
+    keywordInstructions: "string",
+    documents: ["string"],
+    maxReferences: 1,
+    maxContextWords: 1,
+    scrollJump: 1,
+    embeddingModel: Gooey.VideoBotsPageRequestEmbeddingModel.Openai3Large,
+    denseWeight: 1.1,
+    citationStyle: Gooey.VideoBotsPageRequestCitationStyle.Number,
+    useUrlShortener: true,
+    asrModel: Gooey.VideoBotsPageRequestAsrModel.WhisperLargeV2,
+    asrLanguage: "string",
+    translationModel: Gooey.VideoBotsPageRequestTranslationModel.Google,
+    userLanguage: "string",
+    inputGlossaryDocument: "string",
+    outputGlossaryDocument: "string",
+    lipsyncModel: Gooey.VideoBotsPageRequestLipsyncModel.Wav2Lip,
+    tools: ["json_to_pdf"],
+    avoidRepetition: true,
+    numOutputs: 1,
+    quality: 1.1,
+    maxTokens: 1,
+    samplingTemperature: 1.1,
+    responseFormatType: Gooey.VideoBotsPageRequestResponseFormatType.Text,
+    ttsProvider: Gooey.VideoBotsPageRequestTtsProvider.GoogleTts,
+    uberduckVoiceName: "string",
+    uberduckSpeakingRate: 1.1,
+    googleVoiceName: "string",
+    googleSpeakingRate: 1.1,
+    googlePitch: 1.1,
+    barkHistoryPrompt: "string",
+    elevenlabsVoiceName: "string",
+    elevenlabsApiKey: "string",
+    elevenlabsVoiceId: "string",
+    elevenlabsModel: "string",
+    elevenlabsStability: 1.1,
+    elevenlabsSimilarityBoost: 1.1,
+    elevenlabsStyle: 1.1,
+    elevenlabsSpeakerBoost: true,
+    azureVoiceName: "string",
+    openaiVoiceName: Gooey.VideoBotsPageRequestOpenaiVoiceName.Alloy,
+    openaiTtsModel: Gooey.VideoBotsPageRequestOpenaiTtsModel.Tts1,
+    inputFace: "string",
+    facePaddingTop: 1,
+    facePaddingBottom: 1,
+    facePaddingLeft: 1,
+    facePaddingRight: 1,
+    sadtalkerSettings: {
+        still: true,
+        preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
+        poseStyle: 1,
+        expressionScale: 1.1,
+        refEyeblink: "string",
+        refPose: "string",
+        inputYaw: [1],
+        inputPitch: [1],
+        inputRoll: [1],
+    },
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 </dd>
@@ -173,7 +263,7 @@ await client.copilotForYourEnterprise.asyncFormVideoBots();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormVideoBotsRequest`
+**request:** `Gooey.VideoBotsPageRequest`
 
 </dd>
 </dl>
@@ -648,7 +738,7 @@ await client.bulkRunner.post();
 
 ## Evaluator
 
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> Gooey.BodyAsyncFormBulkEval</code></summary>
+<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -661,7 +751,43 @@ await client.bulkRunner.post();
 <dd>
 
 ```typescript
-await client.evaluator.asyncFormBulkEval();
+await client.evaluator.asyncFormBulkEval({
+    exampleId: "string",
+    functions: [
+        {
+            url: "string",
+            trigger: Gooey.RecipeFunctionTrigger.Pre,
+        },
+    ],
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    documents: ["string"],
+    evalPrompts: [
+        {
+            name: "string",
+            prompt: "string",
+        },
+    ],
+    aggFunctions: [
+        {
+            column: "string",
+            function: Gooey.AggFunctionFunction.Mean,
+        },
+    ],
+    selectedModel: Gooey.BulkEvalPageRequestSelectedModel.Gpt4O,
+    avoidRepetition: true,
+    numOutputs: 1,
+    quality: 1.1,
+    maxTokens: 1,
+    samplingTemperature: 1.1,
+    responseFormatType: Gooey.BulkEvalPageRequestResponseFormatType.Text,
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 </dd>
@@ -677,7 +803,7 @@ await client.evaluator.asyncFormBulkEval();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormBulkEvalRequest`
+**request:** `Gooey.BulkEvalPageRequest`
 
 </dd>
 </dl>
@@ -904,7 +1030,7 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 
 ## SmartGpt
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncFormSmartGpt</a>({ ...params }) -> Gooey.BodyAsyncFormSmartGpt</code></summary>
+<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncFormSmartGpt</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -917,7 +1043,34 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 <dd>
 
 ```typescript
-await client.smartGpt.asyncFormSmartGpt();
+await client.smartGpt.asyncFormSmartGpt({
+    exampleId: "string",
+    functions: [
+        {
+            url: "string",
+            trigger: Gooey.RecipeFunctionTrigger.Pre,
+        },
+    ],
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    inputPrompt: "string",
+    cotPrompt: "string",
+    reflexionPrompt: "string",
+    deraPrompt: "string",
+    selectedModel: Gooey.SmartGptPageRequestSelectedModel.Gpt4O,
+    avoidRepetition: true,
+    numOutputs: 1,
+    quality: 1.1,
+    maxTokens: 1,
+    samplingTemperature: 1.1,
+    responseFormatType: Gooey.SmartGptPageRequestResponseFormatType.Text,
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 </dd>
@@ -933,7 +1086,7 @@ await client.smartGpt.asyncFormSmartGpt();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormSmartGptRequest`
+**request:** `Gooey.SmartGptPageRequest`
 
 </dd>
 </dl>
@@ -1096,7 +1249,7 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 
 ## Functions
 
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFormFunctions</a>({ ...params }) -> Gooey.BodyAsyncFormFunctions</code></summary>
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFormFunctions</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1109,7 +1262,18 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 <dd>
 
 ```typescript
-await client.functions.asyncFormFunctions();
+await client.functions.asyncFormFunctions({
+    exampleId: "string",
+    code: "string",
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 </dd>
@@ -1125,7 +1289,7 @@ await client.functions.asyncFormFunctions();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormFunctionsRequest`
+**request:** `Gooey.FunctionsPageRequest`
 
 </dd>
 </dl>
@@ -1236,7 +1400,7 @@ await client.functions.post();
 
 ## LipSyncing
 
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncFormLipsync</a>({ ...params }) -> Gooey.BodyAsyncFormLipsync</code></summary>
+<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncFormLipsync</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1249,7 +1413,41 @@ await client.functions.post();
 <dd>
 
 ```typescript
-await client.lipSyncing.asyncFormLipsync();
+await client.lipSyncing.asyncFormLipsync({
+    exampleId: "string",
+    functions: [
+        {
+            url: "string",
+            trigger: Gooey.RecipeFunctionTrigger.Pre,
+        },
+    ],
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    inputFace: "string",
+    facePaddingTop: 1,
+    facePaddingBottom: 1,
+    facePaddingLeft: 1,
+    facePaddingRight: 1,
+    sadtalkerSettings: {
+        still: true,
+        preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
+        poseStyle: 1,
+        expressionScale: 1.1,
+        refEyeblink: "string",
+        refPose: "string",
+        inputYaw: [1],
+        inputPitch: [1],
+        inputRoll: [1],
+    },
+    selectedModel: Gooey.LipsyncPageRequestSelectedModel.Wav2Lip,
+    inputAudio: "string",
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 </dd>
@@ -1265,7 +1463,7 @@ await client.lipSyncing.asyncFormLipsync();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormLipsyncRequest`
+**request:** `Gooey.LipsyncPageRequest`
 
 </dd>
 </dl>

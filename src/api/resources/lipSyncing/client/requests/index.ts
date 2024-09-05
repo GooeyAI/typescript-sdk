@@ -1,2 +1,2 @@
-export { type AsyncFormLipsyncRequest } from "./AsyncFormLipsyncRequest";
+export { type LipsyncPageRequest } from "./LipsyncPageRequest";
 export { type StatusLipsyncRequest } from "./StatusLipsyncRequest";

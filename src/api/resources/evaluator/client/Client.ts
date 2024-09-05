@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Evaluator {
@@ -30,7 +30,7 @@ export class Evaluator {
     constructor(protected readonly _options: Evaluator.Options = {}) {}
 
     /**
-     * @param {Gooey.AsyncFormBulkEvalRequest} request
+     * @param {Gooey.BulkEvalPageRequest} request
      * @param {Evaluator.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.BadRequestError}
@@ -40,13 +40,43 @@ export class Evaluator {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.evaluator.asyncFormBulkEval()
+     *     await client.evaluator.asyncFormBulkEval({
+     *         exampleId: "string",
+     *         functions: [{
+     *                 url: "string",
+     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
+     *             }],
+     *         variables: {
+     *             "string": {
+     *                 "key": "value"
+     *             }
+     *         },
+     *         documents: ["string"],
+     *         evalPrompts: [{
+     *                 name: "string",
+     *                 prompt: "string"
+     *             }],
+     *         aggFunctions: [{
+     *                 column: "string",
+     *                 function: Gooey.AggFunctionFunction.Mean
+     *             }],
+     *         selectedModel: Gooey.BulkEvalPageRequestSelectedModel.Gpt4O,
+     *         avoidRepetition: true,
+     *         numOutputs: 1,
+     *         quality: 1.1,
+     *         maxTokens: 1,
+     *         samplingTemperature: 1.1,
+     *         responseFormatType: Gooey.BulkEvalPageRequestResponseFormatType.Text,
+     *         settings: {
+     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
+     *         }
+     *     })
      */
     public async asyncFormBulkEval(
-        request: Gooey.AsyncFormBulkEvalRequest = {},
+        request: Gooey.BulkEvalPageRequest,
         requestOptions?: Evaluator.RequestOptions
-    ): Promise<Gooey.BodyAsyncFormBulkEval> {
-        const { exampleId } = request;
+    ): Promise<unknown> {
+        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -62,25 +92,20 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.BulkEvalPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BodyAsyncFormBulkEval.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
@@ -180,7 +205,7 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace CopilotForYourEnterprise {
@@ -30,7 +30,7 @@ export class CopilotForYourEnterprise {
     constructor(protected readonly _options: CopilotForYourEnterprise.Options = {}) {}
 
     /**
-     * @param {Gooey.AsyncFormVideoBotsRequest} request
+     * @param {Gooey.VideoBotsPageRequest} request
      * @param {CopilotForYourEnterprise.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.BadRequestError}
@@ -40,13 +40,99 @@ export class CopilotForYourEnterprise {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.copilotForYourEnterprise.asyncFormVideoBots()
+     *     await client.copilotForYourEnterprise.asyncFormVideoBots({
+     *         exampleId: "string",
+     *         functions: [{
+     *                 url: "string",
+     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
+     *             }],
+     *         variables: {
+     *             "string": {
+     *                 "key": "value"
+     *             }
+     *         },
+     *         inputPrompt: "string",
+     *         inputAudio: "string",
+     *         inputImages: ["string"],
+     *         inputDocuments: ["string"],
+     *         docExtractUrl: "string",
+     *         messages: [{
+     *                 role: Gooey.ConversationEntryRole.User,
+     *                 content: "string",
+     *                 displayName: "string"
+     *             }],
+     *         botScript: "string",
+     *         selectedModel: Gooey.VideoBotsPageRequestSelectedModel.Gpt4O,
+     *         documentModel: "string",
+     *         taskInstructions: "string",
+     *         queryInstructions: "string",
+     *         keywordInstructions: "string",
+     *         documents: ["string"],
+     *         maxReferences: 1,
+     *         maxContextWords: 1,
+     *         scrollJump: 1,
+     *         embeddingModel: Gooey.VideoBotsPageRequestEmbeddingModel.Openai3Large,
+     *         denseWeight: 1.1,
+     *         citationStyle: Gooey.VideoBotsPageRequestCitationStyle.Number,
+     *         useUrlShortener: true,
+     *         asrModel: Gooey.VideoBotsPageRequestAsrModel.WhisperLargeV2,
+     *         asrLanguage: "string",
+     *         translationModel: Gooey.VideoBotsPageRequestTranslationModel.Google,
+     *         userLanguage: "string",
+     *         inputGlossaryDocument: "string",
+     *         outputGlossaryDocument: "string",
+     *         lipsyncModel: Gooey.VideoBotsPageRequestLipsyncModel.Wav2Lip,
+     *         tools: ["json_to_pdf"],
+     *         avoidRepetition: true,
+     *         numOutputs: 1,
+     *         quality: 1.1,
+     *         maxTokens: 1,
+     *         samplingTemperature: 1.1,
+     *         responseFormatType: Gooey.VideoBotsPageRequestResponseFormatType.Text,
+     *         ttsProvider: Gooey.VideoBotsPageRequestTtsProvider.GoogleTts,
+     *         uberduckVoiceName: "string",
+     *         uberduckSpeakingRate: 1.1,
+     *         googleVoiceName: "string",
+     *         googleSpeakingRate: 1.1,
+     *         googlePitch: 1.1,
+     *         barkHistoryPrompt: "string",
+     *         elevenlabsVoiceName: "string",
+     *         elevenlabsApiKey: "string",
+     *         elevenlabsVoiceId: "string",
+     *         elevenlabsModel: "string",
+     *         elevenlabsStability: 1.1,
+     *         elevenlabsSimilarityBoost: 1.1,
+     *         elevenlabsStyle: 1.1,
+     *         elevenlabsSpeakerBoost: true,
+     *         azureVoiceName: "string",
+     *         openaiVoiceName: Gooey.VideoBotsPageRequestOpenaiVoiceName.Alloy,
+     *         openaiTtsModel: Gooey.VideoBotsPageRequestOpenaiTtsModel.Tts1,
+     *         inputFace: "string",
+     *         facePaddingTop: 1,
+     *         facePaddingBottom: 1,
+     *         facePaddingLeft: 1,
+     *         facePaddingRight: 1,
+     *         sadtalkerSettings: {
+     *             still: true,
+     *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
+     *             poseStyle: 1,
+     *             expressionScale: 1.1,
+     *             refEyeblink: "string",
+     *             refPose: "string",
+     *             inputYaw: [1],
+     *             inputPitch: [1],
+     *             inputRoll: [1]
+     *         },
+     *         settings: {
+     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
+     *         }
+     *     })
      */
     public async asyncFormVideoBots(
-        request: Gooey.AsyncFormVideoBotsRequest = {},
+        request: Gooey.VideoBotsPageRequest = {},
         requestOptions?: CopilotForYourEnterprise.RequestOptions
-    ): Promise<Gooey.BodyAsyncFormVideoBots> {
-        const { exampleId } = request;
+    ): Promise<unknown> {
+        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -62,25 +148,20 @@ export class CopilotForYourEnterprise {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.VideoBotsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BodyAsyncFormVideoBots.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
@@ -180,7 +261,7 @@ export class CopilotForYourEnterprise {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

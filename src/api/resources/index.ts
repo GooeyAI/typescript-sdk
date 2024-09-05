@@ -1,6 +1,13 @@
 export * as copilotIntegrations from "./copilotIntegrations";
 export * from "./copilotIntegrations/types";
 export * as copilotForYourEnterprise from "./copilotForYourEnterprise";
+export * from "./copilotForYourEnterprise/types";
+export * as evaluator from "./evaluator";
+export * from "./evaluator/types";
+export * as smartGpt from "./smartGpt";
+export * from "./smartGpt/types";
+export * as lipSyncing from "./lipSyncing";
+export * from "./lipSyncing/types";
 export * as aiAnimationGenerator from "./aiAnimationGenerator";
 export * as aiArtQrCode from "./aiArtQrCode";
 export * as generatePeopleAlsoAskSeoContent from "./generatePeopleAlsoAskSeoContent";
@@ -8,14 +15,11 @@ export * as createAPerfectSeoOptimizedTitleParagraph from "./createAPerfectSeoOp
 export * as webSearchGpt3 from "./webSearchGpt3";
 export * as profileLookupGpt3ForAiPersonalizedEmails from "./profileLookupGpt3ForAiPersonalizedEmails";
 export * as bulkRunner from "./bulkRunner";
-export * as evaluator from "./evaluator";
 export * as syntheticDataMakerForVideosPdFs from "./syntheticDataMakerForVideosPdFs";
 export * as largeLanguageModelsGpt3 from "./largeLanguageModelsGpt3";
 export * as searchYourDocsWithGpt from "./searchYourDocsWithGpt";
-export * as smartGpt from "./smartGpt";
 export * as summarizeYourDocsWithGpt from "./summarizeYourDocsWithGpt";
 export * as functions from "./functions";
-export * as lipSyncing from "./lipSyncing";
 export * as lipsyncVideoWithAnyText from "./lipsyncVideoWithAnyText";
 export * as compareAiVoiceGenerators from "./compareAiVoiceGenerators";
 export * as speechRecognitionTranslation from "./speechRecognitionTranslation";

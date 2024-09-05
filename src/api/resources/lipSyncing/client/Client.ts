@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace LipSyncing {
@@ -30,7 +30,7 @@ export class LipSyncing {
     constructor(protected readonly _options: LipSyncing.Options = {}) {}
 
     /**
-     * @param {Gooey.AsyncFormLipsyncRequest} request
+     * @param {Gooey.LipsyncPageRequest} request
      * @param {LipSyncing.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.BadRequestError}
@@ -40,13 +40,45 @@ export class LipSyncing {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.lipSyncing.asyncFormLipsync()
+     *     await client.lipSyncing.asyncFormLipsync({
+     *         exampleId: "string",
+     *         functions: [{
+     *                 url: "string",
+     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
+     *             }],
+     *         variables: {
+     *             "string": {
+     *                 "key": "value"
+     *             }
+     *         },
+     *         inputFace: "string",
+     *         facePaddingTop: 1,
+     *         facePaddingBottom: 1,
+     *         facePaddingLeft: 1,
+     *         facePaddingRight: 1,
+     *         sadtalkerSettings: {
+     *             still: true,
+     *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
+     *             poseStyle: 1,
+     *             expressionScale: 1.1,
+     *             refEyeblink: "string",
+     *             refPose: "string",
+     *             inputYaw: [1],
+     *             inputPitch: [1],
+     *             inputRoll: [1]
+     *         },
+     *         selectedModel: Gooey.LipsyncPageRequestSelectedModel.Wav2Lip,
+     *         inputAudio: "string",
+     *         settings: {
+     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
+     *         }
+     *     })
      */
     public async asyncFormLipsync(
-        request: Gooey.AsyncFormLipsyncRequest = {},
+        request: Gooey.LipsyncPageRequest = {},
         requestOptions?: LipSyncing.RequestOptions
-    ): Promise<Gooey.BodyAsyncFormLipsync> {
-        const { exampleId } = request;
+    ): Promise<unknown> {
+        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -62,25 +94,20 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.LipsyncPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BodyAsyncFormLipsync.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return _response.body;
         }
 
         if (_response.error.reason === "status-code") {
@@ -180,7 +207,7 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta17",
+                "X-Fern-SDK-Version": "0.0.1-beta16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

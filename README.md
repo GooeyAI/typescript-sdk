@@ -16,10 +16,43 @@ npm i -s gooeyai
 Instantiate and use the client with the following:
 
 ```typescript
-import { GooeyClient } from "gooeyai";
+import { GooeyClient, Gooey } from "gooeyai";
 
 const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
-await client.animate();
+await client.animate({
+    exampleId: "string",
+    functions: [
+        {
+            url: "string",
+            trigger: Gooey.RecipeFunctionTrigger.Pre,
+        },
+    ],
+    variables: {
+        string: {
+            key: "value",
+        },
+    },
+    animationPrompts: [
+        {
+            frame: "string",
+            prompt: "string",
+        },
+    ],
+    maxFrames: 1,
+    selectedModel: Gooey.DeforumSdPageRequestSelectedModel.Protogen22,
+    animationMode: "string",
+    zoom: "string",
+    translationX: "string",
+    translationY: "string",
+    rotation3DX: "string",
+    rotation3DY: "string",
+    rotation3DZ: "string",
+    fps: 1,
+    seed: 1,
+    settings: {
+        retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep,
+    },
+});
 ```
 
 ## Request And Response Types
