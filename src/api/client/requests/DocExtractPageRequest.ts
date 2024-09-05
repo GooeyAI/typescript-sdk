@@ -7,32 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         documents: ["string"],
- *         sheetUrl: "string",
- *         selectedAsrModel: Gooey.DocExtractPageRequestSelectedAsrModel.WhisperLargeV2,
- *         googleTranslateTarget: "string",
- *         glossaryDocument: "string",
- *         taskInstructions: "string",
- *         selectedModel: Gooey.DocExtractPageRequestSelectedModel.Gpt4O,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.DocExtractPageRequestResponseFormatType.Text,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         documents: ["documents"]
  *     }
  */
 export interface DocExtractPageRequest {

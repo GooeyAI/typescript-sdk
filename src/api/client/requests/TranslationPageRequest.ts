@@ -6,26 +6,7 @@ import * as Gooey from "../../index";
 
 /**
  * @example
- *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         texts: ["string"],
- *         selectedModel: Gooey.TranslationPageRequestSelectedModel.Google,
- *         translationSource: "string",
- *         translationTarget: "string",
- *         glossaryDocument: "string",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
- *     }
+ *     {}
  */
 export interface TranslationPageRequest {
     exampleId?: string;

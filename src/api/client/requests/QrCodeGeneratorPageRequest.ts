@@ -7,72 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         qrCodeData: "string",
- *         qrCodeInputImage: "string",
- *         qrCodeVcard: {
- *             formatName: "string",
- *             email: "string",
- *             gender: "string",
- *             birthdayYear: 1,
- *             birthdayMonth: 1,
- *             birthdayDay: 1,
- *             familyName: "string",
- *             givenName: "string",
- *             middleNames: "string",
- *             honorificPrefixes: "string",
- *             honorificSuffixes: "string",
- *             impp: "string",
- *             address: "string",
- *             calendarUrl: "string",
- *             commaSeparatedCategories: "string",
- *             kind: "string",
- *             language: "string",
- *             organization: "string",
- *             photoUrl: "string",
- *             logoUrl: "string",
- *             role: "string",
- *             timezone: "string",
- *             jobTitle: "string",
- *             urls: ["string"],
- *             tel: "string",
- *             note: "string"
- *         },
- *         qrCodeFile: "string",
- *         useUrlShortener: true,
- *         textPrompt: "string",
- *         negativePrompt: "string",
- *         imagePrompt: "string",
- *         imagePromptControlnetModels: [Gooey.QrCodeGeneratorPageRequestImagePromptControlnetModelsItem.SdControlnetCanny],
- *         imagePromptStrength: 1.1,
- *         imagePromptScale: 1.1,
- *         imagePromptPosX: 1.1,
- *         imagePromptPosY: 1.1,
- *         selectedModel: Gooey.QrCodeGeneratorPageRequestSelectedModel.DreamShaper,
- *         selectedControlnetModel: [Gooey.QrCodeGeneratorPageRequestSelectedControlnetModelItem.SdControlnetCanny],
- *         outputWidth: 1,
- *         outputHeight: 1,
- *         guidanceScale: 1.1,
- *         controlnetConditioningScale: [1.1],
- *         numOutputs: 1,
- *         quality: 1,
- *         scheduler: Gooey.QrCodeGeneratorPageRequestScheduler.SinglestepDpmSolver,
- *         seed: 1,
- *         objScale: 1.1,
- *         objPosX: 1.1,
- *         objPosY: 1.1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface QrCodeGeneratorPageRequest {

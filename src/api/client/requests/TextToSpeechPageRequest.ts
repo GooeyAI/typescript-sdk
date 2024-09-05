@@ -7,38 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         textPrompt: "string",
- *         ttsProvider: Gooey.TextToSpeechPageRequestTtsProvider.GoogleTts,
- *         uberduckVoiceName: "string",
- *         uberduckSpeakingRate: 1.1,
- *         googleVoiceName: "string",
- *         googleSpeakingRate: 1.1,
- *         googlePitch: 1.1,
- *         barkHistoryPrompt: "string",
- *         elevenlabsVoiceName: "string",
- *         elevenlabsApiKey: "string",
- *         elevenlabsVoiceId: "string",
- *         elevenlabsModel: "string",
- *         elevenlabsStability: 1.1,
- *         elevenlabsSimilarityBoost: 1.1,
- *         elevenlabsStyle: 1.1,
- *         elevenlabsSpeakerBoost: true,
- *         azureVoiceName: "string",
- *         openaiVoiceName: Gooey.TextToSpeechPageRequestOpenaiVoiceName.Alloy,
- *         openaiTtsModel: Gooey.TextToSpeechPageRequestOpenaiTtsModel.Tts1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface TextToSpeechPageRequest {

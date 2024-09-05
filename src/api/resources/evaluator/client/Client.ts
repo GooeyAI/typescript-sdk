@@ -41,41 +41,13 @@ export class Evaluator {
      *
      * @example
      *     await client.evaluator.asyncFormBulkEval({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         documents: ["string"],
-     *         evalPrompts: [{
-     *                 name: "string",
-     *                 prompt: "string"
-     *             }],
-     *         aggFunctions: [{
-     *                 column: "string",
-     *                 function: Gooey.AggFunctionFunction.Mean
-     *             }],
-     *         selectedModel: Gooey.BulkEvalPageRequestSelectedModel.Gpt4O,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.BulkEvalPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         documents: ["documents"]
      *     })
      */
     public async asyncFormBulkEval(
         request: Gooey.BulkEvalPageRequest,
         requestOptions?: Evaluator.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.BulkEvalPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -92,7 +64,7 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -105,7 +77,13 @@ export class Evaluator {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.BulkEvalPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -205,7 +183,7 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

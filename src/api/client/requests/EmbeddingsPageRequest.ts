@@ -7,21 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         texts: ["string"],
- *         selectedModel: Gooey.EmbeddingsPageRequestSelectedModel.Openai3Large,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         texts: ["texts"]
  *     }
  */
 export interface EmbeddingsPageRequest {

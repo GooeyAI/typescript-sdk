@@ -6,39 +6,7 @@ import * as Gooey from "../../../../index";
 
 /**
  * @example
- *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputFace: "string",
- *         facePaddingTop: 1,
- *         facePaddingBottom: 1,
- *         facePaddingLeft: 1,
- *         facePaddingRight: 1,
- *         sadtalkerSettings: {
- *             still: true,
- *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
- *             poseStyle: 1,
- *             expressionScale: 1.1,
- *             refEyeblink: "string",
- *             refPose: "string",
- *             inputYaw: [1],
- *             inputPitch: [1],
- *             inputRoll: [1]
- *         },
- *         selectedModel: Gooey.LipsyncPageRequestSelectedModel.Wav2Lip,
- *         inputAudio: "string",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
- *     }
+ *     {}
  */
 export interface LipsyncPageRequest {
     exampleId?: string;

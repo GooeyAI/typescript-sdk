@@ -7,34 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         textPrompt: "string",
- *         negativePrompt: "string",
- *         outputWidth: 1,
- *         outputHeight: 1,
- *         numOutputs: 1,
- *         quality: 1,
- *         dallE3Quality: "string",
- *         dallE3Style: "string",
- *         guidanceScale: 1.1,
- *         seed: 1,
- *         sd2Upscaling: true,
- *         selectedModels: [Gooey.CompareText2ImgPageRequestSelectedModelsItem.DreamShaper],
- *         scheduler: Gooey.CompareText2ImgPageRequestScheduler.SinglestepDpmSolver,
- *         editInstruction: "string",
- *         imageGuidanceScale: 1.1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface CompareText2ImgPageRequest {

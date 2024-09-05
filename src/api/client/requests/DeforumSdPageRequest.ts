@@ -7,34 +7,10 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
  *         animationPrompts: [{
- *                 frame: "string",
- *                 prompt: "string"
- *             }],
- *         maxFrames: 1,
- *         selectedModel: Gooey.DeforumSdPageRequestSelectedModel.Protogen22,
- *         animationMode: "string",
- *         zoom: "string",
- *         translationX: "string",
- *         translationY: "string",
- *         rotation3DX: "string",
- *         rotation3DY: "string",
- *         rotation3DZ: "string",
- *         fps: 1,
- *         seed: 1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *                 frame: "frame",
+ *                 prompt: "prompt"
+ *             }]
  *     }
  */
 export interface DeforumSdPageRequest {

@@ -40,44 +40,12 @@ export class LipSyncing {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.lipSyncing.asyncFormLipsync({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputFace: "string",
-     *         facePaddingTop: 1,
-     *         facePaddingBottom: 1,
-     *         facePaddingLeft: 1,
-     *         facePaddingRight: 1,
-     *         sadtalkerSettings: {
-     *             still: true,
-     *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
-     *             poseStyle: 1,
-     *             expressionScale: 1.1,
-     *             refEyeblink: "string",
-     *             refPose: "string",
-     *             inputYaw: [1],
-     *             inputPitch: [1],
-     *             inputRoll: [1]
-     *         },
-     *         selectedModel: Gooey.LipsyncPageRequestSelectedModel.Wav2Lip,
-     *         inputAudio: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
-     *     })
+     *     await client.lipSyncing.asyncFormLipsync()
      */
     public async asyncFormLipsync(
         request: Gooey.LipsyncPageRequest = {},
         requestOptions?: LipSyncing.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.LipsyncPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -94,7 +62,7 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -107,7 +75,13 @@ export class LipSyncing {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.LipsyncPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -207,7 +181,7 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

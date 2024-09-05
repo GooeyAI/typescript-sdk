@@ -7,38 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         searchQuery: "string",
- *         keywordQuery: "string",
- *         documents: ["string"],
- *         maxReferences: 1,
- *         maxContextWords: 1,
- *         scrollJump: 1,
- *         docExtractUrl: "string",
- *         embeddingModel: Gooey.DocSearchPageRequestEmbeddingModel.Openai3Large,
- *         denseWeight: 1.1,
- *         taskInstructions: "string",
- *         queryInstructions: "string",
- *         selectedModel: Gooey.DocSearchPageRequestSelectedModel.Gpt4O,
- *         citationStyle: Gooey.DocSearchPageRequestCitationStyle.Number,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.DocSearchPageRequestResponseFormatType.Text,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         searchQuery: "search_query"
  *     }
  */
 export interface DocSearchPageRequest {

@@ -7,30 +7,7 @@ import * as Gooey from "../../../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputPrompt: "string",
- *         cotPrompt: "string",
- *         reflexionPrompt: "string",
- *         deraPrompt: "string",
- *         selectedModel: Gooey.SmartGptPageRequestSelectedModel.Gpt4O,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.SmartGptPageRequestResponseFormatType.Text,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         inputPrompt: "input_prompt"
  *     }
  */
 export interface SmartGptPageRequest {

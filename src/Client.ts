@@ -76,40 +76,16 @@ export class GooeyClient {
      *
      * @example
      *     await client.animate({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
      *         animationPrompts: [{
-     *                 frame: "string",
-     *                 prompt: "string"
-     *             }],
-     *         maxFrames: 1,
-     *         selectedModel: Gooey.DeforumSdPageRequestSelectedModel.Protogen22,
-     *         animationMode: "string",
-     *         zoom: "string",
-     *         translationX: "string",
-     *         translationY: "string",
-     *         rotation3DX: "string",
-     *         rotation3DY: "string",
-     *         rotation3DZ: "string",
-     *         fps: 1,
-     *         seed: 1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *                 frame: "frame",
+     *                 prompt: "prompt"
+     *             }]
      *     })
      */
     public async animate(
         request: Gooey.DeforumSdPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.DeforumSdPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -126,7 +102,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -139,7 +115,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.DeforumSdPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -221,78 +203,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.qrCode({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         qrCodeData: "string",
-     *         qrCodeInputImage: "string",
-     *         qrCodeVcard: {
-     *             formatName: "string",
-     *             email: "string",
-     *             gender: "string",
-     *             birthdayYear: 1,
-     *             birthdayMonth: 1,
-     *             birthdayDay: 1,
-     *             familyName: "string",
-     *             givenName: "string",
-     *             middleNames: "string",
-     *             honorificPrefixes: "string",
-     *             honorificSuffixes: "string",
-     *             impp: "string",
-     *             address: "string",
-     *             calendarUrl: "string",
-     *             commaSeparatedCategories: "string",
-     *             kind: "string",
-     *             language: "string",
-     *             organization: "string",
-     *             photoUrl: "string",
-     *             logoUrl: "string",
-     *             role: "string",
-     *             timezone: "string",
-     *             jobTitle: "string",
-     *             urls: ["string"],
-     *             tel: "string",
-     *             note: "string"
-     *         },
-     *         qrCodeFile: "string",
-     *         useUrlShortener: true,
-     *         textPrompt: "string",
-     *         negativePrompt: "string",
-     *         imagePrompt: "string",
-     *         imagePromptControlnetModels: [Gooey.QrCodeGeneratorPageRequestImagePromptControlnetModelsItem.SdControlnetCanny],
-     *         imagePromptStrength: 1.1,
-     *         imagePromptScale: 1.1,
-     *         imagePromptPosX: 1.1,
-     *         imagePromptPosY: 1.1,
-     *         selectedModel: Gooey.QrCodeGeneratorPageRequestSelectedModel.DreamShaper,
-     *         selectedControlnetModel: [Gooey.QrCodeGeneratorPageRequestSelectedControlnetModelItem.SdControlnetCanny],
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         guidanceScale: 1.1,
-     *         controlnetConditioningScale: [1.1],
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         scheduler: Gooey.QrCodeGeneratorPageRequestScheduler.SinglestepDpmSolver,
-     *         seed: 1,
-     *         objScale: 1.1,
-     *         objPosX: 1.1,
-     *         objPosY: 1.1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async qrCode(
         request: Gooey.QrCodeGeneratorPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.QrCodeGeneratorPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -309,7 +226,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -322,7 +239,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.QrCodeGeneratorPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -404,46 +327,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.seoPeopleAlsoAsk({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         searchQuery: "string",
-     *         siteFilter: "string",
-     *         taskInstructions: "string",
-     *         queryInstructions: "string",
-     *         selectedModel: Gooey.RelatedQnAPageRequestSelectedModel.Gpt4O,
-     *         maxSearchUrls: 1,
-     *         maxReferences: 1,
-     *         maxContextWords: 1,
-     *         scrollJump: 1,
-     *         embeddingModel: Gooey.RelatedQnAPageRequestEmbeddingModel.Openai3Large,
-     *         denseWeight: 1.1,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.RelatedQnAPageRequestResponseFormatType.Text,
-     *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
-     *         scaleserpLocations: ["string"],
-     *         serpSearchType: Gooey.SerpSearchType.Search,
-     *         scaleserpSearchField: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query",
+     *         siteFilter: "site_filter"
      *     })
      */
     public async seoPeopleAlsoAsk(
         request: Gooey.RelatedQnAPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.RelatedQnAPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -460,7 +351,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -473,7 +364,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.RelatedQnAPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -555,36 +452,16 @@ export class GooeyClient {
      *
      * @example
      *     await client.seoContent({
-     *         exampleId: "string",
-     *         searchQuery: "string",
-     *         keywords: "string",
-     *         title: "string",
-     *         companyUrl: "string",
-     *         taskInstructions: "string",
-     *         enableHtml: true,
-     *         selectedModel: Gooey.SeoSummaryPageRequestSelectedModel.Gpt4O,
-     *         maxSearchUrls: 1,
-     *         enableCrosslinks: true,
-     *         seed: 1,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.SeoSummaryPageRequestResponseFormatType.Text,
-     *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
-     *         scaleserpLocations: ["string"],
-     *         serpSearchType: Gooey.SerpSearchType.Search,
-     *         scaleserpSearchField: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query",
+     *         keywords: "keywords",
+     *         title: "title",
+     *         companyUrl: "company_url"
      *     })
      */
     public async seoContent(
         request: Gooey.SeoSummaryPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.SeoSummaryPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -601,7 +478,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -614,7 +491,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.SeoSummaryPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -696,46 +579,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.webSearchLlm({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         searchQuery: "string",
-     *         siteFilter: "string",
-     *         taskInstructions: "string",
-     *         queryInstructions: "string",
-     *         selectedModel: Gooey.GoogleGptPageRequestSelectedModel.Gpt4O,
-     *         maxSearchUrls: 1,
-     *         maxReferences: 1,
-     *         maxContextWords: 1,
-     *         scrollJump: 1,
-     *         embeddingModel: Gooey.GoogleGptPageRequestEmbeddingModel.Openai3Large,
-     *         denseWeight: 1.1,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.GoogleGptPageRequestResponseFormatType.Text,
-     *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
-     *         scaleserpLocations: ["string"],
-     *         serpSearchType: Gooey.SerpSearchType.Search,
-     *         scaleserpSearchField: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query",
+     *         siteFilter: "site_filter"
      *     })
      */
     public async webSearchLlm(
         request: Gooey.GoogleGptPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.GoogleGptPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -752,7 +603,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -765,7 +616,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.GoogleGptPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -847,34 +704,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.personalizeEmail({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         emailAddress: "string",
-     *         inputPrompt: "string",
-     *         selectedModel: Gooey.SocialLookupEmailPageRequestSelectedModel.Gpt4O,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.SocialLookupEmailPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         emailAddress: "email_address"
      *     })
      */
     public async personalizeEmail(
         request: Gooey.SocialLookupEmailPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.SocialLookupEmailPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -891,7 +727,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -904,7 +740,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.SocialLookupEmailPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -986,34 +828,20 @@ export class GooeyClient {
      *
      * @example
      *     await client.bulkRun({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         documents: ["string"],
-     *         runUrls: ["string"],
+     *         documents: ["documents"],
+     *         runUrls: ["run_urls"],
      *         inputColumns: {
-     *             "string": "string"
+     *             "key": "value"
      *         },
      *         outputColumns: {
-     *             "string": "string"
-     *         },
-     *         evalUrls: ["string"],
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
+     *             "key": "value"
      *         }
      *     })
      */
     public async bulkRun(
         request: Gooey.BulkRunnerPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.BulkRunnerPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1030,7 +858,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1043,7 +871,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.BulkRunnerPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1125,38 +959,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.synthesizeData({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         documents: ["string"],
-     *         sheetUrl: "string",
-     *         selectedAsrModel: Gooey.DocExtractPageRequestSelectedAsrModel.WhisperLargeV2,
-     *         googleTranslateTarget: "string",
-     *         glossaryDocument: "string",
-     *         taskInstructions: "string",
-     *         selectedModel: Gooey.DocExtractPageRequestSelectedModel.Gpt4O,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.DocExtractPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         documents: ["documents"]
      *     })
      */
     public async synthesizeData(
         request: Gooey.DocExtractPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.DocExtractPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1173,7 +982,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1186,7 +995,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.DocExtractPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1267,34 +1082,12 @@ export class GooeyClient {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.llm({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputPrompt: "string",
-     *         selectedModels: [Gooey.CompareLlmPageRequestSelectedModelsItem.Gpt4O],
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.CompareLlmPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
-     *     })
+     *     await client.llm()
      */
     public async llm(
         request: Gooey.CompareLlmPageRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.CompareLlmPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1311,7 +1104,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1324,7 +1117,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.CompareLlmPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1406,44 +1205,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.rag({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         searchQuery: "string",
-     *         keywordQuery: "string",
-     *         documents: ["string"],
-     *         maxReferences: 1,
-     *         maxContextWords: 1,
-     *         scrollJump: 1,
-     *         docExtractUrl: "string",
-     *         embeddingModel: Gooey.DocSearchPageRequestEmbeddingModel.Openai3Large,
-     *         denseWeight: 1.1,
-     *         taskInstructions: "string",
-     *         queryInstructions: "string",
-     *         selectedModel: Gooey.DocSearchPageRequestSelectedModel.Gpt4O,
-     *         citationStyle: Gooey.DocSearchPageRequestCitationStyle.Number,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.DocSearchPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query"
      *     })
      */
     public async rag(
         request: Gooey.DocSearchPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.DocSearchPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1460,7 +1228,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1473,7 +1241,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.DocSearchPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1555,38 +1329,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.docSummary({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         documents: ["string"],
-     *         taskInstructions: "string",
-     *         mergeInstructions: "string",
-     *         selectedModel: Gooey.DocSummaryPageRequestSelectedModel.Gpt4O,
-     *         chainType: "map_reduce",
-     *         selectedAsrModel: Gooey.DocSummaryPageRequestSelectedAsrModel.WhisperLargeV2,
-     *         googleTranslateTarget: "string",
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.DocSummaryPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         documents: ["documents"]
      *     })
      */
     public async docSummary(
         request: Gooey.DocSummaryPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.DocSummaryPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1603,7 +1352,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1616,7 +1365,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.DocSummaryPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1698,61 +1453,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.lipsyncTts({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         textPrompt: "string",
-     *         ttsProvider: Gooey.LipsyncTtsPageRequestTtsProvider.GoogleTts,
-     *         uberduckVoiceName: "string",
-     *         uberduckSpeakingRate: 1.1,
-     *         googleVoiceName: "string",
-     *         googleSpeakingRate: 1.1,
-     *         googlePitch: 1.1,
-     *         barkHistoryPrompt: "string",
-     *         elevenlabsVoiceName: "string",
-     *         elevenlabsApiKey: "string",
-     *         elevenlabsVoiceId: "string",
-     *         elevenlabsModel: "string",
-     *         elevenlabsStability: 1.1,
-     *         elevenlabsSimilarityBoost: 1.1,
-     *         elevenlabsStyle: 1.1,
-     *         elevenlabsSpeakerBoost: true,
-     *         azureVoiceName: "string",
-     *         openaiVoiceName: Gooey.LipsyncTtsPageRequestOpenaiVoiceName.Alloy,
-     *         openaiTtsModel: Gooey.LipsyncTtsPageRequestOpenaiTtsModel.Tts1,
-     *         inputFace: "string",
-     *         facePaddingTop: 1,
-     *         facePaddingBottom: 1,
-     *         facePaddingLeft: 1,
-     *         facePaddingRight: 1,
-     *         sadtalkerSettings: {
-     *             still: true,
-     *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
-     *             poseStyle: 1,
-     *             expressionScale: 1.1,
-     *             refEyeblink: "string",
-     *             refPose: "string",
-     *             inputYaw: [1],
-     *             inputPitch: [1],
-     *             inputRoll: [1]
-     *         },
-     *         selectedModel: Gooey.LipsyncTtsPageRequestSelectedModel.Wav2Lip,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async lipsyncTts(
         request: Gooey.LipsyncTtsPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.LipsyncTtsPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1769,7 +1476,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1782,7 +1489,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.LipsyncTtsPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1864,44 +1577,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.textToSpeech({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         textPrompt: "string",
-     *         ttsProvider: Gooey.TextToSpeechPageRequestTtsProvider.GoogleTts,
-     *         uberduckVoiceName: "string",
-     *         uberduckSpeakingRate: 1.1,
-     *         googleVoiceName: "string",
-     *         googleSpeakingRate: 1.1,
-     *         googlePitch: 1.1,
-     *         barkHistoryPrompt: "string",
-     *         elevenlabsVoiceName: "string",
-     *         elevenlabsApiKey: "string",
-     *         elevenlabsVoiceId: "string",
-     *         elevenlabsModel: "string",
-     *         elevenlabsStability: 1.1,
-     *         elevenlabsSimilarityBoost: 1.1,
-     *         elevenlabsStyle: 1.1,
-     *         elevenlabsSpeakerBoost: true,
-     *         azureVoiceName: "string",
-     *         openaiVoiceName: Gooey.TextToSpeechPageRequestOpenaiVoiceName.Alloy,
-     *         openaiTtsModel: Gooey.TextToSpeechPageRequestOpenaiTtsModel.Tts1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async textToSpeech(
         request: Gooey.TextToSpeechPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.TextToSpeechPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -1918,7 +1600,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -1931,7 +1613,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.TextToSpeechPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2013,34 +1701,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.speechRecognition({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         documents: ["string"],
-     *         selectedModel: Gooey.AsrPageRequestSelectedModel.WhisperLargeV2,
-     *         language: "string",
-     *         translationModel: Gooey.AsrPageRequestTranslationModel.Google,
-     *         outputFormat: Gooey.AsrPageRequestOutputFormat.Text,
-     *         googleTranslateTarget: "string",
-     *         translationSource: "string",
-     *         translationTarget: "string",
-     *         glossaryDocument: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         documents: ["documents"]
      *     })
      */
     public async speechRecognition(
         request: Gooey.AsrPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.AsrPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2057,7 +1724,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2070,7 +1737,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.AsrPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2152,34 +1825,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.textToMusic({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         textPrompt: "string",
-     *         negativePrompt: "string",
-     *         durationSec: 1.1,
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         guidanceScale: 1.1,
-     *         seed: 1,
-     *         sd2Upscaling: true,
-     *         selectedModels: ["audio_ldm"],
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async textToMusic(
         request: Gooey.Text2AudioPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.Text2AudioPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2196,7 +1848,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2209,7 +1861,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.Text2AudioPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2290,31 +1948,12 @@ export class GooeyClient {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.translate({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         texts: ["string"],
-     *         selectedModel: Gooey.TranslationPageRequestSelectedModel.Google,
-     *         translationSource: "string",
-     *         translationTarget: "string",
-     *         glossaryDocument: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
-     *     })
+     *     await client.translate()
      */
     public async translate(
         request: Gooey.TranslationPageRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.TranslationPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2331,7 +1970,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2344,7 +1983,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.TranslationPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2426,39 +2071,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.remixImage({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputImage: "string",
-     *         textPrompt: "string",
-     *         selectedModel: Gooey.Img2ImgPageRequestSelectedModel.DreamShaper,
-     *         selectedControlnetModel: [Gooey.Img2ImgPageRequestSelectedControlnetModelItem.SdControlnetCanny],
-     *         negativePrompt: "string",
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         guidanceScale: 1.1,
-     *         promptStrength: 1.1,
-     *         controlnetConditioningScale: [1.1],
-     *         seed: 1,
-     *         imageGuidanceScale: 1.1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         inputImage: "input_image"
      *     })
      */
     public async remixImage(
         request: Gooey.Img2ImgPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.Img2ImgPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2475,7 +2094,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2488,7 +2107,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.Img2ImgPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2570,40 +2195,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.textToImage({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         textPrompt: "string",
-     *         negativePrompt: "string",
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         dallE3Quality: "string",
-     *         dallE3Style: "string",
-     *         guidanceScale: 1.1,
-     *         seed: 1,
-     *         sd2Upscaling: true,
-     *         selectedModels: [Gooey.CompareText2ImgPageRequestSelectedModelsItem.DreamShaper],
-     *         scheduler: Gooey.CompareText2ImgPageRequestScheduler.SinglestepDpmSolver,
-     *         editInstruction: "string",
-     *         imageGuidanceScale: 1.1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async textToImage(
         request: Gooey.CompareText2ImgPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.CompareText2ImgPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2620,7 +2218,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2633,7 +2231,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.CompareText2ImgPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2715,40 +2319,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.productImage({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputImage: "string",
-     *         textPrompt: "string",
-     *         objScale: 1.1,
-     *         objPosX: 1.1,
-     *         objPosY: 1.1,
-     *         maskThreshold: 1.1,
-     *         selectedModel: Gooey.ObjectInpaintingPageRequestSelectedModel.Sd2,
-     *         negativePrompt: "string",
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         guidanceScale: 1.1,
-     *         sd2Upscaling: true,
-     *         seed: 1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         inputImage: "input_image",
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async productImage(
         request: Gooey.ObjectInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.ObjectInpaintingPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2765,7 +2343,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2778,7 +2356,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.ObjectInpaintingPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -2860,39 +2444,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.portrait({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputImage: "string",
-     *         textPrompt: "string",
-     *         faceScale: 1.1,
-     *         facePosX: 1.1,
-     *         facePosY: 1.1,
-     *         selectedModel: Gooey.FaceInpaintingPageRequestSelectedModel.Sd2,
-     *         negativePrompt: "string",
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         upscaleFactor: 1.1,
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         guidanceScale: 1.1,
-     *         seed: 1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         inputImage: "input_image",
+     *         textPrompt: "tony stark from the iron man"
      *     })
      */
     public async portrait(
         request: Gooey.FaceInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.FaceInpaintingPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -2909,7 +2468,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2922,7 +2481,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.FaceInpaintingPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3004,48 +2569,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.imageFromEmail({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         emailAddress: "string",
-     *         twitterHandle: "string",
-     *         textPrompt: "string",
-     *         faceScale: 1.1,
-     *         facePosX: 1.1,
-     *         facePosY: 1.1,
-     *         selectedModel: Gooey.EmailFaceInpaintingPageRequestSelectedModel.Sd2,
-     *         negativePrompt: "string",
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         upscaleFactor: 1.1,
-     *         outputWidth: 1,
-     *         outputHeight: 1,
-     *         guidanceScale: 1.1,
-     *         shouldSendEmail: true,
-     *         emailFrom: "string",
-     *         emailCc: "string",
-     *         emailBcc: "string",
-     *         emailSubject: "string",
-     *         emailBody: "string",
-     *         emailBodyEnableHtml: true,
-     *         fallbackEmailBody: "string",
-     *         seed: 1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         emailAddress: "sean@dara.network",
+     *         textPrompt: "winter's day in paris"
      *     })
      */
     public async imageFromEmail(
         request: Gooey.EmailFaceInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.EmailFaceInpaintingPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3062,7 +2593,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3075,7 +2606,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.EmailFaceInpaintingPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3157,38 +2694,14 @@ export class GooeyClient {
      *
      * @example
      *     await client.imageFromWebSearch({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
-     *         scaleserpLocations: ["string"],
-     *         searchQuery: "string",
-     *         textPrompt: "string",
-     *         selectedModel: Gooey.GoogleImageGenPageRequestSelectedModel.DreamShaper,
-     *         negativePrompt: "string",
-     *         numOutputs: 1,
-     *         quality: 1,
-     *         guidanceScale: 1.1,
-     *         promptStrength: 1.1,
-     *         sd2Upscaling: true,
-     *         seed: 1,
-     *         imageGuidanceScale: 1.1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query",
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async imageFromWebSearch(
         request: Gooey.GoogleImageGenPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.GoogleImageGenPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3205,7 +2718,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3218,7 +2731,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.GoogleImageGenPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3300,33 +2819,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.removeBackground({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputImage: "string",
-     *         selectedModel: Gooey.ImageSegmentationPageRequestSelectedModel.Dis,
-     *         maskThreshold: 1.1,
-     *         rectPersepectiveTransform: true,
-     *         reflectionOpacity: 1.1,
-     *         objScale: 1.1,
-     *         objPosX: 1.1,
-     *         objPosY: 1.1,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         inputImage: "input_image"
      *     })
      */
     public async removeBackground(
         request: Gooey.ImageSegmentationPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.ImageSegmentationPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3343,7 +2842,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3356,7 +2855,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.ImageSegmentationPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3438,30 +2943,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.upscale({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputImage: "string",
-     *         inputVideo: "string",
-     *         scale: 1,
-     *         selectedModels: [Gooey.CompareUpscalerPageRequestSelectedModelsItem.Gfpgan14],
-     *         selectedBgModel: "real_esrgan_x2",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         scale: 1
      *     })
      */
     public async upscale(
         request: Gooey.CompareUpscalerPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.CompareUpscalerPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3478,7 +2966,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3491,7 +2979,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.CompareUpscalerPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3573,27 +3067,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.embed({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         texts: ["string"],
-     *         selectedModel: Gooey.EmbeddingsPageRequestSelectedModel.Openai3Large,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         texts: ["texts"]
      *     })
      */
     public async embed(
         request: Gooey.EmbeddingsPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.EmbeddingsPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3610,7 +3090,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3623,7 +3103,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.EmbeddingsPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3705,48 +3191,13 @@ export class GooeyClient {
      *
      * @example
      *     await client.seoPeopleAlsoAskDoc({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         searchQuery: "string",
-     *         keywordQuery: "string",
-     *         documents: ["string"],
-     *         maxReferences: 1,
-     *         maxContextWords: 1,
-     *         scrollJump: 1,
-     *         docExtractUrl: "string",
-     *         embeddingModel: Gooey.RelatedQnADocPageRequestEmbeddingModel.Openai3Large,
-     *         denseWeight: 1.1,
-     *         taskInstructions: "string",
-     *         queryInstructions: "string",
-     *         selectedModel: Gooey.RelatedQnADocPageRequestSelectedModel.Gpt4O,
-     *         citationStyle: Gooey.RelatedQnADocPageRequestCitationStyle.Number,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.RelatedQnADocPageRequestResponseFormatType.Text,
-     *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
-     *         scaleserpLocations: ["string"],
-     *         serpSearchType: Gooey.SerpSearchType.Search,
-     *         scaleserpSearchField: "string",
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         searchQuery: "search_query"
      *     })
      */
     public async seoPeopleAlsoAskDoc(
         request: Gooey.RelatedQnADocPageRequest,
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.RelatedQnADocPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -3763,7 +3214,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3776,7 +3227,13 @@ export class GooeyClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.RelatedQnADocPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -3863,7 +3320,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3916,7 +3373,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3969,7 +3426,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4022,7 +3479,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4075,7 +3532,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4128,7 +3585,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4181,7 +3638,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4234,7 +3691,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4287,7 +3744,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4340,7 +3797,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4393,7 +3850,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4446,7 +3903,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4499,7 +3956,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4552,7 +4009,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4605,7 +4062,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4658,7 +4115,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4711,7 +4168,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4764,7 +4221,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4817,7 +4274,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4870,7 +4327,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4923,7 +4380,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4976,7 +4433,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5029,7 +4486,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5082,7 +4539,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5135,7 +4592,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5188,7 +4645,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5241,7 +4698,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5294,7 +4751,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5347,7 +4804,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5400,7 +4857,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5453,7 +4910,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5506,7 +4963,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5559,7 +5016,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5612,7 +5069,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

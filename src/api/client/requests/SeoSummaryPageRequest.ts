@@ -7,30 +7,10 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         searchQuery: "string",
- *         keywords: "string",
- *         title: "string",
- *         companyUrl: "string",
- *         taskInstructions: "string",
- *         enableHtml: true,
- *         selectedModel: Gooey.SeoSummaryPageRequestSelectedModel.Gpt4O,
- *         maxSearchUrls: 1,
- *         enableCrosslinks: true,
- *         seed: 1,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.SeoSummaryPageRequestResponseFormatType.Text,
- *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
- *         scaleserpLocations: ["string"],
- *         serpSearchType: Gooey.SerpSearchType.Search,
- *         scaleserpSearchField: "string",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         searchQuery: "search_query",
+ *         keywords: "keywords",
+ *         title: "title",
+ *         companyUrl: "company_url"
  *     }
  */
 export interface SeoSummaryPageRequest {

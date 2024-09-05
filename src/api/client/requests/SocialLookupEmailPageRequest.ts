@@ -7,28 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         emailAddress: "string",
- *         inputPrompt: "string",
- *         selectedModel: Gooey.SocialLookupEmailPageRequestSelectedModel.Gpt4O,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.SocialLookupEmailPageRequestResponseFormatType.Text,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         emailAddress: "email_address"
  *     }
  */
 export interface SocialLookupEmailPageRequest {

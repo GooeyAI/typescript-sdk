@@ -7,28 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         textPrompt: "string",
- *         negativePrompt: "string",
- *         durationSec: 1.1,
- *         numOutputs: 1,
- *         quality: 1,
- *         guidanceScale: 1.1,
- *         seed: 1,
- *         sd2Upscaling: true,
- *         selectedModels: ["audio_ldm"],
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface Text2AudioPageRequest {

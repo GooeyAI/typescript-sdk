@@ -7,34 +7,8 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputImage: "string",
- *         textPrompt: "string",
- *         objScale: 1.1,
- *         objPosX: 1.1,
- *         objPosY: 1.1,
- *         maskThreshold: 1.1,
- *         selectedModel: Gooey.ObjectInpaintingPageRequestSelectedModel.Sd2,
- *         negativePrompt: "string",
- *         numOutputs: 1,
- *         quality: 1,
- *         outputWidth: 1,
- *         outputHeight: 1,
- *         guidanceScale: 1.1,
- *         sd2Upscaling: true,
- *         seed: 1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         inputImage: "input_image",
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface ObjectInpaintingPageRequest {

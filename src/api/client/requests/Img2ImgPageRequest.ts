@@ -7,33 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputImage: "string",
- *         textPrompt: "string",
- *         selectedModel: Gooey.Img2ImgPageRequestSelectedModel.DreamShaper,
- *         selectedControlnetModel: [Gooey.Img2ImgPageRequestSelectedControlnetModelItem.SdControlnetCanny],
- *         negativePrompt: "string",
- *         numOutputs: 1,
- *         quality: 1,
- *         outputWidth: 1,
- *         outputHeight: 1,
- *         guidanceScale: 1.1,
- *         promptStrength: 1.1,
- *         controlnetConditioningScale: [1.1],
- *         seed: 1,
- *         imageGuidanceScale: 1.1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         inputImage: "input_image"
  *     }
  */
 export interface Img2ImgPageRequest {

@@ -7,27 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputImage: "string",
- *         selectedModel: Gooey.ImageSegmentationPageRequestSelectedModel.Dis,
- *         maskThreshold: 1.1,
- *         rectPersepectiveTransform: true,
- *         reflectionOpacity: 1.1,
- *         objScale: 1.1,
- *         objPosX: 1.1,
- *         objPosY: 1.1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         inputImage: "input_image"
  *     }
  */
 export interface ImageSegmentationPageRequest {

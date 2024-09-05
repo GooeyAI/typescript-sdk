@@ -7,27 +7,13 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         documents: ["string"],
- *         runUrls: ["string"],
+ *         documents: ["documents"],
+ *         runUrls: ["run_urls"],
  *         inputColumns: {
- *             "string": "string"
+ *             "key": "value"
  *         },
  *         outputColumns: {
- *             "string": "string"
- *         },
- *         evalUrls: ["string"],
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
+ *             "key": "value"
  *         }
  *     }
  */

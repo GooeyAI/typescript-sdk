@@ -7,55 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         textPrompt: "string",
- *         ttsProvider: Gooey.LipsyncTtsPageRequestTtsProvider.GoogleTts,
- *         uberduckVoiceName: "string",
- *         uberduckSpeakingRate: 1.1,
- *         googleVoiceName: "string",
- *         googleSpeakingRate: 1.1,
- *         googlePitch: 1.1,
- *         barkHistoryPrompt: "string",
- *         elevenlabsVoiceName: "string",
- *         elevenlabsApiKey: "string",
- *         elevenlabsVoiceId: "string",
- *         elevenlabsModel: "string",
- *         elevenlabsStability: 1.1,
- *         elevenlabsSimilarityBoost: 1.1,
- *         elevenlabsStyle: 1.1,
- *         elevenlabsSpeakerBoost: true,
- *         azureVoiceName: "string",
- *         openaiVoiceName: Gooey.LipsyncTtsPageRequestOpenaiVoiceName.Alloy,
- *         openaiTtsModel: Gooey.LipsyncTtsPageRequestOpenaiTtsModel.Tts1,
- *         inputFace: "string",
- *         facePaddingTop: 1,
- *         facePaddingBottom: 1,
- *         facePaddingLeft: 1,
- *         facePaddingRight: 1,
- *         sadtalkerSettings: {
- *             still: true,
- *             preprocess: Gooey.SadTalkerSettingsPreprocess.Crop,
- *             poseStyle: 1,
- *             expressionScale: 1.1,
- *             refEyeblink: "string",
- *             refPose: "string",
- *             inputYaw: [1],
- *             inputPitch: [1],
- *             inputRoll: [1]
- *         },
- *         selectedModel: Gooey.LipsyncTtsPageRequestSelectedModel.Wav2Lip,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface LipsyncTtsPageRequest {

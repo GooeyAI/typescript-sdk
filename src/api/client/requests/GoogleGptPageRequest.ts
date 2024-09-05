@@ -7,40 +7,8 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         searchQuery: "string",
- *         siteFilter: "string",
- *         taskInstructions: "string",
- *         queryInstructions: "string",
- *         selectedModel: Gooey.GoogleGptPageRequestSelectedModel.Gpt4O,
- *         maxSearchUrls: 1,
- *         maxReferences: 1,
- *         maxContextWords: 1,
- *         scrollJump: 1,
- *         embeddingModel: Gooey.GoogleGptPageRequestEmbeddingModel.Openai3Large,
- *         denseWeight: 1.1,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.GoogleGptPageRequestResponseFormatType.Text,
- *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
- *         scaleserpLocations: ["string"],
- *         serpSearchType: Gooey.SerpSearchType.Search,
- *         scaleserpSearchField: "string",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         searchQuery: "search_query",
+ *         siteFilter: "site_filter"
  *     }
  */
 export interface GoogleGptPageRequest {

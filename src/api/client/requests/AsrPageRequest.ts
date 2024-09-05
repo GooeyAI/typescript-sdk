@@ -7,28 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         documents: ["string"],
- *         selectedModel: Gooey.AsrPageRequestSelectedModel.WhisperLargeV2,
- *         language: "string",
- *         translationModel: Gooey.AsrPageRequestTranslationModel.Google,
- *         outputFormat: Gooey.AsrPageRequestOutputFormat.Text,
- *         googleTranslateTarget: "string",
- *         translationSource: "string",
- *         translationTarget: "string",
- *         glossaryDocument: "string",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         documents: ["documents"]
  *     }
  */
 export interface AsrPageRequest {

@@ -6,18 +6,7 @@ import * as Gooey from "../../../../index";
 
 /**
  * @example
- *     {
- *         exampleId: "string",
- *         code: "string",
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
- *     }
+ *     {}
  */
 export interface FunctionsPageRequest {
     exampleId?: string;

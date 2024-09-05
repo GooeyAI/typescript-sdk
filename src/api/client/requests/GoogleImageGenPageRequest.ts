@@ -7,32 +7,8 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         serpSearchLocation: Gooey.SerpSearchLocation.Af,
- *         scaleserpLocations: ["string"],
- *         searchQuery: "string",
- *         textPrompt: "string",
- *         selectedModel: Gooey.GoogleImageGenPageRequestSelectedModel.DreamShaper,
- *         negativePrompt: "string",
- *         numOutputs: 1,
- *         quality: 1,
- *         guidanceScale: 1.1,
- *         promptStrength: 1.1,
- *         sd2Upscaling: true,
- *         seed: 1,
- *         imageGuidanceScale: 1.1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         searchQuery: "search_query",
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface GoogleImageGenPageRequest {

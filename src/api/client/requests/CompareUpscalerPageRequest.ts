@@ -7,24 +7,7 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputImage: "string",
- *         inputVideo: "string",
- *         scale: 1,
- *         selectedModels: [Gooey.CompareUpscalerPageRequestSelectedModelsItem.Gfpgan14],
- *         selectedBgModel: "real_esrgan_x2",
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         scale: 1
  *     }
  */
 export interface CompareUpscalerPageRequest {

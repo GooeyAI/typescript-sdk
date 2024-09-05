@@ -41,36 +41,13 @@ export class SmartGpt {
      *
      * @example
      *     await client.smartGpt.asyncFormSmartGpt({
-     *         exampleId: "string",
-     *         functions: [{
-     *                 url: "string",
-     *                 trigger: Gooey.RecipeFunctionTrigger.Pre
-     *             }],
-     *         variables: {
-     *             "string": {
-     *                 "key": "value"
-     *             }
-     *         },
-     *         inputPrompt: "string",
-     *         cotPrompt: "string",
-     *         reflexionPrompt: "string",
-     *         deraPrompt: "string",
-     *         selectedModel: Gooey.SmartGptPageRequestSelectedModel.Gpt4O,
-     *         avoidRepetition: true,
-     *         numOutputs: 1,
-     *         quality: 1.1,
-     *         maxTokens: 1,
-     *         samplingTemperature: 1.1,
-     *         responseFormatType: Gooey.SmartGptPageRequestResponseFormatType.Text,
-     *         settings: {
-     *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
-     *         }
+     *         inputPrompt: "input_prompt"
      *     })
      */
     public async asyncFormSmartGpt(
         request: Gooey.SmartGptPageRequest,
         requestOptions?: SmartGpt.RequestOptions
-    ): Promise<unknown> {
+    ): Promise<Gooey.SmartGptPageStatusResponse> {
         const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
@@ -87,7 +64,7 @@ export class SmartGpt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -100,7 +77,13 @@ export class SmartGpt {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return _response.body;
+            return serializers.SmartGptPageStatusResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -200,7 +183,7 @@ export class SmartGpt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -285,7 +268,7 @@ export class SmartGpt {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta16",
+                "X-Fern-SDK-Version": "0.0.1-beta17",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

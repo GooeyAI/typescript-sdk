@@ -7,35 +7,7 @@ import * as Gooey from "../../../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         documents: ["string"],
- *         evalPrompts: [{
- *                 name: "string",
- *                 prompt: "string"
- *             }],
- *         aggFunctions: [{
- *                 column: "string",
- *                 function: Gooey.AggFunctionFunction.Mean
- *             }],
- *         selectedModel: Gooey.BulkEvalPageRequestSelectedModel.Gpt4O,
- *         avoidRepetition: true,
- *         numOutputs: 1,
- *         quality: 1.1,
- *         maxTokens: 1,
- *         samplingTemperature: 1.1,
- *         responseFormatType: Gooey.BulkEvalPageRequestResponseFormatType.Text,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         documents: ["documents"]
  *     }
  */
 export interface BulkEvalPageRequest {

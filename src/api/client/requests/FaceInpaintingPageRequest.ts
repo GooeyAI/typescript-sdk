@@ -7,33 +7,8 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         exampleId: "string",
- *         functions: [{
- *                 url: "string",
- *                 trigger: Gooey.RecipeFunctionTrigger.Pre
- *             }],
- *         variables: {
- *             "string": {
- *                 "key": "value"
- *             }
- *         },
- *         inputImage: "string",
- *         textPrompt: "string",
- *         faceScale: 1.1,
- *         facePosX: 1.1,
- *         facePosY: 1.1,
- *         selectedModel: Gooey.FaceInpaintingPageRequestSelectedModel.Sd2,
- *         negativePrompt: "string",
- *         numOutputs: 1,
- *         quality: 1,
- *         upscaleFactor: 1.1,
- *         outputWidth: 1,
- *         outputHeight: 1,
- *         guidanceScale: 1.1,
- *         seed: 1,
- *         settings: {
- *             retentionPolicy: Gooey.RunSettingsRetentionPolicy.Keep
- *         }
+ *         inputImage: "input_image",
+ *         textPrompt: "tony stark from the iron man"
  *     }
  */
 export interface FaceInpaintingPageRequest {
