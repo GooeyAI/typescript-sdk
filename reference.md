@@ -144,7 +144,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 
 ## CopilotForYourEnterprise
 
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncFormVideoBots</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncFormVideoBots</a>({ ...params }) -> Gooey.BodyAsyncFormVideoBots</code></summary>
 <dl>
 <dd>
 
@@ -194,7 +194,7 @@ await client.copilotForYourEnterprise.asyncFormVideoBots();
 
 ## Evaluator
 
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> Gooey.BodyAsyncFormBulkEval</code></summary>
 <dl>
 <dd>
 
@@ -244,7 +244,7 @@ await client.evaluator.asyncFormBulkEval();
 
 ## SmartGpt
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncFormSmartGpt</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncFormSmartGpt</a>({ ...params }) -> Gooey.BodyAsyncFormSmartGpt</code></summary>
 <dl>
 <dd>
 
@@ -334,7 +334,7 @@ await client.smartGpt.post();
 
 ## Functions
 
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFormFunctions</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFormFunctions</a>({ ...params }) -> Gooey.BodyAsyncFormFunctions</code></summary>
 <dl>
 <dd>
 
@@ -424,7 +424,7 @@ await client.functions.post();
 
 ## LipSyncing
 
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncFormLipsync</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
+<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncFormLipsync</a>({ ...params }) -> Gooey.BodyAsyncFormLipsync</code></summary>
 <dl>
 <dd>
 
