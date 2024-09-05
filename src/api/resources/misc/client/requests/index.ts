@@ -1,1 +1,1 @@
-export { type BotBroadcastRequestModel } from "./BotBroadcastRequestModel";
+export { type VideoBotsBroadcastRequest } from "./VideoBotsBroadcastRequest";

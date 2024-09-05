@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Functions {
@@ -30,7 +30,7 @@ export class Functions {
     constructor(protected readonly _options: Functions.Options = {}) {}
 
     /**
-     * @param {Gooey.FunctionsPageRequest} request
+     * @param {Gooey.AsyncFormFunctionsRequest} request
      * @param {Functions.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.BadRequestError}
@@ -43,10 +43,10 @@ export class Functions {
      *     await client.functions.asyncFormFunctions()
      */
     public async asyncFormFunctions(
-        request: Gooey.FunctionsPageRequest = {},
+        request: Gooey.AsyncFormFunctionsRequest = {},
         requestOptions?: Functions.RequestOptions
     ): Promise<Gooey.FunctionsPageStatusResponse> {
-        const { exampleId, ..._body } = request;
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -62,14 +62,13 @@ export class Functions {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta18",
+                "X-Fern-SDK-Version": "0.0.1-beta19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.FunctionsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -181,7 +180,7 @@ export class Functions {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta18",
+                "X-Fern-SDK-Version": "0.0.1-beta19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -266,7 +265,7 @@ export class Functions {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta18",
+                "X-Fern-SDK-Version": "0.0.1-beta19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

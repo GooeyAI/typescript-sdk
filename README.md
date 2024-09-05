@@ -19,14 +19,7 @@ Instantiate and use the client with the following:
 import { GooeyClient } from "gooeyai";
 
 const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
-await client.animate({
-    animationPrompts: [
-        {
-            frame: "frame",
-            prompt: "prompt",
-        },
-    ],
-});
+await client.animate();
 ```
 
 ## Request And Response Types
@@ -37,7 +30,7 @@ following namespace:
 ```typescript
 import { Gooey } from "gooeyai";
 
-const request: Gooey.CreateStreamRequest = {
+const request: Gooey.AsyncFormVideoBotsRequest = {
     ...
 };
 ```

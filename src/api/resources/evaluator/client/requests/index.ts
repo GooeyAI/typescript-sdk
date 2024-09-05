@@ -1,2 +1,2 @@
-export { type BulkEvalPageRequest } from "./BulkEvalPageRequest";
+export { type AsyncFormBulkEvalRequest } from "./AsyncFormBulkEvalRequest";
 export { type StatusBulkEvalRequest } from "./StatusBulkEvalRequest";
