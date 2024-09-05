@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { CompareText2ImgPageRequest } from "./CompareText2ImgPageRequest";
 
 export const BodyAsyncFormCompareText2Img: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormCompareText2Img.Raw,
     Gooey.BodyAsyncFormCompareText2Img
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", CompareText2ImgPageRequest),
 });
 
 export declare namespace BodyAsyncFormCompareText2Img {
     interface Raw {
-        json: string;
+        page_request_json: CompareText2ImgPageRequest.Raw;
     }
 }

@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">postV3VideoBotsAsync</a>() -> Gooey.VideoBotsPageResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">postV3VideoBotsAsync</a>() -> unknown</code></summary>
 <dl>
 <dd>
 

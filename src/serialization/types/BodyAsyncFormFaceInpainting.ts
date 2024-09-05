@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { FaceInpaintingPageRequest } from "./FaceInpaintingPageRequest";
 
 export const BodyAsyncFormFaceInpainting: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormFaceInpainting.Raw,
     Gooey.BodyAsyncFormFaceInpainting
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", FaceInpaintingPageRequest),
 });
 
 export declare namespace BodyAsyncFormFaceInpainting {
     interface Raw {
-        json: string;
+        page_request_json: FaceInpaintingPageRequest.Raw;
     }
 }

@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { CompareUpscalerPageRequest } from "./CompareUpscalerPageRequest";
 
 export const BodyAsyncFormCompareAiUpscalers: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormCompareAiUpscalers.Raw,
     Gooey.BodyAsyncFormCompareAiUpscalers
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", CompareUpscalerPageRequest),
 });
 
 export declare namespace BodyAsyncFormCompareAiUpscalers {
     interface Raw {
-        json: string;
+        page_request_json: CompareUpscalerPageRequest.Raw;
     }
 }

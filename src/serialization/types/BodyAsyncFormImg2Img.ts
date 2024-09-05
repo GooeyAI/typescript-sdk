@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { Img2ImgPageRequest } from "./Img2ImgPageRequest";
 
 export const BodyAsyncFormImg2Img: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormImg2Img.Raw,
     Gooey.BodyAsyncFormImg2Img
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", Img2ImgPageRequest),
 });
 
 export declare namespace BodyAsyncFormImg2Img {
     interface Raw {
-        json: string;
+        page_request_json: Img2ImgPageRequest.Raw;
     }
 }

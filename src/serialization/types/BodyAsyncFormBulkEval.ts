@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { BulkEvalPageRequest } from "./BulkEvalPageRequest";
 
 export const BodyAsyncFormBulkEval: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormBulkEval.Raw,
     Gooey.BodyAsyncFormBulkEval
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", BulkEvalPageRequest),
 });
 
 export declare namespace BodyAsyncFormBulkEval {
     interface Raw {
-        json: string;
+        page_request_json: BulkEvalPageRequest.Raw;
     }
 }

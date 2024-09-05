@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { SocialLookupEmailPageRequest } from "./SocialLookupEmailPageRequest";
 
 export const BodyAsyncFormSocialLookupEmail: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormSocialLookupEmail.Raw,
     Gooey.BodyAsyncFormSocialLookupEmail
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", SocialLookupEmailPageRequest),
 });
 
 export declare namespace BodyAsyncFormSocialLookupEmail {
     interface Raw {
-        json: string;
+        page_request_json: SocialLookupEmailPageRequest.Raw;
     }
 }

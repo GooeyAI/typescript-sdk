@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { AsrPageRequest } from "./AsrPageRequest";
 
 export const BodyAsyncFormAsr: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormAsr.Raw,
     Gooey.BodyAsyncFormAsr
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", AsrPageRequest),
 });
 
 export declare namespace BodyAsyncFormAsr {
     interface Raw {
-        json: string;
+        page_request_json: AsrPageRequest.Raw;
     }
 }

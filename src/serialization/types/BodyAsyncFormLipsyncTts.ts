@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { LipsyncTtsPageRequest } from "./LipsyncTtsPageRequest";
 
 export const BodyAsyncFormLipsyncTts: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormLipsyncTts.Raw,
     Gooey.BodyAsyncFormLipsyncTts
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", LipsyncTtsPageRequest),
 });
 
 export declare namespace BodyAsyncFormLipsyncTts {
     interface Raw {
-        json: string;
+        page_request_json: LipsyncTtsPageRequest.Raw;
     }
 }

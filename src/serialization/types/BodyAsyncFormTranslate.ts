@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { TranslationPageRequest } from "./TranslationPageRequest";
 
 export const BodyAsyncFormTranslate: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormTranslate.Raw,
     Gooey.BodyAsyncFormTranslate
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", TranslationPageRequest),
 });
 
 export declare namespace BodyAsyncFormTranslate {
     interface Raw {
-        json: string;
+        page_request_json: TranslationPageRequest.Raw;
     }
 }

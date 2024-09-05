@@ -5,16 +5,17 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
+import { CompareLlmPageRequest } from "./CompareLlmPageRequest";
 
 export const BodyAsyncFormCompareLlm: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormCompareLlm.Raw,
     Gooey.BodyAsyncFormCompareLlm
 > = core.serialization.object({
-    json: core.serialization.string(),
+    pageRequestJson: core.serialization.property("page_request_json", CompareLlmPageRequest),
 });
 
 export declare namespace BodyAsyncFormCompareLlm {
     interface Raw {
-        json: string;
+        page_request_json: CompareLlmPageRequest.Raw;
     }
 }
