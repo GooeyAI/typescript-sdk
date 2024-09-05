@@ -1,1 +1,1 @@
-export { type VideoBotsPageRequest } from "./VideoBotsPageRequest";
+export { type AsyncFormVideoBotsRequest } from "./AsyncFormVideoBotsRequest";

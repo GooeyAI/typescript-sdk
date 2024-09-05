@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">healthStatusGet</a>() -> unknown</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">postV3VideoBotsAsync</a>() -> Gooey.VideoBotsPageResponse</code></summary>
 <dl>
 <dd>
 
@@ -13,7 +13,7 @@
 <dd>
 
 ```typescript
-await client.healthStatusGet();
+await client.postV3VideoBotsAsync();
 ```
 
 </dd>
@@ -144,7 +144,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 
 ## CopilotForYourEnterprise
 
-<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncVideoBots</a>({ ...params }) -> Gooey.VideoBotsPageResponse</code></summary>
+<details><summary><code>client.copilotForYourEnterprise.<a href="/src/api/resources/copilotForYourEnterprise/client/Client.ts">asyncFormVideoBots</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
 <dl>
 <dd>
 
@@ -157,7 +157,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 <dd>
 
 ```typescript
-await client.copilotForYourEnterprise.asyncVideoBots();
+await client.copilotForYourEnterprise.asyncFormVideoBots();
 ```
 
 </dd>
@@ -173,7 +173,7 @@ await client.copilotForYourEnterprise.asyncVideoBots();
 <dl>
 <dd>
 
-**request:** `Gooey.VideoBotsPageRequest`
+**request:** `Gooey.AsyncFormVideoBotsRequest`
 
 </dd>
 </dl>
@@ -194,7 +194,7 @@ await client.copilotForYourEnterprise.asyncVideoBots();
 
 ## Evaluator
 
-<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncBulkEval</a>({ ...params }) -> Gooey.BulkEvalPageResponse</code></summary>
+<details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
 <dl>
 <dd>
 
@@ -207,9 +207,7 @@ await client.copilotForYourEnterprise.asyncVideoBots();
 <dd>
 
 ```typescript
-await client.evaluator.asyncBulkEval({
-    documents: ["documents"],
-});
+await client.evaluator.asyncFormBulkEval();
 ```
 
 </dd>
@@ -225,7 +223,7 @@ await client.evaluator.asyncBulkEval({
 <dl>
 <dd>
 
-**request:** `Gooey.BulkEvalPageRequest`
+**request:** `Gooey.AsyncFormBulkEvalRequest`
 
 </dd>
 </dl>
@@ -246,7 +244,7 @@ await client.evaluator.asyncBulkEval({
 
 ## SmartGpt
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncSmartGpt</a>({ ...params }) -> Gooey.SmartGptPageResponse</code></summary>
+<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">asyncFormSmartGpt</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
 <dl>
 <dd>
 
@@ -259,9 +257,7 @@ await client.evaluator.asyncBulkEval({
 <dd>
 
 ```typescript
-await client.smartGpt.asyncSmartGpt({
-    inputPrompt: "input_prompt",
-});
+await client.smartGpt.asyncFormSmartGpt();
 ```
 
 </dd>
@@ -277,7 +273,7 @@ await client.smartGpt.asyncSmartGpt({
 <dl>
 <dd>
 
-**request:** `Gooey.SmartGptPageRequest`
+**request:** `Gooey.AsyncFormSmartGptRequest`
 
 </dd>
 </dl>
@@ -338,7 +334,7 @@ await client.smartGpt.post();
 
 ## Functions
 
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFunctions</a>({ ...params }) -> Gooey.FunctionsPageResponse</code></summary>
+<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">asyncFormFunctions</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
 <dl>
 <dd>
 
@@ -351,7 +347,7 @@ await client.smartGpt.post();
 <dd>
 
 ```typescript
-await client.functions.asyncFunctions();
+await client.functions.asyncFormFunctions();
 ```
 
 </dd>
@@ -367,7 +363,7 @@ await client.functions.asyncFunctions();
 <dl>
 <dd>
 
-**request:** `Gooey.FunctionsPageRequest`
+**request:** `Gooey.AsyncFormFunctionsRequest`
 
 </dd>
 </dl>
@@ -428,7 +424,7 @@ await client.functions.post();
 
 ## LipSyncing
 
-<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncLipsync</a>({ ...params }) -> Gooey.LipsyncPageResponse</code></summary>
+<details><summary><code>client.lipSyncing.<a href="/src/api/resources/lipSyncing/client/Client.ts">asyncFormLipsync</a>({ ...params }) -> Gooey.AsyncApiResponseModelV3</code></summary>
 <dl>
 <dd>
 
@@ -441,7 +437,7 @@ await client.functions.post();
 <dd>
 
 ```typescript
-await client.lipSyncing.asyncLipsync();
+await client.lipSyncing.asyncFormLipsync();
 ```
 
 </dd>
@@ -457,7 +453,7 @@ await client.lipSyncing.asyncLipsync();
 <dl>
 <dd>
 
-**request:** `Gooey.LipsyncPageRequest`
+**request:** `Gooey.AsyncFormLipsyncRequest`
 
 </dd>
 </dl>

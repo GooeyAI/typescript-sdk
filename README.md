@@ -19,14 +19,7 @@ Instantiate and use the client with the following:
 import { GooeyClient } from "gooeyai";
 
 const client = new GooeyClient({ apiKey: "YOUR_API_KEY" });
-await client.animate({
-    animationPrompts: [
-        {
-            frame: "frame",
-            prompt: "prompt",
-        },
-    ],
-});
+await client.animate();
 ```
 
 ## Request And Response Types

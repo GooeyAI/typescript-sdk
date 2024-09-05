@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace CopilotForYourEnterprise {
@@ -30,21 +30,23 @@ export class CopilotForYourEnterprise {
     constructor(protected readonly _options: CopilotForYourEnterprise.Options = {}) {}
 
     /**
-     * @param {Gooey.VideoBotsPageRequest} request
+     * @param {Gooey.AsyncFormVideoBotsRequest} request
      * @param {CopilotForYourEnterprise.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.copilotForYourEnterprise.asyncVideoBots()
+     *     await client.copilotForYourEnterprise.asyncFormVideoBots()
      */
-    public async asyncVideoBots(
-        request: Gooey.VideoBotsPageRequest = {},
+    public async asyncFormVideoBots(
+        request: Gooey.AsyncFormVideoBotsRequest = {},
         requestOptions?: CopilotForYourEnterprise.RequestOptions
-    ): Promise<Gooey.VideoBotsPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -53,27 +55,26 @@ export class CopilotForYourEnterprise {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/video-bots/async"
+                "v3/video-bots/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.VideoBotsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.VideoBotsPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -84,6 +85,16 @@ export class CopilotForYourEnterprise {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -99,6 +110,16 @@ export class CopilotForYourEnterprise {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,

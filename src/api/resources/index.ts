@@ -1,14 +1,10 @@
 export * as copilotIntegrations from "./copilotIntegrations";
 export * from "./copilotIntegrations/types";
 export * as copilotForYourEnterprise from "./copilotForYourEnterprise";
-export * from "./copilotForYourEnterprise/types";
 export * as evaluator from "./evaluator";
-export * from "./evaluator/types";
 export * as smartGpt from "./smartGpt";
-export * from "./smartGpt/types";
-export * as lipSyncing from "./lipSyncing";
-export * from "./lipSyncing/types";
 export * as functions from "./functions";
+export * as lipSyncing from "./lipSyncing";
 export * as misc from "./misc";
 export * as bulkRunner from "./bulkRunner";
 export * as embeddings from "./embeddings";

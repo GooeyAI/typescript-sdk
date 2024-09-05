@@ -5,8 +5,8 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import * as Gooey from "./api/index";
-import * as serializers from "./serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "./serialization/index";
 import * as errors from "./errors/index";
 import { CopilotIntegrations } from "./api/resources/copilotIntegrations/client/Client";
 import { CopilotForYourEnterprise } from "./api/resources/copilotForYourEnterprise/client/Client";
@@ -39,26 +39,23 @@ export class GooeyClient {
     constructor(protected readonly _options: GooeyClient.Options = {}) {}
 
     /**
-     * @param {Gooey.DeforumSdPageRequest} request
+     * @param {Gooey.AnimateRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.animate({
-     *         animationPrompts: [{
-     *                 frame: "frame",
-     *                 prompt: "prompt"
-     *             }]
-     *     })
+     *     await client.animate()
      */
     public async animate(
-        request: Gooey.DeforumSdPageRequest,
+        request: Gooey.AnimateRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.DeforumSdPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -67,27 +64,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/DeforumSD/async"
+                "v3/DeforumSD/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DeforumSdPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.DeforumSdPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -98,6 +94,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -113,6 +119,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -144,23 +160,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.QrCodeGeneratorPageRequest} request
+     * @param {Gooey.QrCodeRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.qrCode({
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.qrCode()
      */
     public async qrCode(
-        request: Gooey.QrCodeGeneratorPageRequest,
+        request: Gooey.QrCodeRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.QrCodeGeneratorPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -169,27 +185,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/art-qr-code/async"
+                "v3/art-qr-code/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.QrCodeGeneratorPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.QrCodeGeneratorPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -200,6 +215,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -215,6 +240,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -246,24 +281,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.RelatedQnAPageRequest} request
+     * @param {Gooey.SeoPeopleAlsoAskRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.seoPeopleAlsoAsk({
-     *         searchQuery: "search_query",
-     *         siteFilter: "site_filter"
-     *     })
+     *     await client.seoPeopleAlsoAsk()
      */
     public async seoPeopleAlsoAsk(
-        request: Gooey.RelatedQnAPageRequest,
+        request: Gooey.SeoPeopleAlsoAskRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.RelatedQnAPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -272,27 +306,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/related-qna-maker/async"
+                "v3/related-qna-maker/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.RelatedQnAPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.RelatedQnAPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -303,6 +336,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -318,6 +361,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -349,26 +402,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.SeoSummaryPageRequest} request
+     * @param {Gooey.SeoContentRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.seoContent({
-     *         searchQuery: "search_query",
-     *         keywords: "keywords",
-     *         title: "title",
-     *         companyUrl: "company_url"
-     *     })
+     *     await client.seoContent()
      */
     public async seoContent(
-        request: Gooey.SeoSummaryPageRequest,
+        request: Gooey.SeoContentRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.SeoSummaryPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -377,27 +427,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/SEOSummary/async"
+                "v3/SEOSummary/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.SeoSummaryPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SeoSummaryPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -408,6 +457,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -423,6 +482,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -454,24 +523,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.GoogleGptPageRequest} request
+     * @param {Gooey.WebSearchLlmRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.webSearchLlm({
-     *         searchQuery: "search_query",
-     *         siteFilter: "site_filter"
-     *     })
+     *     await client.webSearchLlm()
      */
     public async webSearchLlm(
-        request: Gooey.GoogleGptPageRequest,
+        request: Gooey.WebSearchLlmRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.GoogleGptPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -480,27 +548,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/google-gpt/async"
+                "v3/google-gpt/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.GoogleGptPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.GoogleGptPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -511,6 +578,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -526,6 +603,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -557,23 +644,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.SocialLookupEmailPageRequest} request
+     * @param {Gooey.PersonalizeEmailRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.personalizeEmail({
-     *         emailAddress: "email_address"
-     *     })
+     *     await client.personalizeEmail()
      */
     public async personalizeEmail(
-        request: Gooey.SocialLookupEmailPageRequest,
+        request: Gooey.PersonalizeEmailRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.SocialLookupEmailPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -582,27 +669,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/SocialLookupEmail/async"
+                "v3/SocialLookupEmail/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.SocialLookupEmailPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SocialLookupEmailPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -613,6 +699,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -628,6 +724,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -659,30 +765,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.BulkRunnerPageRequest} request
+     * @param {Gooey.BulkRunRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.bulkRun({
-     *         documents: ["documents"],
-     *         runUrls: ["run_urls"],
-     *         inputColumns: {
-     *             "key": "value"
-     *         },
-     *         outputColumns: {
-     *             "key": "value"
-     *         }
-     *     })
+     *     await client.bulkRun()
      */
     public async bulkRun(
-        request: Gooey.BulkRunnerPageRequest,
+        request: Gooey.BulkRunRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.BulkRunnerPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -691,27 +790,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/bulk-runner/async"
+                "v3/bulk-runner/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.BulkRunnerPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.BulkRunnerPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -722,6 +820,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -737,6 +845,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -768,23 +886,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.DocExtractPageRequest} request
+     * @param {Gooey.SynthesizeDataRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.synthesizeData({
-     *         documents: ["documents"]
-     *     })
+     *     await client.synthesizeData()
      */
     public async synthesizeData(
-        request: Gooey.DocExtractPageRequest,
+        request: Gooey.SynthesizeDataRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.DocExtractPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -793,27 +911,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/doc-extract/async"
+                "v3/doc-extract/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DocExtractPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.DocExtractPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -824,6 +941,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -839,6 +966,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -870,21 +1007,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.CompareLlmPageRequest} request
+     * @param {Gooey.LlmRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
      *     await client.llm()
      */
     public async llm(
-        request: Gooey.CompareLlmPageRequest = {},
+        request: Gooey.LlmRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.CompareLlmPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -893,27 +1032,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/CompareLLM/async"
+                "v3/CompareLLM/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.CompareLlmPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CompareLlmPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -924,6 +1062,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -939,6 +1087,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -970,23 +1128,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.DocSearchPageRequest} request
+     * @param {Gooey.RagRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.rag({
-     *         searchQuery: "search_query"
-     *     })
+     *     await client.rag()
      */
     public async rag(
-        request: Gooey.DocSearchPageRequest,
+        request: Gooey.RagRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.DocSearchPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -995,27 +1153,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/doc-search/async"
+                "v3/doc-search/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DocSearchPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.DocSearchPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1026,6 +1183,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1041,6 +1208,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1072,23 +1249,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.DocSummaryPageRequest} request
+     * @param {Gooey.DocSummaryRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.docSummary({
-     *         documents: ["documents"]
-     *     })
+     *     await client.docSummary()
      */
     public async docSummary(
-        request: Gooey.DocSummaryPageRequest,
+        request: Gooey.DocSummaryRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.DocSummaryPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1097,27 +1274,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/doc-summary/async"
+                "v3/doc-summary/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.DocSummaryPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.DocSummaryPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1128,6 +1304,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1143,6 +1329,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1174,23 +1370,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.LipsyncTtsPageRequest} request
+     * @param {Gooey.LipsyncTtsRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.lipsyncTts({
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.lipsyncTts()
      */
     public async lipsyncTts(
-        request: Gooey.LipsyncTtsPageRequest,
+        request: Gooey.LipsyncTtsRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.LipsyncTtsPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1199,27 +1395,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/LipsyncTTS/async"
+                "v3/LipsyncTTS/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.LipsyncTtsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.LipsyncTtsPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1230,6 +1425,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1245,6 +1450,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1276,23 +1491,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.TextToSpeechPageRequest} request
+     * @param {Gooey.TextToSpeechRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.textToSpeech({
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.textToSpeech()
      */
     public async textToSpeech(
-        request: Gooey.TextToSpeechPageRequest,
+        request: Gooey.TextToSpeechRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.TextToSpeechPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1301,27 +1516,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/TextToSpeech/async"
+                "v3/TextToSpeech/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.TextToSpeechPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.TextToSpeechPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1332,6 +1546,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1347,6 +1571,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1378,23 +1612,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.AsrPageRequest} request
+     * @param {Gooey.SpeechRecognitionRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.speechRecognition({
-     *         documents: ["documents"]
-     *     })
+     *     await client.speechRecognition()
      */
     public async speechRecognition(
-        request: Gooey.AsrPageRequest,
+        request: Gooey.SpeechRecognitionRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.AsrPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1403,27 +1637,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/asr/async"
+                "v3/asr/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.AsrPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.AsrPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1434,6 +1667,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1449,6 +1692,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1480,23 +1733,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.Text2AudioPageRequest} request
+     * @param {Gooey.TextToMusicRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.textToMusic({
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.textToMusic()
      */
     public async textToMusic(
-        request: Gooey.Text2AudioPageRequest,
+        request: Gooey.TextToMusicRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.Text2AudioPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1505,27 +1758,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/text2audio/async"
+                "v3/text2audio/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.Text2AudioPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Text2AudioPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1536,6 +1788,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1551,6 +1813,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1582,21 +1854,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.TranslationPageRequest} request
+     * @param {Gooey.TranslateRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
      *     await client.translate()
      */
     public async translate(
-        request: Gooey.TranslationPageRequest = {},
+        request: Gooey.TranslateRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.TranslationPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1605,27 +1879,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/translate/async"
+                "v3/translate/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.TranslationPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.TranslationPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1636,6 +1909,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1651,6 +1934,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1682,23 +1975,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.Img2ImgPageRequest} request
+     * @param {Gooey.RemixImageRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.remixImage({
-     *         inputImage: "input_image"
-     *     })
+     *     await client.remixImage()
      */
     public async remixImage(
-        request: Gooey.Img2ImgPageRequest,
+        request: Gooey.RemixImageRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.Img2ImgPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1707,27 +2000,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/Img2Img/async"
+                "v3/Img2Img/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.Img2ImgPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Img2ImgPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1738,6 +2030,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1753,6 +2055,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1784,23 +2096,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.CompareText2ImgPageRequest} request
+     * @param {Gooey.TextToImageRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.textToImage({
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.textToImage()
      */
     public async textToImage(
-        request: Gooey.CompareText2ImgPageRequest,
+        request: Gooey.TextToImageRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.CompareText2ImgPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1809,27 +2121,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/CompareText2Img/async"
+                "v3/CompareText2Img/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.CompareText2ImgPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CompareText2ImgPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1840,6 +2151,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1855,6 +2176,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1886,24 +2217,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.ObjectInpaintingPageRequest} request
+     * @param {Gooey.ProductImageRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.productImage({
-     *         inputImage: "input_image",
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.productImage()
      */
     public async productImage(
-        request: Gooey.ObjectInpaintingPageRequest,
+        request: Gooey.ProductImageRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.ObjectInpaintingPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -1912,27 +2242,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/ObjectInpainting/async"
+                "v3/ObjectInpainting/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.ObjectInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ObjectInpaintingPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1943,6 +2272,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -1958,6 +2297,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1989,24 +2338,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.FaceInpaintingPageRequest} request
+     * @param {Gooey.PortraitRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.portrait({
-     *         inputImage: "input_image",
-     *         textPrompt: "tony stark from the iron man"
-     *     })
+     *     await client.portrait()
      */
     public async portrait(
-        request: Gooey.FaceInpaintingPageRequest,
+        request: Gooey.PortraitRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.FaceInpaintingPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2015,27 +2363,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/FaceInpainting/async"
+                "v3/FaceInpainting/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.FaceInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.FaceInpaintingPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2046,6 +2393,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2061,6 +2418,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2092,24 +2459,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.EmailFaceInpaintingPageRequest} request
+     * @param {Gooey.ImageFromEmailRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.imageFromEmail({
-     *         emailAddress: "sean@dara.network",
-     *         textPrompt: "winter's day in paris"
-     *     })
+     *     await client.imageFromEmail()
      */
     public async imageFromEmail(
-        request: Gooey.EmailFaceInpaintingPageRequest,
+        request: Gooey.ImageFromEmailRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.EmailFaceInpaintingPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2118,27 +2484,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/EmailFaceInpainting/async"
+                "v3/EmailFaceInpainting/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.EmailFaceInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.EmailFaceInpaintingPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2149,6 +2514,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2164,6 +2539,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2195,24 +2580,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.GoogleImageGenPageRequest} request
+     * @param {Gooey.ImageFromWebSearchRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.imageFromWebSearch({
-     *         searchQuery: "search_query",
-     *         textPrompt: "text_prompt"
-     *     })
+     *     await client.imageFromWebSearch()
      */
     public async imageFromWebSearch(
-        request: Gooey.GoogleImageGenPageRequest,
+        request: Gooey.ImageFromWebSearchRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.GoogleImageGenPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2221,27 +2605,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/GoogleImageGen/async"
+                "v3/GoogleImageGen/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.GoogleImageGenPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.GoogleImageGenPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2252,6 +2635,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2267,6 +2660,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2298,23 +2701,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.ImageSegmentationPageRequest} request
+     * @param {Gooey.RemoveBackgroundRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.removeBackground({
-     *         inputImage: "input_image"
-     *     })
+     *     await client.removeBackground()
      */
     public async removeBackground(
-        request: Gooey.ImageSegmentationPageRequest,
+        request: Gooey.RemoveBackgroundRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.ImageSegmentationPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2323,27 +2726,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/ImageSegmentation/async"
+                "v3/ImageSegmentation/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.ImageSegmentationPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ImageSegmentationPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2354,6 +2756,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2369,6 +2781,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2400,23 +2822,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.CompareUpscalerPageRequest} request
+     * @param {Gooey.UpscaleRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.upscale({
-     *         scale: 1
-     *     })
+     *     await client.upscale()
      */
     public async upscale(
-        request: Gooey.CompareUpscalerPageRequest,
+        request: Gooey.UpscaleRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.CompareUpscalerPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2425,27 +2847,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/compare-ai-upscalers/async"
+                "v3/compare-ai-upscalers/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.CompareUpscalerPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CompareUpscalerPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2456,6 +2877,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2471,6 +2902,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2502,23 +2943,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.EmbeddingsPageRequest} request
+     * @param {Gooey.EmbedRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.embed({
-     *         texts: ["texts"]
-     *     })
+     *     await client.embed()
      */
     public async embed(
-        request: Gooey.EmbeddingsPageRequest,
+        request: Gooey.EmbedRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.EmbeddingsPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2527,27 +2968,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/embeddings/async"
+                "v3/embeddings/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.EmbeddingsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.EmbeddingsPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2558,6 +2998,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2573,6 +3023,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2604,23 +3064,23 @@ export class GooeyClient {
     }
 
     /**
-     * @param {Gooey.RelatedQnADocPageRequest} request
+     * @param {Gooey.SeoPeopleAlsoAskDocRequest} request
      * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
+     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.seoPeopleAlsoAskDoc({
-     *         searchQuery: "search_query"
-     *     })
+     *     await client.seoPeopleAlsoAskDoc()
      */
     public async seoPeopleAlsoAskDoc(
-        request: Gooey.RelatedQnADocPageRequest,
+        request: Gooey.SeoPeopleAlsoAskDocRequest = {},
         requestOptions?: GooeyClient.RequestOptions
-    ): Promise<Gooey.RelatedQnADocPageResponse> {
-        const { exampleId, ..._body } = request;
+    ): Promise<Gooey.AsyncApiResponseModelV3> {
+        const { exampleId } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -2629,27 +3089,26 @@ export class GooeyClient {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/related-qna-maker-doc/async"
+                "v3/related-qna-maker-doc/async/form"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.RelatedQnADocPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.RelatedQnADocPageResponse.parseOrThrow(_response.body, {
+            return serializers.AsyncApiResponseModelV3.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -2660,6 +3119,16 @@ export class GooeyClient {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Gooey.BadRequestError(
+                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
                 case 402:
                     throw new Gooey.PaymentRequiredError(_response.error.body);
                 case 422:
@@ -2675,6 +3144,16 @@ export class GooeyClient {
                 case 429:
                     throw new Gooey.TooManyRequestsError(
                         serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Gooey.InternalServerError(
+                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -2722,7 +3201,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta12",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -2734,6 +3213,2009 @@ export class GooeyClient {
         });
         if (_response.ok) {
             return _response.body;
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3ChyronPlantAsync()
+     */
+    public async postV3ChyronPlantAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.ChyronPlantPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/ChyronPlant/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.ChyronPlantPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3CompareLlmAsync()
+     */
+    public async postV3CompareLlmAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.CompareLlmPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/CompareLLM/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.CompareLlmPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3CompareText2ImgAsync()
+     */
+    public async postV3CompareText2ImgAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.CompareText2ImgPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/CompareText2Img/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.CompareText2ImgPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3DeforumSdAsync()
+     */
+    public async postV3DeforumSdAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.DeforumSdPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/DeforumSD/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.DeforumSdPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3EmailFaceInpaintingAsync()
+     */
+    public async postV3EmailFaceInpaintingAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.EmailFaceInpaintingPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/EmailFaceInpainting/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.EmailFaceInpaintingPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3FaceInpaintingAsync()
+     */
+    public async postV3FaceInpaintingAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.FaceInpaintingPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/FaceInpainting/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.FaceInpaintingPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3GoogleImageGenAsync()
+     */
+    public async postV3GoogleImageGenAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.GoogleImageGenPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/GoogleImageGen/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.GoogleImageGenPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3ImageSegmentationAsync()
+     */
+    public async postV3ImageSegmentationAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.ImageSegmentationPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/ImageSegmentation/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.ImageSegmentationPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3Img2ImgAsync()
+     */
+    public async postV3Img2ImgAsync(requestOptions?: GooeyClient.RequestOptions): Promise<Gooey.Img2ImgPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/Img2Img/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Img2ImgPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3LetterWriterAsync()
+     */
+    public async postV3LetterWriterAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.LetterWriterPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/LetterWriter/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.LetterWriterPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3LipsyncAsync()
+     */
+    public async postV3LipsyncAsync(requestOptions?: GooeyClient.RequestOptions): Promise<Gooey.LipsyncPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/Lipsync/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.LipsyncPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3LipsyncTtsAsync()
+     */
+    public async postV3LipsyncTtsAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.LipsyncTtsPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/LipsyncTTS/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.LipsyncTtsPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3ObjectInpaintingAsync()
+     */
+    public async postV3ObjectInpaintingAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.ObjectInpaintingPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/ObjectInpainting/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.ObjectInpaintingPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3SeoSummaryAsync()
+     */
+    public async postV3SeoSummaryAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.SeoSummaryPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/SEOSummary/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.SeoSummaryPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3SmartGptAsync()
+     */
+    public async postV3SmartGptAsync(requestOptions?: GooeyClient.RequestOptions): Promise<Gooey.SmartGptPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/SmartGPT/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.SmartGptPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3SocialLookupEmailAsync()
+     */
+    public async postV3SocialLookupEmailAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.SocialLookupEmailPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/SocialLookupEmail/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.SocialLookupEmailPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3TextToSpeechAsync()
+     */
+    public async postV3TextToSpeechAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.TextToSpeechPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/TextToSpeech/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.TextToSpeechPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3ArtQrCodeAsync()
+     */
+    public async postV3ArtQrCodeAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.QrCodeGeneratorPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/art-qr-code/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.QrCodeGeneratorPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3AsrAsync()
+     */
+    public async postV3AsrAsync(requestOptions?: GooeyClient.RequestOptions): Promise<Gooey.AsrPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/asr/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.AsrPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3BulkEvalAsync()
+     */
+    public async postV3BulkEvalAsync(requestOptions?: GooeyClient.RequestOptions): Promise<Gooey.BulkEvalPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/bulk-eval/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.BulkEvalPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3BulkRunnerAsync()
+     */
+    public async postV3BulkRunnerAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.BulkRunnerPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/bulk-runner/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.BulkRunnerPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3CompareAiUpscalersAsync()
+     */
+    public async postV3CompareAiUpscalersAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.CompareUpscalerPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/compare-ai-upscalers/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.CompareUpscalerPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3DocExtractAsync()
+     */
+    public async postV3DocExtractAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.DocExtractPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/doc-extract/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.DocExtractPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3DocSearchAsync()
+     */
+    public async postV3DocSearchAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.DocSearchPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/doc-search/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.DocSearchPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3DocSummaryAsync()
+     */
+    public async postV3DocSummaryAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.DocSummaryPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/doc-summary/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.DocSummaryPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3EmbeddingsAsync()
+     */
+    public async postV3EmbeddingsAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.EmbeddingsPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/embeddings/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.EmbeddingsPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3FunctionsAsync()
+     */
+    public async postV3FunctionsAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.FunctionsPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/functions/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.FunctionsPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3GoogleGptAsync()
+     */
+    public async postV3GoogleGptAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.GoogleGptPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/google-gpt/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.GoogleGptPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3RelatedQnaMakerDocAsync()
+     */
+    public async postV3RelatedQnaMakerDocAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.RelatedQnADocPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/related-qna-maker-doc/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.RelatedQnADocPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3RelatedQnaMakerAsync()
+     */
+    public async postV3RelatedQnaMakerAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.RelatedQnAPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/related-qna-maker/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.RelatedQnAPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3Text2AudioAsync()
+     */
+    public async postV3Text2AudioAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.Text2AudioPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/text2audio/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Text2AudioPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3TranslateAsync()
+     */
+    public async postV3TranslateAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.TranslationPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/translate/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.TranslationPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.GooeyError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.GooeyError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.GooeyTimeoutError();
+            case "unknown":
+                throw new errors.GooeyError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * @param {GooeyClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.postV3VideoBotsAsync()
+     */
+    public async postV3VideoBotsAsync(
+        requestOptions?: GooeyClient.RequestOptions
+    ): Promise<Gooey.VideoBotsPageResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
+                "v3/video-bots/async"
+            ),
+            method: "POST",
+            headers: {
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "gooeyai",
+                "X-Fern-SDK-Version": "0.0.1-beta13",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.VideoBotsPageResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
