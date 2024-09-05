@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { VideoBotsPageRequest } from "./VideoBotsPageRequest";
 
 export const BodyAsyncFormVideoBots: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormVideoBots.Raw,
     Gooey.BodyAsyncFormVideoBots
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", VideoBotsPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormVideoBots {
     interface Raw {
-        page_request_json: VideoBotsPageRequest.Raw;
+        json: string;
     }
 }

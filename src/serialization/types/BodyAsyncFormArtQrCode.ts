@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { QrCodeGeneratorPageRequest } from "./QrCodeGeneratorPageRequest";
 
 export const BodyAsyncFormArtQrCode: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormArtQrCode.Raw,
     Gooey.BodyAsyncFormArtQrCode
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", QrCodeGeneratorPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormArtQrCode {
     interface Raw {
-        page_request_json: QrCodeGeneratorPageRequest.Raw;
+        json: string;
     }
 }

@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { RelatedQnAPageRequest } from "./RelatedQnAPageRequest";
 
 export const BodyAsyncFormRelatedQnaMaker: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormRelatedQnaMaker.Raw,
     Gooey.BodyAsyncFormRelatedQnaMaker
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", RelatedQnAPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormRelatedQnaMaker {
     interface Raw {
-        page_request_json: RelatedQnAPageRequest.Raw;
+        json: string;
     }
 }

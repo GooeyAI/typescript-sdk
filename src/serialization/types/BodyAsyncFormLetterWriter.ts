@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { LetterWriterPageRequest } from "./LetterWriterPageRequest";
 
 export const BodyAsyncFormLetterWriter: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormLetterWriter.Raw,
     Gooey.BodyAsyncFormLetterWriter
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", LetterWriterPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormLetterWriter {
     interface Raw {
-        page_request_json: LetterWriterPageRequest.Raw;
+        json: string;
     }
 }

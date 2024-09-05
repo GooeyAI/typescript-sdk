@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { Text2AudioPageRequest } from "./Text2AudioPageRequest";
 
 export const BodyAsyncFormText2Audio: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormText2Audio.Raw,
     Gooey.BodyAsyncFormText2Audio
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", Text2AudioPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormText2Audio {
     interface Raw {
-        page_request_json: Text2AudioPageRequest.Raw;
+        json: string;
     }
 }

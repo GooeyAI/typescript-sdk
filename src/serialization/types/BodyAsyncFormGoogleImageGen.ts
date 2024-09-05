@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { GoogleImageGenPageRequest } from "./GoogleImageGenPageRequest";
 
 export const BodyAsyncFormGoogleImageGen: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormGoogleImageGen.Raw,
     Gooey.BodyAsyncFormGoogleImageGen
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", GoogleImageGenPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormGoogleImageGen {
     interface Raw {
-        page_request_json: GoogleImageGenPageRequest.Raw;
+        json: string;
     }
 }

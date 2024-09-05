@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { DocSummaryPageRequest } from "./DocSummaryPageRequest";
 
 export const BodyAsyncFormDocSummary: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormDocSummary.Raw,
     Gooey.BodyAsyncFormDocSummary
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", DocSummaryPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormDocSummary {
     interface Raw {
-        page_request_json: DocSummaryPageRequest.Raw;
+        json: string;
     }
 }

@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { EmbeddingsPageRequest } from "./EmbeddingsPageRequest";
 
 export const BodyAsyncFormEmbeddings: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormEmbeddings.Raw,
     Gooey.BodyAsyncFormEmbeddings
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", EmbeddingsPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormEmbeddings {
     interface Raw {
-        page_request_json: EmbeddingsPageRequest.Raw;
+        json: string;
     }
 }

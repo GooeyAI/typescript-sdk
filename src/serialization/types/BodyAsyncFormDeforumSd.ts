@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { DeforumSdPageRequest } from "./DeforumSdPageRequest";
 
 export const BodyAsyncFormDeforumSd: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormDeforumSd.Raw,
     Gooey.BodyAsyncFormDeforumSd
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", DeforumSdPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormDeforumSd {
     interface Raw {
-        page_request_json: DeforumSdPageRequest.Raw;
+        json: string;
     }
 }

@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { ChyronPlantPageRequest } from "./ChyronPlantPageRequest";
 
 export const BodyAsyncFormChyronPlant: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormChyronPlant.Raw,
     Gooey.BodyAsyncFormChyronPlant
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", ChyronPlantPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormChyronPlant {
     interface Raw {
-        page_request_json: ChyronPlantPageRequest.Raw;
+        json: string;
     }
 }

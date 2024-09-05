@@ -5,17 +5,16 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { GoogleGptPageRequest } from "./GoogleGptPageRequest";
 
 export const BodyAsyncFormGoogleGpt: core.serialization.ObjectSchema<
     serializers.BodyAsyncFormGoogleGpt.Raw,
     Gooey.BodyAsyncFormGoogleGpt
 > = core.serialization.object({
-    pageRequestJson: core.serialization.property("page_request_json", GoogleGptPageRequest),
+    json: core.serialization.string(),
 });
 
 export declare namespace BodyAsyncFormGoogleGpt {
     interface Raw {
-        page_request_json: GoogleGptPageRequest.Raw;
+        json: string;
     }
 }
