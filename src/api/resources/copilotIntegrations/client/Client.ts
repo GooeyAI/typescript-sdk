@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace CopilotIntegrations {
@@ -30,15 +30,19 @@ export class CopilotIntegrations {
     constructor(protected readonly _options: CopilotIntegrations.Options = {}) {}
 
     /**
+     * @param {Gooey.CreateStreamRequest} request
      * @param {CopilotIntegrations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      *
      * @example
-     *     await client.copilotIntegrations.videoBotsStreamCreate()
+     *     await client.copilotIntegrations.videoBotsStreamCreate({
+     *         integrationId: "integration_id"
+     *     })
      */
     public async videoBotsStreamCreate(
+        request: Gooey.CreateStreamRequest,
         requestOptions?: CopilotIntegrations.RequestOptions
     ): Promise<Gooey.CreateStreamResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -51,12 +55,13 @@ export class CopilotIntegrations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.CreateStreamRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -132,7 +137,7 @@ export class CopilotIntegrations {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

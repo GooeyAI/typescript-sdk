@@ -44,7 +44,7 @@ await client.postV3VideoBotsAsync();
 
 ## CopilotIntegrations
 
-<details><summary><code>client.copilotIntegrations.<a href="/src/api/resources/copilotIntegrations/client/Client.ts">videoBotsStreamCreate</a>() -> Gooey.CreateStreamResponse</code></summary>
+<details><summary><code>client.copilotIntegrations.<a href="/src/api/resources/copilotIntegrations/client/Client.ts">videoBotsStreamCreate</a>({ ...params }) -> Gooey.CreateStreamResponse</code></summary>
 <dl>
 <dd>
 
@@ -57,7 +57,9 @@ await client.postV3VideoBotsAsync();
 <dd>
 
 ```typescript
-await client.copilotIntegrations.videoBotsStreamCreate();
+await client.copilotIntegrations.videoBotsStreamCreate({
+    integrationId: "integration_id",
+});
 ```
 
 </dd>
@@ -69,6 +71,14 @@ await client.copilotIntegrations.videoBotsStreamCreate();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request:** `Gooey.CreateStreamRequest`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -163,7 +173,7 @@ await client.copilotForYourEnterprise.asyncFormVideoBots();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormVideoBotsRequest`
+**request:** `Gooey.VideoBotsPageRequest`
 
 </dd>
 </dl>
@@ -651,7 +661,9 @@ await client.bulkRunner.post();
 <dd>
 
 ```typescript
-await client.evaluator.asyncFormBulkEval();
+await client.evaluator.asyncFormBulkEval({
+    documents: ["documents"],
+});
 ```
 
 </dd>
@@ -667,7 +679,7 @@ await client.evaluator.asyncFormBulkEval();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormBulkEvalRequest`
+**request:** `Gooey.BulkEvalPageRequest`
 
 </dd>
 </dl>
@@ -907,7 +919,9 @@ await client.searchYourDocsWithGpt.statusDocSearch({
 <dd>
 
 ```typescript
-await client.smartGpt.asyncFormSmartGpt();
+await client.smartGpt.asyncFormSmartGpt({
+    inputPrompt: "input_prompt",
+});
 ```
 
 </dd>
@@ -923,7 +937,7 @@ await client.smartGpt.asyncFormSmartGpt();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormSmartGptRequest`
+**request:** `Gooey.SmartGptPageRequest`
 
 </dd>
 </dl>
@@ -1115,7 +1129,7 @@ await client.functions.asyncFormFunctions();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormFunctionsRequest`
+**request:** `Gooey.FunctionsPageRequest`
 
 </dd>
 </dl>
@@ -1255,7 +1269,7 @@ await client.lipSyncing.asyncFormLipsync();
 <dl>
 <dd>
 
-**request:** `Gooey.AsyncFormLipsyncRequest`
+**request:** `Gooey.LipsyncPageRequest`
 
 </dd>
 </dl>
@@ -2303,7 +2317,9 @@ await client.misc.getBalance();
 <dd>
 
 ```typescript
-await client.misc.videoBotsBroadcast();
+await client.misc.videoBotsBroadcast({
+    text: "text",
+});
 ```
 
 </dd>
@@ -2319,7 +2335,7 @@ await client.misc.videoBotsBroadcast();
 <dl>
 <dd>
 
-**request:** `Gooey.VideoBotsBroadcastRequest`
+**request:** `Gooey.BotBroadcastRequestModel`
 
 </dd>
 </dl>

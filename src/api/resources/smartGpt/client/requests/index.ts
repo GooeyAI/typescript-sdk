@@ -1,2 +1,2 @@
-export { type AsyncFormSmartGptRequest } from "./AsyncFormSmartGptRequest";
+export { type SmartGptPageRequest } from "./SmartGptPageRequest";
 export { type StatusSmartGptRequest } from "./StatusSmartGptRequest";

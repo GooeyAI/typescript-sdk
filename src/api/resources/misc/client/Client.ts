@@ -46,7 +46,7 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -89,19 +89,21 @@ export class Misc {
     }
 
     /**
-     * @param {Gooey.VideoBotsBroadcastRequest} request
+     * @param {Gooey.BotBroadcastRequestModel} request
      * @param {Misc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.UnprocessableEntityError}
      *
      * @example
-     *     await client.misc.videoBotsBroadcast()
+     *     await client.misc.videoBotsBroadcast({
+     *         text: "text"
+     *     })
      */
     public async videoBotsBroadcast(
-        request: Gooey.VideoBotsBroadcastRequest = {},
+        request: Gooey.BotBroadcastRequestModel,
         requestOptions?: Misc.RequestOptions
     ): Promise<unknown> {
-        const { exampleId, runId } = request;
+        const { exampleId, runId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -121,13 +123,14 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.BotBroadcastRequestModel.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

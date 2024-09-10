@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace LipSyncing {
@@ -30,7 +30,7 @@ export class LipSyncing {
     constructor(protected readonly _options: LipSyncing.Options = {}) {}
 
     /**
-     * @param {Gooey.AsyncFormLipsyncRequest} request
+     * @param {Gooey.LipsyncPageRequest} request
      * @param {LipSyncing.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Gooey.BadRequestError}
@@ -43,10 +43,10 @@ export class LipSyncing {
      *     await client.lipSyncing.asyncFormLipsync()
      */
     public async asyncFormLipsync(
-        request: Gooey.AsyncFormLipsyncRequest = {},
+        request: Gooey.LipsyncPageRequest = {},
         requestOptions?: LipSyncing.RequestOptions
     ): Promise<Gooey.LipsyncPageStatusResponse> {
-        const { exampleId } = request;
+        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (exampleId != null) {
             _queryParams["example_id"] = exampleId;
@@ -62,13 +62,14 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.LipsyncPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -180,7 +181,7 @@ export class LipSyncing {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta19",
+                "X-Fern-SDK-Version": "0.0.1-beta18",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
