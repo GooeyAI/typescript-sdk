@@ -59,7 +59,7 @@ export class BulkRunner {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta20",
+                "X-Fern-SDK-Version": "0.0.1-beta21",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -110,59 +110,6 @@ export class BulkRunner {
                         body: _response.error.body,
                     });
             }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.GooeyError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.GooeyTimeoutError();
-            case "unknown":
-                throw new errors.GooeyError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * @param {BulkRunner.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.bulkRunner.post()
-     */
-    public async post(requestOptions?: BulkRunner.RequestOptions): Promise<void> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v2/bulk-runner/"
-            ),
-            method: "POST",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta20",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return;
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.GooeyError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
         }
 
         switch (_response.error.reason) {

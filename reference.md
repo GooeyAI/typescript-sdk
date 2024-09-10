@@ -606,46 +606,6 @@ await client.bulkRunner.statusBulkRunner({
 </dl>
 </details>
 
-<details><summary><code>client.bulkRunner.<a href="/src/api/resources/bulkRunner/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.bulkRunner.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `BulkRunner.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Evaluator
 
 <details><summary><code>client.evaluator.<a href="/src/api/resources/evaluator/client/Client.ts">asyncFormBulkEval</a>({ ...params }) -> Gooey.BulkEvalPageStatusResponse</code></summary>
@@ -1006,46 +966,6 @@ await client.smartGpt.statusSmartGpt({
 </dl>
 </details>
 
-<details><summary><code>client.smartGpt.<a href="/src/api/resources/smartGpt/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.smartGpt.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `SmartGpt.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## SummarizeYourDocsWithGpt
 
 <details><summary><code>client.summarizeYourDocsWithGpt.<a href="/src/api/resources/summarizeYourDocsWithGpt/client/Client.ts">statusDocSummary</a>({ ...params }) -> Gooey.DocSummaryPageStatusResponse</code></summary>
@@ -1183,46 +1103,6 @@ await client.functions.statusFunctions({
 
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Functions.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.functions.<a href="/src/api/resources/functions/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.functions.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
@@ -2155,46 +2035,6 @@ await client.embeddings.statusEmbeddings({
 
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Embeddings.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.embeddings.<a href="/src/api/resources/embeddings/client/Client.ts">post</a>() -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.embeddings.post();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
