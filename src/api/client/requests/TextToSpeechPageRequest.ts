@@ -16,7 +16,7 @@ export interface TextToSpeechPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     textPrompt: string;
-    ttsProvider?: Gooey.TextToSpeechPageRequestTtsProvider;
+    ttsProvider?: Gooey.TextToSpeechRequestTtsProvider;
     uberduckVoiceName?: string;
     uberduckSpeakingRate?: number;
     googleVoiceName?: string;
@@ -33,7 +33,7 @@ export interface TextToSpeechPageRequest {
     elevenlabsStyle?: number;
     elevenlabsSpeakerBoost?: boolean;
     azureVoiceName?: string;
-    openaiVoiceName?: Gooey.TextToSpeechPageRequestOpenaiVoiceName;
-    openaiTtsModel?: Gooey.TextToSpeechPageRequestOpenaiTtsModel;
+    openaiVoiceName?: Gooey.TextToSpeechRequestOpenaiVoiceName;
+    openaiTtsModel?: Gooey.TextToSpeechRequestOpenaiTtsModel;
     settings?: Gooey.RunSettings;
 }

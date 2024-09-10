@@ -18,15 +18,15 @@ export interface DocSummaryPageRequest {
     documents: string[];
     taskInstructions?: string;
     mergeInstructions?: string;
-    selectedModel?: Gooey.DocSummaryPageRequestSelectedModel;
+    selectedModel?: Gooey.DocSummaryRequestSelectedModel;
     chainType?: "map_reduce";
-    selectedAsrModel?: Gooey.DocSummaryPageRequestSelectedAsrModel;
+    selectedAsrModel?: Gooey.DocSummaryRequestSelectedAsrModel;
     googleTranslateTarget?: string;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.DocSummaryPageRequestResponseFormatType;
+    responseFormatType?: Gooey.DocSummaryRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

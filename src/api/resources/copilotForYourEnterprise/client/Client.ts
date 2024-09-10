@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace CopilotForYourEnterprise {
@@ -40,18 +40,275 @@ export class CopilotForYourEnterprise {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.copilotForYourEnterprise.asyncFormVideoBots()
+     *     await client.copilotForYourEnterprise.asyncFormVideoBots({})
      */
     public async asyncFormVideoBots(
-        request: Gooey.VideoBotsPageRequest = {},
+        request: Gooey.VideoBotsPageRequest,
         requestOptions?: CopilotForYourEnterprise.RequestOptions
     ): Promise<Gooey.VideoBotsPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.inputPrompt != null) {
+            await _request.append("input_prompt", request.inputPrompt);
+        }
+
+        if (request.inputAudio != null) {
+            await _request.append("input_audio", request.inputAudio);
+        }
+
+        if (request.inputImages != null) {
+            for (const _item of request.inputImages) {
+                await _request.append("input_images", _item);
+            }
+        }
+
+        if (request.inputDocuments != null) {
+            for (const _item of request.inputDocuments) {
+                await _request.append("input_documents", _item);
+            }
+        }
+
+        if (request.docExtractUrl != null) {
+            await _request.append("doc_extract_url", request.docExtractUrl);
+        }
+
+        if (request.messages != null) {
+            for (const _item of request.messages) {
+                await _request.append("messages", JSON.stringify(_item));
+            }
+        }
+
+        if (request.botScript != null) {
+            await _request.append("bot_script", request.botScript);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.documentModel != null) {
+            await _request.append("document_model", request.documentModel);
+        }
+
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.queryInstructions != null) {
+            await _request.append("query_instructions", request.queryInstructions);
+        }
+
+        if (request.keywordInstructions != null) {
+            await _request.append("keyword_instructions", request.keywordInstructions);
+        }
+
+        if (request.documents != null) {
+            for (const _item of request.documents) {
+                await _request.append("documents", _item);
+            }
+        }
+
+        if (request.maxReferences != null) {
+            await _request.append("max_references", request.maxReferences.toString());
+        }
+
+        if (request.maxContextWords != null) {
+            await _request.append("max_context_words", request.maxContextWords.toString());
+        }
+
+        if (request.scrollJump != null) {
+            await _request.append("scroll_jump", request.scrollJump.toString());
+        }
+
+        if (request.embeddingModel != null) {
+            await _request.append("embedding_model", request.embeddingModel);
+        }
+
+        if (request.denseWeight != null) {
+            await _request.append("dense_weight", request.denseWeight.toString());
+        }
+
+        if (request.citationStyle != null) {
+            await _request.append("citation_style", request.citationStyle);
+        }
+
+        if (request.useUrlShortener != null) {
+            await _request.append("use_url_shortener", request.useUrlShortener.toString());
+        }
+
+        if (request.asrModel != null) {
+            await _request.append("asr_model", request.asrModel);
+        }
+
+        if (request.asrLanguage != null) {
+            await _request.append("asr_language", request.asrLanguage);
+        }
+
+        if (request.translationModel != null) {
+            await _request.append("translation_model", request.translationModel);
+        }
+
+        if (request.userLanguage != null) {
+            await _request.append("user_language", request.userLanguage);
+        }
+
+        if (request.inputGlossaryDocument != null) {
+            await _request.append("input_glossary_document", request.inputGlossaryDocument);
+        }
+
+        if (request.outputGlossaryDocument != null) {
+            await _request.append("output_glossary_document", request.outputGlossaryDocument);
+        }
+
+        if (request.lipsyncModel != null) {
+            await _request.append("lipsync_model", request.lipsyncModel);
+        }
+
+        if (request.tools != null) {
+            for (const _item of request.tools) {
+                await _request.append("tools", _item);
+            }
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.ttsProvider != null) {
+            await _request.append("tts_provider", request.ttsProvider);
+        }
+
+        if (request.uberduckVoiceName != null) {
+            await _request.append("uberduck_voice_name", request.uberduckVoiceName);
+        }
+
+        if (request.uberduckSpeakingRate != null) {
+            await _request.append("uberduck_speaking_rate", request.uberduckSpeakingRate.toString());
+        }
+
+        if (request.googleVoiceName != null) {
+            await _request.append("google_voice_name", request.googleVoiceName);
+        }
+
+        if (request.googleSpeakingRate != null) {
+            await _request.append("google_speaking_rate", request.googleSpeakingRate.toString());
+        }
+
+        if (request.googlePitch != null) {
+            await _request.append("google_pitch", request.googlePitch.toString());
+        }
+
+        if (request.barkHistoryPrompt != null) {
+            await _request.append("bark_history_prompt", request.barkHistoryPrompt);
+        }
+
+        if (request.elevenlabsVoiceName != null) {
+            await _request.append("elevenlabs_voice_name", request.elevenlabsVoiceName);
+        }
+
+        if (request.elevenlabsApiKey != null) {
+            await _request.append("elevenlabs_api_key", request.elevenlabsApiKey);
+        }
+
+        if (request.elevenlabsVoiceId != null) {
+            await _request.append("elevenlabs_voice_id", request.elevenlabsVoiceId);
+        }
+
+        if (request.elevenlabsModel != null) {
+            await _request.append("elevenlabs_model", request.elevenlabsModel);
+        }
+
+        if (request.elevenlabsStability != null) {
+            await _request.append("elevenlabs_stability", request.elevenlabsStability.toString());
+        }
+
+        if (request.elevenlabsSimilarityBoost != null) {
+            await _request.append("elevenlabs_similarity_boost", request.elevenlabsSimilarityBoost.toString());
+        }
+
+        if (request.elevenlabsStyle != null) {
+            await _request.append("elevenlabs_style", request.elevenlabsStyle.toString());
+        }
+
+        if (request.elevenlabsSpeakerBoost != null) {
+            await _request.append("elevenlabs_speaker_boost", request.elevenlabsSpeakerBoost.toString());
+        }
+
+        if (request.azureVoiceName != null) {
+            await _request.append("azure_voice_name", request.azureVoiceName);
+        }
+
+        if (request.openaiVoiceName != null) {
+            await _request.append("openai_voice_name", request.openaiVoiceName);
+        }
+
+        if (request.openaiTtsModel != null) {
+            await _request.append("openai_tts_model", request.openaiTtsModel);
+        }
+
+        if (request.inputFace != null) {
+            await _request.append("input_face", request.inputFace);
+        }
+
+        if (request.facePaddingTop != null) {
+            await _request.append("face_padding_top", request.facePaddingTop.toString());
+        }
+
+        if (request.facePaddingBottom != null) {
+            await _request.append("face_padding_bottom", request.facePaddingBottom.toString());
+        }
+
+        if (request.facePaddingLeft != null) {
+            await _request.append("face_padding_left", request.facePaddingLeft.toString());
+        }
+
+        if (request.facePaddingRight != null) {
+            await _request.append("face_padding_right", request.facePaddingRight.toString());
+        }
+
+        if (request.sadtalkerSettings != null) {
+            await _request.append("sadtalker_settings", JSON.stringify(request.sadtalkerSettings));
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -62,14 +319,15 @@ export class CopilotForYourEnterprise {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.VideoBotsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -181,7 +439,7 @@ export class CopilotForYourEnterprise {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

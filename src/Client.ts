@@ -5,8 +5,8 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import * as Gooey from "./api/index";
-import * as serializers from "./serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "./serialization/index";
 import * as errors from "./errors/index";
 import { CopilotIntegrations } from "./api/resources/copilotIntegrations/client/Client";
 import { CopilotForYourEnterprise } from "./api/resources/copilotForYourEnterprise/client/Client";
@@ -86,12 +86,75 @@ export class GooeyClient {
         request: Gooey.DeforumSdPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.DeforumSdPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.animationPrompts) {
+            await _request.append("animation_prompts", JSON.stringify(_item));
+        }
+
+        if (request.maxFrames != null) {
+            await _request.append("max_frames", request.maxFrames.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.animationMode != null) {
+            await _request.append("animation_mode", request.animationMode);
+        }
+
+        if (request.zoom != null) {
+            await _request.append("zoom", request.zoom);
+        }
+
+        if (request.translationX != null) {
+            await _request.append("translation_x", request.translationX);
+        }
+
+        if (request.translationY != null) {
+            await _request.append("translation_y", request.translationY);
+        }
+
+        if (request.rotation3DX != null) {
+            await _request.append("rotation_3d_x", request.rotation3DX);
+        }
+
+        if (request.rotation3DY != null) {
+            await _request.append("rotation_3d_y", request.rotation3DY);
+        }
+
+        if (request.rotation3DZ != null) {
+            await _request.append("rotation_3d_z", request.rotation3DZ);
+        }
+
+        if (request.fps != null) {
+            await _request.append("fps", request.fps.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -102,14 +165,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.DeforumSdPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -210,12 +274,134 @@ export class GooeyClient {
         request: Gooey.QrCodeGeneratorPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.QrCodeGeneratorPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.qrCodeData != null) {
+            await _request.append("qr_code_data", request.qrCodeData);
+        }
+
+        if (request.qrCodeInputImage != null) {
+            await _request.append("qr_code_input_image", request.qrCodeInputImage);
+        }
+
+        if (request.qrCodeVcard != null) {
+            await _request.append("qr_code_vcard", JSON.stringify(request.qrCodeVcard));
+        }
+
+        if (request.qrCodeFile != null) {
+            await _request.append("qr_code_file", request.qrCodeFile);
+        }
+
+        if (request.useUrlShortener != null) {
+            await _request.append("use_url_shortener", request.useUrlShortener.toString());
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.imagePrompt != null) {
+            await _request.append("image_prompt", request.imagePrompt);
+        }
+
+        if (request.imagePromptControlnetModels != null) {
+            for (const _item of request.imagePromptControlnetModels) {
+                await _request.append("image_prompt_controlnet_models", _item);
+            }
+        }
+
+        if (request.imagePromptStrength != null) {
+            await _request.append("image_prompt_strength", request.imagePromptStrength.toString());
+        }
+
+        if (request.imagePromptScale != null) {
+            await _request.append("image_prompt_scale", request.imagePromptScale.toString());
+        }
+
+        if (request.imagePromptPosX != null) {
+            await _request.append("image_prompt_pos_x", request.imagePromptPosX.toString());
+        }
+
+        if (request.imagePromptPosY != null) {
+            await _request.append("image_prompt_pos_y", request.imagePromptPosY.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.selectedControlnetModel != null) {
+            for (const _item of request.selectedControlnetModel) {
+                await _request.append("selected_controlnet_model", _item);
+            }
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.controlnetConditioningScale != null) {
+            for (const _item of request.controlnetConditioningScale) {
+                await _request.append("controlnet_conditioning_scale", _item.toString());
+            }
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.scheduler != null) {
+            await _request.append("scheduler", request.scheduler);
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.objScale != null) {
+            await _request.append("obj_scale", request.objScale.toString());
+        }
+
+        if (request.objPosX != null) {
+            await _request.append("obj_pos_x", request.objPosX.toString());
+        }
+
+        if (request.objPosY != null) {
+            await _request.append("obj_pos_y", request.objPosY.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -226,14 +412,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.QrCodeGeneratorPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -335,12 +522,107 @@ export class GooeyClient {
         request: Gooey.RelatedQnAPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.RelatedQnAPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("search_query", request.searchQuery);
+        await _request.append("site_filter", request.siteFilter);
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.queryInstructions != null) {
+            await _request.append("query_instructions", request.queryInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.maxSearchUrls != null) {
+            await _request.append("max_search_urls", request.maxSearchUrls.toString());
+        }
+
+        if (request.maxReferences != null) {
+            await _request.append("max_references", request.maxReferences.toString());
+        }
+
+        if (request.maxContextWords != null) {
+            await _request.append("max_context_words", request.maxContextWords.toString());
+        }
+
+        if (request.scrollJump != null) {
+            await _request.append("scroll_jump", request.scrollJump.toString());
+        }
+
+        if (request.embeddingModel != null) {
+            await _request.append("embedding_model", request.embeddingModel);
+        }
+
+        if (request.denseWeight != null) {
+            await _request.append("dense_weight", request.denseWeight.toString());
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.serpSearchLocation != null) {
+            await _request.append("serp_search_location", request.serpSearchLocation);
+        }
+
+        if (request.scaleserpLocations != null) {
+            for (const _item of request.scaleserpLocations) {
+                await _request.append("scaleserp_locations", _item);
+            }
+        }
+
+        if (request.serpSearchType != null) {
+            await _request.append("serp_search_type", request.serpSearchType);
+        }
+
+        if (request.scaleserpSearchField != null) {
+            await _request.append("scaleserp_search_field", request.scaleserpSearchField);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -351,14 +633,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.RelatedQnAPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -462,12 +745,87 @@ export class GooeyClient {
         request: Gooey.SeoSummaryPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.SeoSummaryPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        await _request.append("search_query", request.searchQuery);
+        await _request.append("keywords", request.keywords);
+        await _request.append("title", request.title);
+        await _request.append("company_url", request.companyUrl);
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.enableHtml != null) {
+            await _request.append("enable_html", request.enableHtml.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.maxSearchUrls != null) {
+            await _request.append("max_search_urls", request.maxSearchUrls.toString());
+        }
+
+        if (request.enableCrosslinks != null) {
+            await _request.append("enable_crosslinks", request.enableCrosslinks.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.serpSearchLocation != null) {
+            await _request.append("serp_search_location", request.serpSearchLocation);
+        }
+
+        if (request.scaleserpLocations != null) {
+            for (const _item of request.scaleserpLocations) {
+                await _request.append("scaleserp_locations", _item);
+            }
+        }
+
+        if (request.serpSearchType != null) {
+            await _request.append("serp_search_type", request.serpSearchType);
+        }
+
+        if (request.scaleserpSearchField != null) {
+            await _request.append("scaleserp_search_field", request.scaleserpSearchField);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -478,14 +836,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.SeoSummaryPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -587,12 +946,107 @@ export class GooeyClient {
         request: Gooey.GoogleGptPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.GoogleGptPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("search_query", request.searchQuery);
+        await _request.append("site_filter", request.siteFilter);
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.queryInstructions != null) {
+            await _request.append("query_instructions", request.queryInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.maxSearchUrls != null) {
+            await _request.append("max_search_urls", request.maxSearchUrls.toString());
+        }
+
+        if (request.maxReferences != null) {
+            await _request.append("max_references", request.maxReferences.toString());
+        }
+
+        if (request.maxContextWords != null) {
+            await _request.append("max_context_words", request.maxContextWords.toString());
+        }
+
+        if (request.scrollJump != null) {
+            await _request.append("scroll_jump", request.scrollJump.toString());
+        }
+
+        if (request.embeddingModel != null) {
+            await _request.append("embedding_model", request.embeddingModel);
+        }
+
+        if (request.denseWeight != null) {
+            await _request.append("dense_weight", request.denseWeight.toString());
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.serpSearchLocation != null) {
+            await _request.append("serp_search_location", request.serpSearchLocation);
+        }
+
+        if (request.scaleserpLocations != null) {
+            for (const _item of request.scaleserpLocations) {
+                await _request.append("scaleserp_locations", _item);
+            }
+        }
+
+        if (request.serpSearchType != null) {
+            await _request.append("serp_search_type", request.serpSearchType);
+        }
+
+        if (request.scaleserpSearchField != null) {
+            await _request.append("scaleserp_search_field", request.scaleserpSearchField);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -603,14 +1057,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.GoogleGptPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -711,12 +1166,60 @@ export class GooeyClient {
         request: Gooey.SocialLookupEmailPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.SocialLookupEmailPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("email_address", request.emailAddress);
+        if (request.inputPrompt != null) {
+            await _request.append("input_prompt", request.inputPrompt);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -727,14 +1230,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.SocialLookupEmailPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -842,12 +1346,43 @@ export class GooeyClient {
         request: Gooey.BulkRunnerPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.BulkRunnerPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.documents) {
+            await _request.append("documents", _item);
+        }
+
+        for (const _item of request.runUrls) {
+            await _request.append("run_urls", _item);
+        }
+
+        await _request.append("input_columns", JSON.stringify(request.inputColumns));
+        await _request.append("output_columns", JSON.stringify(request.outputColumns));
+        if (request.evalUrls != null) {
+            for (const _item of request.evalUrls) {
+                await _request.append("eval_urls", _item);
+            }
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -858,14 +1393,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.BulkRunnerPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -966,12 +1502,79 @@ export class GooeyClient {
         request: Gooey.DocExtractPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.DocExtractPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.documents) {
+            await _request.append("documents", _item);
+        }
+
+        if (request.sheetUrl != null) {
+            await _request.append("sheet_url", request.sheetUrl);
+        }
+
+        if (request.selectedAsrModel != null) {
+            await _request.append("selected_asr_model", request.selectedAsrModel);
+        }
+
+        if (request.googleTranslateTarget != null) {
+            await _request.append("google_translate_target", request.googleTranslateTarget);
+        }
+
+        if (request.glossaryDocument != null) {
+            await _request.append("glossary_document", request.glossaryDocument);
+        }
+
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -982,14 +1585,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.DocExtractPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1082,18 +1686,67 @@ export class GooeyClient {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.llm()
+     *     await client.llm({})
      */
     public async llm(
-        request: Gooey.CompareLlmPageRequest = {},
+        request: Gooey.CompareLlmPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.CompareLlmPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.inputPrompt != null) {
+            await _request.append("input_prompt", request.inputPrompt);
+        }
+
+        if (request.selectedModels != null) {
+            for (const _item of request.selectedModels) {
+                await _request.append("selected_models", _item);
+            }
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1104,14 +1757,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.CompareLlmPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1212,12 +1866,105 @@ export class GooeyClient {
         request: Gooey.DocSearchPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.DocSearchPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("search_query", request.searchQuery);
+        if (request.keywordQuery != null) {
+            if (Array.isArray(request.keywordQuery))
+                for (const _item of request.keywordQuery) {
+                    await _request.append("keyword_query", typeof _item === "string" ? _item : JSON.stringify(_item));
+                }
+        }
+
+        if (request.documents != null) {
+            for (const _item of request.documents) {
+                await _request.append("documents", _item);
+            }
+        }
+
+        if (request.maxReferences != null) {
+            await _request.append("max_references", request.maxReferences.toString());
+        }
+
+        if (request.maxContextWords != null) {
+            await _request.append("max_context_words", request.maxContextWords.toString());
+        }
+
+        if (request.scrollJump != null) {
+            await _request.append("scroll_jump", request.scrollJump.toString());
+        }
+
+        if (request.docExtractUrl != null) {
+            await _request.append("doc_extract_url", request.docExtractUrl);
+        }
+
+        if (request.embeddingModel != null) {
+            await _request.append("embedding_model", request.embeddingModel);
+        }
+
+        if (request.denseWeight != null) {
+            await _request.append("dense_weight", request.denseWeight.toString());
+        }
+
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.queryInstructions != null) {
+            await _request.append("query_instructions", request.queryInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.citationStyle != null) {
+            await _request.append("citation_style", request.citationStyle);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1228,14 +1975,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.DocSearchPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1336,12 +2084,79 @@ export class GooeyClient {
         request: Gooey.DocSummaryPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.DocSummaryPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.documents) {
+            await _request.append("documents", _item);
+        }
+
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.mergeInstructions != null) {
+            await _request.append("merge_instructions", request.mergeInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.chainType != null) {
+            await _request.append("chain_type", request.chainType);
+        }
+
+        if (request.selectedAsrModel != null) {
+            await _request.append("selected_asr_model", request.selectedAsrModel);
+        }
+
+        if (request.googleTranslateTarget != null) {
+            await _request.append("google_translate_target", request.googleTranslateTarget);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1352,14 +2167,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.DocSummaryPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1460,12 +2276,128 @@ export class GooeyClient {
         request: Gooey.LipsyncTtsPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.LipsyncTtsPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.ttsProvider != null) {
+            await _request.append("tts_provider", request.ttsProvider);
+        }
+
+        if (request.uberduckVoiceName != null) {
+            await _request.append("uberduck_voice_name", request.uberduckVoiceName);
+        }
+
+        if (request.uberduckSpeakingRate != null) {
+            await _request.append("uberduck_speaking_rate", request.uberduckSpeakingRate.toString());
+        }
+
+        if (request.googleVoiceName != null) {
+            await _request.append("google_voice_name", request.googleVoiceName);
+        }
+
+        if (request.googleSpeakingRate != null) {
+            await _request.append("google_speaking_rate", request.googleSpeakingRate.toString());
+        }
+
+        if (request.googlePitch != null) {
+            await _request.append("google_pitch", request.googlePitch.toString());
+        }
+
+        if (request.barkHistoryPrompt != null) {
+            await _request.append("bark_history_prompt", request.barkHistoryPrompt);
+        }
+
+        if (request.elevenlabsVoiceName != null) {
+            await _request.append("elevenlabs_voice_name", request.elevenlabsVoiceName);
+        }
+
+        if (request.elevenlabsApiKey != null) {
+            await _request.append("elevenlabs_api_key", request.elevenlabsApiKey);
+        }
+
+        if (request.elevenlabsVoiceId != null) {
+            await _request.append("elevenlabs_voice_id", request.elevenlabsVoiceId);
+        }
+
+        if (request.elevenlabsModel != null) {
+            await _request.append("elevenlabs_model", request.elevenlabsModel);
+        }
+
+        if (request.elevenlabsStability != null) {
+            await _request.append("elevenlabs_stability", request.elevenlabsStability.toString());
+        }
+
+        if (request.elevenlabsSimilarityBoost != null) {
+            await _request.append("elevenlabs_similarity_boost", request.elevenlabsSimilarityBoost.toString());
+        }
+
+        if (request.elevenlabsStyle != null) {
+            await _request.append("elevenlabs_style", request.elevenlabsStyle.toString());
+        }
+
+        if (request.elevenlabsSpeakerBoost != null) {
+            await _request.append("elevenlabs_speaker_boost", request.elevenlabsSpeakerBoost.toString());
+        }
+
+        if (request.azureVoiceName != null) {
+            await _request.append("azure_voice_name", request.azureVoiceName);
+        }
+
+        if (request.openaiVoiceName != null) {
+            await _request.append("openai_voice_name", request.openaiVoiceName);
+        }
+
+        if (request.openaiTtsModel != null) {
+            await _request.append("openai_tts_model", request.openaiTtsModel);
+        }
+
+        if (request.inputFace != null) {
+            await _request.append("input_face", request.inputFace);
+        }
+
+        if (request.facePaddingTop != null) {
+            await _request.append("face_padding_top", request.facePaddingTop.toString());
+        }
+
+        if (request.facePaddingBottom != null) {
+            await _request.append("face_padding_bottom", request.facePaddingBottom.toString());
+        }
+
+        if (request.facePaddingLeft != null) {
+            await _request.append("face_padding_left", request.facePaddingLeft.toString());
+        }
+
+        if (request.facePaddingRight != null) {
+            await _request.append("face_padding_right", request.facePaddingRight.toString());
+        }
+
+        if (request.sadtalkerSettings != null) {
+            await _request.append("sadtalker_settings", JSON.stringify(request.sadtalkerSettings));
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1476,14 +2408,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.LipsyncTtsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1584,12 +2517,100 @@ export class GooeyClient {
         request: Gooey.TextToSpeechPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.TextToSpeechPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.ttsProvider != null) {
+            await _request.append("tts_provider", request.ttsProvider);
+        }
+
+        if (request.uberduckVoiceName != null) {
+            await _request.append("uberduck_voice_name", request.uberduckVoiceName);
+        }
+
+        if (request.uberduckSpeakingRate != null) {
+            await _request.append("uberduck_speaking_rate", request.uberduckSpeakingRate.toString());
+        }
+
+        if (request.googleVoiceName != null) {
+            await _request.append("google_voice_name", request.googleVoiceName);
+        }
+
+        if (request.googleSpeakingRate != null) {
+            await _request.append("google_speaking_rate", request.googleSpeakingRate.toString());
+        }
+
+        if (request.googlePitch != null) {
+            await _request.append("google_pitch", request.googlePitch.toString());
+        }
+
+        if (request.barkHistoryPrompt != null) {
+            await _request.append("bark_history_prompt", request.barkHistoryPrompt);
+        }
+
+        if (request.elevenlabsVoiceName != null) {
+            await _request.append("elevenlabs_voice_name", request.elevenlabsVoiceName);
+        }
+
+        if (request.elevenlabsApiKey != null) {
+            await _request.append("elevenlabs_api_key", request.elevenlabsApiKey);
+        }
+
+        if (request.elevenlabsVoiceId != null) {
+            await _request.append("elevenlabs_voice_id", request.elevenlabsVoiceId);
+        }
+
+        if (request.elevenlabsModel != null) {
+            await _request.append("elevenlabs_model", request.elevenlabsModel);
+        }
+
+        if (request.elevenlabsStability != null) {
+            await _request.append("elevenlabs_stability", request.elevenlabsStability.toString());
+        }
+
+        if (request.elevenlabsSimilarityBoost != null) {
+            await _request.append("elevenlabs_similarity_boost", request.elevenlabsSimilarityBoost.toString());
+        }
+
+        if (request.elevenlabsStyle != null) {
+            await _request.append("elevenlabs_style", request.elevenlabsStyle.toString());
+        }
+
+        if (request.elevenlabsSpeakerBoost != null) {
+            await _request.append("elevenlabs_speaker_boost", request.elevenlabsSpeakerBoost.toString());
+        }
+
+        if (request.azureVoiceName != null) {
+            await _request.append("azure_voice_name", request.azureVoiceName);
+        }
+
+        if (request.openaiVoiceName != null) {
+            await _request.append("openai_voice_name", request.openaiVoiceName);
+        }
+
+        if (request.openaiTtsModel != null) {
+            await _request.append("openai_tts_model", request.openaiTtsModel);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1600,14 +2621,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.TextToSpeechPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1708,12 +2730,63 @@ export class GooeyClient {
         request: Gooey.AsrPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.AsrPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.documents) {
+            await _request.append("documents", _item);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.language != null) {
+            await _request.append("language", request.language);
+        }
+
+        if (request.translationModel != null) {
+            await _request.append("translation_model", request.translationModel);
+        }
+
+        if (request.outputFormat != null) {
+            await _request.append("output_format", request.outputFormat);
+        }
+
+        if (request.googleTranslateTarget != null) {
+            await _request.append("google_translate_target", request.googleTranslateTarget);
+        }
+
+        if (request.translationSource != null) {
+            await _request.append("translation_source", request.translationSource);
+        }
+
+        if (request.translationTarget != null) {
+            await _request.append("translation_target", request.translationTarget);
+        }
+
+        if (request.glossaryDocument != null) {
+            await _request.append("glossary_document", request.glossaryDocument);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1724,14 +2797,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.AsrPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1832,12 +2906,62 @@ export class GooeyClient {
         request: Gooey.Text2AudioPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.Text2AudioPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.durationSec != null) {
+            await _request.append("duration_sec", request.durationSec.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.sd2Upscaling != null) {
+            await _request.append("sd_2_upscaling", request.sd2Upscaling.toString());
+        }
+
+        if (request.selectedModels != null) {
+            for (const _item of request.selectedModels) {
+                await _request.append("selected_models", _item);
+            }
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1848,14 +2972,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.Text2AudioPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1948,18 +3073,55 @@ export class GooeyClient {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.translate()
+     *     await client.translate({})
      */
     public async translate(
-        request: Gooey.TranslationPageRequest = {},
+        request: Gooey.TranslationPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.TranslationPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.texts != null) {
+            for (const _item of request.texts) {
+                await _request.append("texts", _item);
+            }
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.translationSource != null) {
+            await _request.append("translation_source", request.translationSource);
+        }
+
+        if (request.translationTarget != null) {
+            await _request.append("translation_target", request.translationTarget);
+        }
+
+        if (request.glossaryDocument != null) {
+            await _request.append("glossary_document", request.glossaryDocument);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -1970,14 +3132,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.TranslationPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2078,12 +3241,88 @@ export class GooeyClient {
         request: Gooey.Img2ImgPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.Img2ImgPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("input_image", request.inputImage);
+        if (request.textPrompt != null) {
+            await _request.append("text_prompt", request.textPrompt);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.selectedControlnetModel != null) {
+            if (Array.isArray(request.selectedControlnetModel))
+                for (const _item of request.selectedControlnetModel) {
+                    await _request.append(
+                        "selected_controlnet_model",
+                        typeof _item === "string" ? _item : JSON.stringify(_item)
+                    );
+                }
+        }
+
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.promptStrength != null) {
+            await _request.append("prompt_strength", request.promptStrength.toString());
+        }
+
+        if (request.controlnetConditioningScale != null) {
+            for (const _item of request.controlnetConditioningScale) {
+                await _request.append("controlnet_conditioning_scale", _item.toString());
+            }
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.imageGuidanceScale != null) {
+            await _request.append("image_guidance_scale", request.imageGuidanceScale.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2094,14 +3333,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.Img2ImgPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2202,12 +3442,86 @@ export class GooeyClient {
         request: Gooey.CompareText2ImgPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.CompareText2ImgPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.dallE3Quality != null) {
+            await _request.append("dall_e_3_quality", request.dallE3Quality);
+        }
+
+        if (request.dallE3Style != null) {
+            await _request.append("dall_e_3_style", request.dallE3Style);
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.sd2Upscaling != null) {
+            await _request.append("sd_2_upscaling", request.sd2Upscaling.toString());
+        }
+
+        if (request.selectedModels != null) {
+            for (const _item of request.selectedModels) {
+                await _request.append("selected_models", _item);
+            }
+        }
+
+        if (request.scheduler != null) {
+            await _request.append("scheduler", request.scheduler);
+        }
+
+        if (request.editInstruction != null) {
+            await _request.append("edit_instruction", request.editInstruction);
+        }
+
+        if (request.imageGuidanceScale != null) {
+            await _request.append("image_guidance_scale", request.imageGuidanceScale.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2218,14 +3532,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.CompareText2ImgPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2327,12 +3642,81 @@ export class GooeyClient {
         request: Gooey.ObjectInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.ObjectInpaintingPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("input_image", request.inputImage);
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.objScale != null) {
+            await _request.append("obj_scale", request.objScale.toString());
+        }
+
+        if (request.objPosX != null) {
+            await _request.append("obj_pos_x", request.objPosX.toString());
+        }
+
+        if (request.objPosY != null) {
+            await _request.append("obj_pos_y", request.objPosY.toString());
+        }
+
+        if (request.maskThreshold != null) {
+            await _request.append("mask_threshold", request.maskThreshold.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.sd2Upscaling != null) {
+            await _request.append("sd_2_upscaling", request.sd2Upscaling.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2343,14 +3727,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.ObjectInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2445,19 +3830,84 @@ export class GooeyClient {
      * @example
      *     await client.portrait({
      *         inputImage: "input_image",
-     *         textPrompt: "tony stark from the iron man"
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async portrait(
         request: Gooey.FaceInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.FaceInpaintingPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("input_image", request.inputImage);
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.faceScale != null) {
+            await _request.append("face_scale", request.faceScale.toString());
+        }
+
+        if (request.facePosX != null) {
+            await _request.append("face_pos_x", request.facePosX.toString());
+        }
+
+        if (request.facePosY != null) {
+            await _request.append("face_pos_y", request.facePosY.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.upscaleFactor != null) {
+            await _request.append("upscale_factor", request.upscaleFactor.toString());
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2468,14 +3918,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.FaceInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2569,20 +4020,123 @@ export class GooeyClient {
      *
      * @example
      *     await client.imageFromEmail({
-     *         emailAddress: "sean@dara.network",
-     *         textPrompt: "winter's day in paris"
+     *         textPrompt: "text_prompt"
      *     })
      */
     public async imageFromEmail(
         request: Gooey.EmailFaceInpaintingPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.EmailFaceInpaintingPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.emailAddress != null) {
+            await _request.append("email_address", request.emailAddress);
+        }
+
+        if (request.twitterHandle != null) {
+            await _request.append("twitter_handle", request.twitterHandle);
+        }
+
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.faceScale != null) {
+            await _request.append("face_scale", request.faceScale.toString());
+        }
+
+        if (request.facePosX != null) {
+            await _request.append("face_pos_x", request.facePosX.toString());
+        }
+
+        if (request.facePosY != null) {
+            await _request.append("face_pos_y", request.facePosY.toString());
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.upscaleFactor != null) {
+            await _request.append("upscale_factor", request.upscaleFactor.toString());
+        }
+
+        if (request.outputWidth != null) {
+            await _request.append("output_width", request.outputWidth.toString());
+        }
+
+        if (request.outputHeight != null) {
+            await _request.append("output_height", request.outputHeight.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.shouldSendEmail != null) {
+            await _request.append("should_send_email", request.shouldSendEmail.toString());
+        }
+
+        if (request.emailFrom != null) {
+            await _request.append("email_from", request.emailFrom);
+        }
+
+        if (request.emailCc != null) {
+            await _request.append("email_cc", request.emailCc);
+        }
+
+        if (request.emailBcc != null) {
+            await _request.append("email_bcc", request.emailBcc);
+        }
+
+        if (request.emailSubject != null) {
+            await _request.append("email_subject", request.emailSubject);
+        }
+
+        if (request.emailBody != null) {
+            await _request.append("email_body", request.emailBody);
+        }
+
+        if (request.emailBodyEnableHtml != null) {
+            await _request.append("email_body_enable_html", request.emailBodyEnableHtml.toString());
+        }
+
+        if (request.fallbackEmailBody != null) {
+            await _request.append("fallback_email_body", request.fallbackEmailBody);
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2593,14 +4147,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.EmailFaceInpaintingPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2702,12 +4257,75 @@ export class GooeyClient {
         request: Gooey.GoogleImageGenPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.GoogleImageGenPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.serpSearchLocation != null) {
+            await _request.append("serp_search_location", request.serpSearchLocation);
+        }
+
+        if (request.scaleserpLocations != null) {
+            for (const _item of request.scaleserpLocations) {
+                await _request.append("scaleserp_locations", _item);
+            }
+        }
+
+        await _request.append("search_query", request.searchQuery);
+        await _request.append("text_prompt", request.textPrompt);
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.negativePrompt != null) {
+            await _request.append("negative_prompt", request.negativePrompt);
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.guidanceScale != null) {
+            await _request.append("guidance_scale", request.guidanceScale.toString());
+        }
+
+        if (request.promptStrength != null) {
+            await _request.append("prompt_strength", request.promptStrength.toString());
+        }
+
+        if (request.sd2Upscaling != null) {
+            await _request.append("sd_2_upscaling", request.sd2Upscaling.toString());
+        }
+
+        if (request.seed != null) {
+            await _request.append("seed", request.seed.toString());
+        }
+
+        if (request.imageGuidanceScale != null) {
+            await _request.append("image_guidance_scale", request.imageGuidanceScale.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2718,14 +4336,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.GoogleImageGenPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2826,12 +4445,56 @@ export class GooeyClient {
         request: Gooey.ImageSegmentationPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.ImageSegmentationPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("input_image", request.inputImage);
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.maskThreshold != null) {
+            await _request.append("mask_threshold", request.maskThreshold.toString());
+        }
+
+        if (request.rectPersepectiveTransform != null) {
+            await _request.append("rect_persepective_transform", request.rectPersepectiveTransform.toString());
+        }
+
+        if (request.reflectionOpacity != null) {
+            await _request.append("reflection_opacity", request.reflectionOpacity.toString());
+        }
+
+        if (request.objScale != null) {
+            await _request.append("obj_scale", request.objScale.toString());
+        }
+
+        if (request.objPosX != null) {
+            await _request.append("obj_pos_x", request.objPosX.toString());
+        }
+
+        if (request.objPosY != null) {
+            await _request.append("obj_pos_y", request.objPosY.toString());
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2842,14 +4505,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.ImageSegmentationPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -2950,12 +4614,46 @@ export class GooeyClient {
         request: Gooey.CompareUpscalerPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.CompareUpscalerPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.inputImage != null) {
+            await _request.append("input_image", request.inputImage);
+        }
+
+        if (request.inputVideo != null) {
+            await _request.append("input_video", request.inputVideo);
+        }
+
+        await _request.append("scale", request.scale.toString());
+        if (request.selectedModels != null) {
+            for (const _item of request.selectedModels) {
+                await _request.append("selected_models", _item);
+            }
+        }
+
+        if (request.selectedBgModel != null) {
+            await _request.append("selected_bg_model", request.selectedBgModel);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -2966,14 +4664,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.CompareUpscalerPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -3074,12 +4773,35 @@ export class GooeyClient {
         request: Gooey.EmbeddingsPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.EmbeddingsPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.texts) {
+            await _request.append("texts", _item);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -3090,14 +4812,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.EmbeddingsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -3198,12 +4921,123 @@ export class GooeyClient {
         request: Gooey.RelatedQnADocPageRequest,
         requestOptions?: GooeyClient.RequestOptions
     ): Promise<Gooey.RelatedQnADocPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        await _request.append("search_query", request.searchQuery);
+        if (request.keywordQuery != null) {
+            if (Array.isArray(request.keywordQuery))
+                for (const _item of request.keywordQuery) {
+                    await _request.append("keyword_query", typeof _item === "string" ? _item : JSON.stringify(_item));
+                }
+        }
+
+        if (request.documents != null) {
+            for (const _item of request.documents) {
+                await _request.append("documents", _item);
+            }
+        }
+
+        if (request.maxReferences != null) {
+            await _request.append("max_references", request.maxReferences.toString());
+        }
+
+        if (request.maxContextWords != null) {
+            await _request.append("max_context_words", request.maxContextWords.toString());
+        }
+
+        if (request.scrollJump != null) {
+            await _request.append("scroll_jump", request.scrollJump.toString());
+        }
+
+        if (request.docExtractUrl != null) {
+            await _request.append("doc_extract_url", request.docExtractUrl);
+        }
+
+        if (request.embeddingModel != null) {
+            await _request.append("embedding_model", request.embeddingModel);
+        }
+
+        if (request.denseWeight != null) {
+            await _request.append("dense_weight", request.denseWeight.toString());
+        }
+
+        if (request.taskInstructions != null) {
+            await _request.append("task_instructions", request.taskInstructions);
+        }
+
+        if (request.queryInstructions != null) {
+            await _request.append("query_instructions", request.queryInstructions);
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.citationStyle != null) {
+            await _request.append("citation_style", request.citationStyle);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.serpSearchLocation != null) {
+            await _request.append("serp_search_location", request.serpSearchLocation);
+        }
+
+        if (request.scaleserpLocations != null) {
+            for (const _item of request.scaleserpLocations) {
+                await _request.append("scaleserp_locations", _item);
+            }
+        }
+
+        if (request.serpSearchType != null) {
+            await _request.append("serp_search_type", request.serpSearchType);
+        }
+
+        if (request.scaleserpSearchField != null) {
+            await _request.append("scaleserp_search_field", request.scaleserpSearchField);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -3214,14 +5048,15 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.RelatedQnADocPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -3320,7 +5155,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3373,7 +5208,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3426,7 +5261,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3479,7 +5314,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3532,7 +5367,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3585,7 +5420,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3638,7 +5473,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3691,7 +5526,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3744,7 +5579,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3797,7 +5632,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3850,7 +5685,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3903,7 +5738,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -3956,7 +5791,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4009,7 +5844,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4062,7 +5897,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4115,7 +5950,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4168,7 +6003,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4221,7 +6056,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4274,7 +6109,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4327,7 +6162,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4380,7 +6215,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4433,7 +6268,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4486,7 +6321,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4539,7 +6374,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4592,7 +6427,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4645,7 +6480,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4698,7 +6533,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4751,7 +6586,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4804,7 +6639,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4857,7 +6692,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4910,7 +6745,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -4963,7 +6798,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5016,7 +6851,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -5069,7 +6904,7 @@ export class GooeyClient {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

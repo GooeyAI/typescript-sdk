@@ -8,7 +8,7 @@ import * as Gooey from "../../index";
  * @example
  *     {
  *         inputImage: "input_image",
- *         textPrompt: "tony stark from the iron man"
+ *         textPrompt: "text_prompt"
  *     }
  */
 export interface FaceInpaintingPageRequest {
@@ -21,7 +21,7 @@ export interface FaceInpaintingPageRequest {
     faceScale?: number;
     facePosX?: number;
     facePosY?: number;
-    selectedModel?: Gooey.FaceInpaintingPageRequestSelectedModel;
+    selectedModel?: Gooey.PortraitRequestSelectedModel;
     negativePrompt?: string;
     numOutputs?: number;
     quality?: number;

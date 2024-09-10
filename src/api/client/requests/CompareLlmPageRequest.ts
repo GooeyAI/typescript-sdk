@@ -14,12 +14,12 @@ export interface CompareLlmPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     inputPrompt?: string;
-    selectedModels?: Gooey.CompareLlmPageRequestSelectedModelsItem[];
+    selectedModels?: Gooey.LlmRequestSelectedModelsItem[];
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.CompareLlmPageRequestResponseFormatType;
+    responseFormatType?: Gooey.LlmRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

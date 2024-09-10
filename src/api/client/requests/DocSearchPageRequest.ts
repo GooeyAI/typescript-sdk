@@ -16,13 +16,13 @@ export interface DocSearchPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     searchQuery: string;
-    keywordQuery?: Gooey.DocSearchPageRequestKeywordQuery;
+    keywordQuery?: Gooey.RagRequestKeywordQuery;
     documents?: string[];
     maxReferences?: number;
     maxContextWords?: number;
     scrollJump?: number;
     docExtractUrl?: string;
-    embeddingModel?: Gooey.DocSearchPageRequestEmbeddingModel;
+    embeddingModel?: Gooey.RagRequestEmbeddingModel;
     /**
      * Weightage for dense vs sparse embeddings. `0` for sparse, `1` for dense, `0.5` for equal weight.
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
@@ -31,13 +31,13 @@ export interface DocSearchPageRequest {
     denseWeight?: number;
     taskInstructions?: string;
     queryInstructions?: string;
-    selectedModel?: Gooey.DocSearchPageRequestSelectedModel;
-    citationStyle?: Gooey.DocSearchPageRequestCitationStyle;
+    selectedModel?: Gooey.RagRequestSelectedModel;
+    citationStyle?: Gooey.RagRequestCitationStyle;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.DocSearchPageRequestResponseFormatType;
+    responseFormatType?: Gooey.RagRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

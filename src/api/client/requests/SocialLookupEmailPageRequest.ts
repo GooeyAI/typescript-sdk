@@ -17,12 +17,12 @@ export interface SocialLookupEmailPageRequest {
     variables?: Record<string, unknown>;
     emailAddress: string;
     inputPrompt?: string;
-    selectedModel?: Gooey.SocialLookupEmailPageRequestSelectedModel;
+    selectedModel?: Gooey.PersonalizeEmailRequestSelectedModel;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.SocialLookupEmailPageRequestResponseFormatType;
+    responseFormatType?: Gooey.PersonalizeEmailRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

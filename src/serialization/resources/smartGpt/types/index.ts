@@ -1,2 +1,2 @@
-export * from "./SmartGptPageRequestSelectedModel";
-export * from "./SmartGptPageRequestResponseFormatType";
+export * from "./AsyncFormSmartGptRequestSelectedModel";
+export * from "./AsyncFormSmartGptRequestResponseFormatType";

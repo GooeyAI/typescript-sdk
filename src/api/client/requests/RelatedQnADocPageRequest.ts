@@ -16,13 +16,13 @@ export interface RelatedQnADocPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     searchQuery: string;
-    keywordQuery?: Gooey.RelatedQnADocPageRequestKeywordQuery;
+    keywordQuery?: Gooey.SeoPeopleAlsoAskDocRequestKeywordQuery;
     documents?: string[];
     maxReferences?: number;
     maxContextWords?: number;
     scrollJump?: number;
     docExtractUrl?: string;
-    embeddingModel?: Gooey.RelatedQnADocPageRequestEmbeddingModel;
+    embeddingModel?: Gooey.SeoPeopleAlsoAskDocRequestEmbeddingModel;
     /**
      * Weightage for dense vs sparse embeddings. `0` for sparse, `1` for dense, `0.5` for equal weight.
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
@@ -31,14 +31,14 @@ export interface RelatedQnADocPageRequest {
     denseWeight?: number;
     taskInstructions?: string;
     queryInstructions?: string;
-    selectedModel?: Gooey.RelatedQnADocPageRequestSelectedModel;
-    citationStyle?: Gooey.RelatedQnADocPageRequestCitationStyle;
+    selectedModel?: Gooey.SeoPeopleAlsoAskDocRequestSelectedModel;
+    citationStyle?: Gooey.SeoPeopleAlsoAskDocRequestCitationStyle;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.RelatedQnADocPageRequestResponseFormatType;
+    responseFormatType?: Gooey.SeoPeopleAlsoAskDocRequestResponseFormatType;
     serpSearchLocation?: Gooey.SerpSearchLocation;
     /** DEPRECATED: use `serp_search_location` instead */
     scaleserpLocations?: string[];

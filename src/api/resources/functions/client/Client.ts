@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Functions {
@@ -40,18 +40,31 @@ export class Functions {
      * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.functions.asyncFormFunctions()
+     *     await client.functions.asyncFormFunctions({})
      */
     public async asyncFormFunctions(
-        request: Gooey.FunctionsPageRequest = {},
+        request: Gooey.FunctionsPageRequest,
         requestOptions?: Functions.RequestOptions
     ): Promise<Gooey.FunctionsPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.code != null) {
+            await _request.append("code", request.code);
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -62,14 +75,15 @@ export class Functions {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.FunctionsPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -181,7 +195,7 @@ export class Functions {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },

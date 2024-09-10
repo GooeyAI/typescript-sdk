@@ -21,7 +21,7 @@ export interface CompareUpscalerPageRequest {
     inputVideo?: string;
     /** The final upsampling scale of the image */
     scale: number;
-    selectedModels?: Gooey.CompareUpscalerPageRequestSelectedModelsItem[];
+    selectedModels?: Gooey.UpscaleRequestSelectedModelsItem[];
     selectedBgModel?: "real_esrgan_x2";
     settings?: Gooey.RunSettings;
 }

@@ -46,7 +46,7 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -103,16 +103,42 @@ export class Misc {
         request: Gooey.BotBroadcastRequestModel,
         requestOptions?: Misc.RequestOptions
     ): Promise<unknown> {
-        const { exampleId, runId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
-        if (runId != null) {
-            _queryParams["run_id"] = runId;
+        if (request.runId != null) {
+            _queryParams["run_id"] = request.runId;
         }
 
+        const _request = await core.newFormData();
+        await _request.append("text", request.text);
+        if (request.audio != null) {
+            await _request.append("audio", request.audio);
+        }
+
+        if (request.video != null) {
+            await _request.append("video", request.video);
+        }
+
+        if (request.documents != null) {
+            for (const _item of request.documents) {
+                await _request.append("documents", _item);
+            }
+        }
+
+        if (request.buttons != null) {
+            for (const _item of request.buttons) {
+                await _request.append("buttons", JSON.stringify(_item));
+            }
+        }
+
+        if (request.filters != null) {
+            await _request.append("filters", JSON.stringify(request.filters));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -123,14 +149,15 @@ export class Misc {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.BotBroadcastRequestModel.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

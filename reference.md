@@ -157,7 +157,7 @@ await client.copilotIntegrations.videoBotsStream("request_id");
 <dd>
 
 ```typescript
-await client.copilotForYourEnterprise.asyncFormVideoBots();
+await client.copilotForYourEnterprise.asyncFormVideoBots({});
 ```
 
 </dd>
@@ -1033,7 +1033,7 @@ await client.summarizeYourDocsWithGpt.statusDocSummary({
 <dd>
 
 ```typescript
-await client.functions.asyncFormFunctions();
+await client.functions.asyncFormFunctions({});
 ```
 
 </dd>
@@ -1133,7 +1133,7 @@ await client.functions.statusFunctions({
 <dd>
 
 ```typescript
-await client.lipSyncing.asyncFormLipsync();
+await client.lipSyncing.asyncFormLipsync({});
 ```
 
 </dd>

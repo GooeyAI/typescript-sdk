@@ -26,8 +26,8 @@ export interface CompareText2ImgPageRequest {
     guidanceScale?: number;
     seed?: number;
     sd2Upscaling?: boolean;
-    selectedModels?: Gooey.CompareText2ImgPageRequestSelectedModelsItem[];
-    scheduler?: Gooey.CompareText2ImgPageRequestScheduler;
+    selectedModels?: Gooey.TextToImageRequestSelectedModelsItem[];
+    scheduler?: Gooey.TextToImageRequestScheduler;
     editInstruction?: string;
     imageGuidanceScale?: number;
     settings?: Gooey.RunSettings;

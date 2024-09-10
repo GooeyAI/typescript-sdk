@@ -21,7 +21,7 @@ export interface SeoSummaryPageRequest {
     companyUrl: string;
     taskInstructions?: string;
     enableHtml?: boolean;
-    selectedModel?: Gooey.SeoSummaryPageRequestSelectedModel;
+    selectedModel?: Gooey.SeoContentRequestSelectedModel;
     maxSearchUrls?: number;
     enableCrosslinks?: boolean;
     seed?: number;
@@ -30,7 +30,7 @@ export interface SeoSummaryPageRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.SeoSummaryPageRequestResponseFormatType;
+    responseFormatType?: Gooey.SeoContentRequestResponseFormatType;
     serpSearchLocation?: Gooey.SerpSearchLocation;
     /** DEPRECATED: use `serp_search_location` instead */
     scaleserpLocations?: string[];

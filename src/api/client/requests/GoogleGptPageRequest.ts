@@ -20,12 +20,12 @@ export interface GoogleGptPageRequest {
     siteFilter: string;
     taskInstructions?: string;
     queryInstructions?: string;
-    selectedModel?: Gooey.GoogleGptPageRequestSelectedModel;
+    selectedModel?: Gooey.WebSearchLlmRequestSelectedModel;
     maxSearchUrls?: number;
     maxReferences?: number;
     maxContextWords?: number;
     scrollJump?: number;
-    embeddingModel?: Gooey.GoogleGptPageRequestEmbeddingModel;
+    embeddingModel?: Gooey.WebSearchLlmRequestEmbeddingModel;
     /**
      * Weightage for dense vs sparse embeddings. `0` for sparse, `1` for dense, `0.5` for equal weight.
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
@@ -37,7 +37,7 @@ export interface GoogleGptPageRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.GoogleGptPageRequestResponseFormatType;
+    responseFormatType?: Gooey.WebSearchLlmRequestResponseFormatType;
     serpSearchLocation?: Gooey.SerpSearchLocation;
     /** DEPRECATED: use `serp_search_location` instead */
     scaleserpLocations?: string[];

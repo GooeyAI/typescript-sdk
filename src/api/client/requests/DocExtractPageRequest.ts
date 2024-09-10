@@ -17,7 +17,7 @@ export interface DocExtractPageRequest {
     variables?: Record<string, unknown>;
     documents: string[];
     sheetUrl?: string;
-    selectedAsrModel?: Gooey.DocExtractPageRequestSelectedAsrModel;
+    selectedAsrModel?: Gooey.SynthesizeDataRequestSelectedAsrModel;
     googleTranslateTarget?: string;
     /**
      * Provide a glossary to customize translation and improve accuracy of domain-specific terms.
@@ -25,12 +25,12 @@ export interface DocExtractPageRequest {
      */
     glossaryDocument?: string;
     taskInstructions?: string;
-    selectedModel?: Gooey.DocExtractPageRequestSelectedModel;
+    selectedModel?: Gooey.SynthesizeDataRequestSelectedModel;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.DocExtractPageRequestResponseFormatType;
+    responseFormatType?: Gooey.SynthesizeDataRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

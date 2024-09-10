@@ -20,12 +20,12 @@ export interface RelatedQnAPageRequest {
     siteFilter: string;
     taskInstructions?: string;
     queryInstructions?: string;
-    selectedModel?: Gooey.RelatedQnAPageRequestSelectedModel;
+    selectedModel?: Gooey.SeoPeopleAlsoAskRequestSelectedModel;
     maxSearchUrls?: number;
     maxReferences?: number;
     maxContextWords?: number;
     scrollJump?: number;
-    embeddingModel?: Gooey.RelatedQnAPageRequestEmbeddingModel;
+    embeddingModel?: Gooey.SeoPeopleAlsoAskRequestEmbeddingModel;
     /**
      * Weightage for dense vs sparse embeddings. `0` for sparse, `1` for dense, `0.5` for equal weight.
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
@@ -37,7 +37,7 @@ export interface RelatedQnAPageRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.RelatedQnAPageRequestResponseFormatType;
+    responseFormatType?: Gooey.SeoPeopleAlsoAskRequestResponseFormatType;
     serpSearchLocation?: Gooey.SerpSearchLocation;
     /** DEPRECATED: use `serp_search_location` instead */
     scaleserpLocations?: string[];

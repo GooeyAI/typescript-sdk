@@ -14,7 +14,7 @@ export interface TranslationPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     texts?: string[];
-    selectedModel?: Gooey.TranslationPageRequestSelectedModel;
+    selectedModel?: Gooey.TranslateRequestSelectedModel;
     translationSource?: string;
     translationTarget?: string;
     /**

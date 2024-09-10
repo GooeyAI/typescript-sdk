@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Evaluator {
@@ -48,12 +48,71 @@ export class Evaluator {
         request: Gooey.BulkEvalPageRequest,
         requestOptions?: Evaluator.RequestOptions
     ): Promise<Gooey.BulkEvalPageStatusResponse> {
-        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (exampleId != null) {
-            _queryParams["example_id"] = exampleId;
+        if (request.exampleId != null) {
+            _queryParams["example_id"] = request.exampleId;
         }
 
+        const _request = await core.newFormData();
+        if (request.functions != null) {
+            for (const _item of request.functions) {
+                await _request.append("functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.variables != null) {
+            await _request.append("variables", JSON.stringify(request.variables));
+        }
+
+        for (const _item of request.documents) {
+            await _request.append("documents", _item);
+        }
+
+        if (request.evalPrompts != null) {
+            for (const _item of request.evalPrompts) {
+                await _request.append("eval_prompts", JSON.stringify(_item));
+            }
+        }
+
+        if (request.aggFunctions != null) {
+            for (const _item of request.aggFunctions) {
+                await _request.append("agg_functions", JSON.stringify(_item));
+            }
+        }
+
+        if (request.selectedModel != null) {
+            await _request.append("selected_model", request.selectedModel);
+        }
+
+        if (request.avoidRepetition != null) {
+            await _request.append("avoid_repetition", request.avoidRepetition.toString());
+        }
+
+        if (request.numOutputs != null) {
+            await _request.append("num_outputs", request.numOutputs.toString());
+        }
+
+        if (request.quality != null) {
+            await _request.append("quality", request.quality.toString());
+        }
+
+        if (request.maxTokens != null) {
+            await _request.append("max_tokens", request.maxTokens.toString());
+        }
+
+        if (request.samplingTemperature != null) {
+            await _request.append("sampling_temperature", request.samplingTemperature.toString());
+        }
+
+        if (request.responseFormatType != null) {
+            await _request.append("response_format_type", request.responseFormatType);
+        }
+
+        if (request.settings != null) {
+            await _request.append("settings", JSON.stringify(request.settings));
+        }
+
+        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
@@ -64,14 +123,15 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ..._maybeEncodedRequest.headers,
             },
-            contentType: "application/json",
             queryParameters: _queryParams,
-            requestType: "json",
-            body: serializers.BulkEvalPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "file",
+            duplex: _maybeEncodedRequest.duplex,
+            body: _maybeEncodedRequest.body,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -183,7 +243,7 @@ export class Evaluator {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta21",
+                "X-Fern-SDK-Version": "0.0.1-beta22",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
