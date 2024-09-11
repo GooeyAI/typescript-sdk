@@ -17,8 +17,8 @@ export interface Img2ImgPageRequest {
     variables?: Record<string, unknown>;
     inputImage: string;
     textPrompt?: string;
-    selectedModel?: Gooey.RemixImageRequestSelectedModel;
-    selectedControlnetModel?: Gooey.RemixImageRequestSelectedControlnetModel;
+    selectedModel?: Gooey.Img2ImgPageRequestSelectedModel;
+    selectedControlnetModel?: Gooey.Img2ImgPageRequestSelectedControlnetModel;
     negativePrompt?: string;
     numOutputs?: number;
     quality?: number;

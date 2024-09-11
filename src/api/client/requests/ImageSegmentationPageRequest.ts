@@ -16,7 +16,7 @@ export interface ImageSegmentationPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     inputImage: string;
-    selectedModel?: Gooey.RemoveBackgroundRequestSelectedModel;
+    selectedModel?: Gooey.ImageSegmentationPageRequestSelectedModel;
     maskThreshold?: number;
     rectPersepectiveTransform?: boolean;
     reflectionOpacity?: number;

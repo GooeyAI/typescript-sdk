@@ -7,7 +7,8 @@ import * as Gooey from "../../index";
 /**
  * @example
  *     {
- *         textPrompt: "text_prompt"
+ *         emailAddress: "sean@dara.network",
+ *         textPrompt: "winter's day in paris"
  *     }
  */
 export interface EmailFaceInpaintingPageRequest {
@@ -21,7 +22,7 @@ export interface EmailFaceInpaintingPageRequest {
     faceScale?: number;
     facePosX?: number;
     facePosY?: number;
-    selectedModel?: Gooey.ImageFromEmailRequestSelectedModel;
+    selectedModel?: Gooey.EmailFaceInpaintingPageRequestSelectedModel;
     negativePrompt?: string;
     numOutputs?: number;
     quality?: number;

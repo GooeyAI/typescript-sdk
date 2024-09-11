@@ -46,7 +46,7 @@ export interface CreateStreamRequest {
     docExtractUrl?: string;
     messages?: Gooey.ConversationEntry[];
     botScript?: string;
-    selectedModel?: Gooey.VideoBotsStreamCreateRequestSelectedModel;
+    selectedModel?: Gooey.CreateStreamRequestSelectedModel;
     /** When your copilot users upload a photo or pdf, what kind of document are they mostly likely to upload? (via [Azure](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/how-to-guides/use-sdk-rest-api?view=doc-intel-3.1.0&tabs=linux&pivots=programming-language-rest-api)) */
     documentModel?: string;
     taskInstructions?: string;
@@ -56,20 +56,20 @@ export interface CreateStreamRequest {
     maxReferences?: number;
     maxContextWords?: number;
     scrollJump?: number;
-    embeddingModel?: Gooey.VideoBotsStreamCreateRequestEmbeddingModel;
+    embeddingModel?: Gooey.CreateStreamRequestEmbeddingModel;
     /**
      * Weightage for dense vs sparse embeddings. `0` for sparse, `1` for dense, `0.5` for equal weight.
      * Generally speaking, dense embeddings excel at understanding the context of the query, whereas sparse vectors excel at keyword matches.
      *
      */
     denseWeight?: number;
-    citationStyle?: Gooey.VideoBotsStreamCreateRequestCitationStyle;
+    citationStyle?: Gooey.CreateStreamRequestCitationStyle;
     useUrlShortener?: boolean;
     /** Choose a model to transcribe incoming audio messages to text. */
-    asrModel?: Gooey.VideoBotsStreamCreateRequestAsrModel;
+    asrModel?: Gooey.CreateStreamRequestAsrModel;
     /** Choose a language to transcribe incoming audio messages to text. */
     asrLanguage?: string;
-    translationModel?: Gooey.VideoBotsStreamCreateRequestTranslationModel;
+    translationModel?: Gooey.CreateStreamRequestTranslationModel;
     /** Choose a language to translate incoming text & audio messages to English and responses back to your selected language. Useful for low-resource languages. */
     userLanguage?: string;
     /**
@@ -82,7 +82,7 @@ export interface CreateStreamRequest {
      *
      */
     outputGlossaryDocument?: string;
-    lipsyncModel?: Gooey.VideoBotsStreamCreateRequestLipsyncModel;
+    lipsyncModel?: Gooey.CreateStreamRequestLipsyncModel;
     /** Give your copilot superpowers by giving it access to tools. Powered by [Function calling](https://platform.openai.com/docs/guides/function-calling). */
     tools?: Gooey.LlmTools[];
     avoidRepetition?: boolean;
@@ -90,8 +90,8 @@ export interface CreateStreamRequest {
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.VideoBotsStreamCreateRequestResponseFormatType;
-    ttsProvider?: Gooey.VideoBotsStreamCreateRequestTtsProvider;
+    responseFormatType?: Gooey.CreateStreamRequestResponseFormatType;
+    ttsProvider?: Gooey.CreateStreamRequestTtsProvider;
     uberduckVoiceName?: string;
     uberduckSpeakingRate?: number;
     googleVoiceName?: string;
@@ -108,8 +108,8 @@ export interface CreateStreamRequest {
     elevenlabsStyle?: number;
     elevenlabsSpeakerBoost?: boolean;
     azureVoiceName?: string;
-    openaiVoiceName?: Gooey.VideoBotsStreamCreateRequestOpenaiVoiceName;
-    openaiTtsModel?: Gooey.VideoBotsStreamCreateRequestOpenaiTtsModel;
+    openaiVoiceName?: Gooey.CreateStreamRequestOpenaiVoiceName;
+    openaiTtsModel?: Gooey.CreateStreamRequestOpenaiTtsModel;
     inputFace?: string;
     facePaddingTop?: number;
     facePaddingBottom?: number;

@@ -19,12 +19,12 @@ export interface SmartGptPageRequest {
     cotPrompt?: string;
     reflexionPrompt?: string;
     deraPrompt?: string;
-    selectedModel?: Gooey.AsyncFormSmartGptRequestSelectedModel;
+    selectedModel?: Gooey.SmartGptPageRequestSelectedModel;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.AsyncFormSmartGptRequestResponseFormatType;
+    responseFormatType?: Gooey.SmartGptPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

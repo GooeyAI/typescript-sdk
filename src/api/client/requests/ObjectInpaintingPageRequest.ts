@@ -22,7 +22,7 @@ export interface ObjectInpaintingPageRequest {
     objPosX?: number;
     objPosY?: number;
     maskThreshold?: number;
-    selectedModel?: Gooey.ProductImageRequestSelectedModel;
+    selectedModel?: Gooey.ObjectInpaintingPageRequestSelectedModel;
     negativePrompt?: string;
     numOutputs?: number;
     quality?: number;

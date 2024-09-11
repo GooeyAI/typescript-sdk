@@ -1,6 +1,6 @@
 {
     "name": "gooeyai",
-    "version": "0.0.1-beta22",
+    "version": "0.0.1-beta23",
     "private": false,
     "repository": "https://github.com/GooeyAI/typescript-sdk",
     "main": "./index.js",

@@ -16,10 +16,10 @@ export interface AsrPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     documents: string[];
-    selectedModel?: Gooey.SpeechRecognitionRequestSelectedModel;
+    selectedModel?: Gooey.AsrPageRequestSelectedModel;
     language?: string;
-    translationModel?: Gooey.SpeechRecognitionRequestTranslationModel;
-    outputFormat?: Gooey.SpeechRecognitionRequestOutputFormat;
+    translationModel?: Gooey.AsrPageRequestTranslationModel;
+    outputFormat?: Gooey.AsrPageRequestOutputFormat;
     /** use `translation_model` & `translation_target` instead. */
     googleTranslateTarget?: string;
     translationSource?: string;

@@ -16,7 +16,7 @@ export interface LipsyncTtsPageRequest {
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     textPrompt: string;
-    ttsProvider?: Gooey.LipsyncTtsRequestTtsProvider;
+    ttsProvider?: Gooey.LipsyncTtsPageRequestTtsProvider;
     uberduckVoiceName?: string;
     uberduckSpeakingRate?: number;
     googleVoiceName?: string;
@@ -33,14 +33,14 @@ export interface LipsyncTtsPageRequest {
     elevenlabsStyle?: number;
     elevenlabsSpeakerBoost?: boolean;
     azureVoiceName?: string;
-    openaiVoiceName?: Gooey.LipsyncTtsRequestOpenaiVoiceName;
-    openaiTtsModel?: Gooey.LipsyncTtsRequestOpenaiTtsModel;
+    openaiVoiceName?: Gooey.LipsyncTtsPageRequestOpenaiVoiceName;
+    openaiTtsModel?: Gooey.LipsyncTtsPageRequestOpenaiTtsModel;
     inputFace?: string;
     facePaddingTop?: number;
     facePaddingBottom?: number;
     facePaddingLeft?: number;
     facePaddingRight?: number;
     sadtalkerSettings?: Gooey.SadTalkerSettings;
-    selectedModel?: Gooey.LipsyncTtsRequestSelectedModel;
+    selectedModel?: Gooey.LipsyncTtsPageRequestSelectedModel;
     settings?: Gooey.RunSettings;
 }

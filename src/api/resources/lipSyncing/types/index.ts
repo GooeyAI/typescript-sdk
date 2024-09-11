@@ -1,1 +1,1 @@
-export * from "./AsyncFormLipsyncRequestSelectedModel";
+export * from "./LipsyncPageRequestSelectedModel";

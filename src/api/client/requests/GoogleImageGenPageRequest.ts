@@ -21,7 +21,7 @@ export interface GoogleImageGenPageRequest {
     scaleserpLocations?: string[];
     searchQuery: string;
     textPrompt: string;
-    selectedModel?: Gooey.ImageFromWebSearchRequestSelectedModel;
+    selectedModel?: Gooey.GoogleImageGenPageRequestSelectedModel;
     negativePrompt?: string;
     numOutputs?: number;
     quality?: number;

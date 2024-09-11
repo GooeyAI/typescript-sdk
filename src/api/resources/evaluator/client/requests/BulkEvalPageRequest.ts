@@ -33,12 +33,12 @@ export interface BulkEvalPageRequest {
      *
      */
     aggFunctions?: Gooey.AggFunction[];
-    selectedModel?: Gooey.AsyncFormBulkEvalRequestSelectedModel;
+    selectedModel?: Gooey.BulkEvalPageRequestSelectedModel;
     avoidRepetition?: boolean;
     numOutputs?: number;
     quality?: number;
     maxTokens?: number;
     samplingTemperature?: number;
-    responseFormatType?: Gooey.AsyncFormBulkEvalRequestResponseFormatType;
+    responseFormatType?: Gooey.BulkEvalPageRequestResponseFormatType;
     settings?: Gooey.RunSettings;
 }

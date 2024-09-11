@@ -1,2 +1,2 @@
-export * from "./AsyncFormBulkEvalRequestSelectedModel";
-export * from "./AsyncFormBulkEvalRequestResponseFormatType";
+export * from "./BulkEvalPageRequestSelectedModel";
+export * from "./BulkEvalPageRequestResponseFormatType";

@@ -19,7 +19,7 @@ export interface LipsyncPageRequest {
     facePaddingLeft?: number;
     facePaddingRight?: number;
     sadtalkerSettings?: Gooey.SadTalkerSettings;
-    selectedModel?: Gooey.AsyncFormLipsyncRequestSelectedModel;
+    selectedModel?: Gooey.LipsyncPageRequestSelectedModel;
     inputAudio?: string;
     settings?: Gooey.RunSettings;
 }

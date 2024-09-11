@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Gooey from "../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
 export declare namespace SmartGpt {
@@ -33,220 +33,43 @@ export class SmartGpt {
      * @param {Gooey.SmartGptPageRequest} request
      * @param {SmartGpt.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Gooey.BadRequestError}
      * @throws {@link Gooey.PaymentRequiredError}
      * @throws {@link Gooey.UnprocessableEntityError}
      * @throws {@link Gooey.TooManyRequestsError}
-     * @throws {@link Gooey.InternalServerError}
      *
      * @example
-     *     await client.smartGpt.asyncFormSmartGpt({
+     *     await client.smartGpt.asyncSmartGpt({
      *         inputPrompt: "input_prompt"
      *     })
      */
-    public async asyncFormSmartGpt(
+    public async asyncSmartGpt(
         request: Gooey.SmartGptPageRequest,
         requestOptions?: SmartGpt.RequestOptions
     ): Promise<Gooey.SmartGptPageStatusResponse> {
+        const { exampleId, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        if (request.exampleId != null) {
-            _queryParams["example_id"] = request.exampleId;
+        if (exampleId != null) {
+            _queryParams["example_id"] = exampleId;
         }
 
-        const _request = await core.newFormData();
-        if (request.functions != null) {
-            for (const _item of request.functions) {
-                await _request.append("functions", JSON.stringify(_item));
-            }
-        }
-
-        if (request.variables != null) {
-            await _request.append("variables", JSON.stringify(request.variables));
-        }
-
-        await _request.append("input_prompt", request.inputPrompt);
-        if (request.cotPrompt != null) {
-            await _request.append("cot_prompt", request.cotPrompt);
-        }
-
-        if (request.reflexionPrompt != null) {
-            await _request.append("reflexion_prompt", request.reflexionPrompt);
-        }
-
-        if (request.deraPrompt != null) {
-            await _request.append("dera_prompt", request.deraPrompt);
-        }
-
-        if (request.selectedModel != null) {
-            await _request.append("selected_model", request.selectedModel);
-        }
-
-        if (request.avoidRepetition != null) {
-            await _request.append("avoid_repetition", request.avoidRepetition.toString());
-        }
-
-        if (request.numOutputs != null) {
-            await _request.append("num_outputs", request.numOutputs.toString());
-        }
-
-        if (request.quality != null) {
-            await _request.append("quality", request.quality.toString());
-        }
-
-        if (request.maxTokens != null) {
-            await _request.append("max_tokens", request.maxTokens.toString());
-        }
-
-        if (request.samplingTemperature != null) {
-            await _request.append("sampling_temperature", request.samplingTemperature.toString());
-        }
-
-        if (request.responseFormatType != null) {
-            await _request.append("response_format_type", request.responseFormatType);
-        }
-
-        if (request.settings != null) {
-            await _request.append("settings", JSON.stringify(request.settings));
-        }
-
-        const _maybeEncodedRequest = await _request.getRequest();
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/SmartGPT/async/form"
+                "v3/SmartGPT/async"
             ),
             method: "POST",
             headers: {
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta22",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ..._maybeEncodedRequest.headers,
-            },
-            queryParameters: _queryParams,
-            requestType: "file",
-            duplex: _maybeEncodedRequest.duplex,
-            body: _maybeEncodedRequest.body,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.SmartGptPageStatusResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Gooey.BadRequestError(
-                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 402:
-                    throw new Gooey.PaymentRequiredError(_response.error.body);
-                case 422:
-                    throw new Gooey.UnprocessableEntityError(
-                        serializers.HttpValidationError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 429:
-                    throw new Gooey.TooManyRequestsError(
-                        serializers.GenericErrorResponse.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                case 500:
-                    throw new Gooey.InternalServerError(
-                        serializers.FailedReponseModelV2.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
-                default:
-                    throw new errors.GooeyError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.GooeyError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.GooeyTimeoutError();
-            case "unknown":
-                throw new errors.GooeyError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * @param {Gooey.StatusSmartGptRequest} request
-     * @param {SmartGpt.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Gooey.PaymentRequiredError}
-     * @throws {@link Gooey.UnprocessableEntityError}
-     * @throws {@link Gooey.TooManyRequestsError}
-     *
-     * @example
-     *     await client.smartGpt.statusSmartGpt({
-     *         runId: "run_id"
-     *     })
-     */
-    public async statusSmartGpt(
-        request: Gooey.StatusSmartGptRequest,
-        requestOptions?: SmartGpt.RequestOptions
-    ): Promise<Gooey.SmartGptPageStatusResponse> {
-        const { runId } = request;
-        const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["run_id"] = runId;
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.GooeyEnvironment.Default,
-                "v3/SmartGPT/status"
-            ),
-            method: "GET",
-            headers: {
-                Authorization: await this._getAuthorizationHeader(),
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "gooeyai",
-                "X-Fern-SDK-Version": "0.0.1-beta22",
+                "X-Fern-SDK-Version": "0.0.1-beta23",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
             requestType: "json",
+            body: serializers.SmartGptPageRequest.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

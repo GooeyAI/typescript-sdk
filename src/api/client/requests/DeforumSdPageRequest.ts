@@ -20,7 +20,7 @@ export interface DeforumSdPageRequest {
     variables?: Record<string, unknown>;
     animationPrompts: Gooey.AnimationPrompt[];
     maxFrames?: number;
-    selectedModel?: Gooey.AnimateRequestSelectedModel;
+    selectedModel?: Gooey.DeforumSdPageRequestSelectedModel;
     animationMode?: string;
     zoom?: string;
     translationX?: string;
