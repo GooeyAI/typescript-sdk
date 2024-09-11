@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">postV3VideoBotsAsyncForm</a>({ ...params }) -> Gooey.VideoBotsPageStatusResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">healthStatusGet</a>() -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -13,7 +13,7 @@
 <dd>
 
 ```typescript
-await client.postV3VideoBotsAsyncForm({});
+await client.healthStatusGet();
 ```
 
 </dd>
@@ -25,14 +25,6 @@ await client.postV3VideoBotsAsyncForm({});
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Gooey.PostV3VideoBotsAsyncFormRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>
