@@ -12,7 +12,7 @@ import * as Gooey from "../../index";
  */
 export interface Text2AudioPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.Text2AudioPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     textPrompt: string;

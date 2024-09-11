@@ -5,7 +5,6 @@
 import * as Gooey from "../index";
 
 export interface RecipeFunction {
-    /** The URL of the [function](https://gooey.ai/functions) to call. */
     url: string;
     /** When to run this function. `pre` runs before the recipe, `post` runs after the recipe. */
     trigger: Gooey.RecipeFunctionTrigger;

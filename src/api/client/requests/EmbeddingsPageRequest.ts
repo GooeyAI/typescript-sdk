@@ -12,7 +12,7 @@ import * as Gooey from "../../index";
  */
 export interface EmbeddingsPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.EmbeddingsPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     texts: string[];

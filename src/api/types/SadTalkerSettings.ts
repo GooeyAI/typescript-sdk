@@ -12,9 +12,7 @@ export interface SadTalkerSettings {
     poseStyle?: number;
     /** Scale the amount of expression motion. 1.0 is normal, 0.5 is very reduced, and 2.0 is quite a lot. */
     expressionScale?: number;
-    /** Optional reference video for eyeblinks to make the eyebrow movement more natural. */
     refEyeblink?: string;
-    /** Optional reference video to pose the head. */
     refPose?: string;
     inputYaw?: number[];
     inputPitch?: number[];

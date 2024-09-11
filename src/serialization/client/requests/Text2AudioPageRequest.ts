@@ -5,14 +5,14 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { Text2AudioPageRequestFunctionsItem } from "../../types/Text2AudioPageRequestFunctionsItem";
 import { RunSettings } from "../../types/RunSettings";
 
 export const Text2AudioPageRequest: core.serialization.Schema<
     serializers.Text2AudioPageRequest.Raw,
     Omit<Gooey.Text2AudioPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(Text2AudioPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     textPrompt: core.serialization.property("text_prompt", core.serialization.string()),
     negativePrompt: core.serialization.property("negative_prompt", core.serialization.string().optional()),
@@ -31,7 +31,7 @@ export const Text2AudioPageRequest: core.serialization.Schema<
 
 export declare namespace Text2AudioPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: Text2AudioPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         text_prompt: string;
         negative_prompt?: string | null;

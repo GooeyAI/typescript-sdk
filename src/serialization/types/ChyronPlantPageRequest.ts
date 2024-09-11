@@ -5,14 +5,14 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { RecipeFunction } from "./RecipeFunction";
+import { ChyronPlantPageRequestFunctionsItem } from "./ChyronPlantPageRequestFunctionsItem";
 import { RunSettings } from "./RunSettings";
 
 export const ChyronPlantPageRequest: core.serialization.ObjectSchema<
     serializers.ChyronPlantPageRequest.Raw,
     Gooey.ChyronPlantPageRequest
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(ChyronPlantPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     midiNotes: core.serialization.property("midi_notes", core.serialization.string()),
     midiNotesPrompt: core.serialization.property("midi_notes_prompt", core.serialization.string().optional()),
@@ -22,7 +22,7 @@ export const ChyronPlantPageRequest: core.serialization.ObjectSchema<
 
 export declare namespace ChyronPlantPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: ChyronPlantPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         midi_notes: string;
         midi_notes_prompt?: string | null;

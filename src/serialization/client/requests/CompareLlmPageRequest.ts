@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { CompareLlmPageRequestFunctionsItem } from "../../types/CompareLlmPageRequestFunctionsItem";
 import { CompareLlmPageRequestSelectedModelsItem } from "../../types/CompareLlmPageRequestSelectedModelsItem";
 import { CompareLlmPageRequestResponseFormatType } from "../../types/CompareLlmPageRequestResponseFormatType";
 import { RunSettings } from "../../types/RunSettings";
@@ -14,7 +14,7 @@ export const CompareLlmPageRequest: core.serialization.Schema<
     serializers.CompareLlmPageRequest.Raw,
     Omit<Gooey.CompareLlmPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(CompareLlmPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     inputPrompt: core.serialization.property("input_prompt", core.serialization.string().optional()),
     selectedModels: core.serialization.property(
@@ -35,7 +35,7 @@ export const CompareLlmPageRequest: core.serialization.Schema<
 
 export declare namespace CompareLlmPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: CompareLlmPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         input_prompt?: string | null;
         selected_models?: CompareLlmPageRequestSelectedModelsItem.Raw[] | null;

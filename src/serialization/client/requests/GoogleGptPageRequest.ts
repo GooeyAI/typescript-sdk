@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { GoogleGptPageRequestFunctionsItem } from "../../types/GoogleGptPageRequestFunctionsItem";
 import { GoogleGptPageRequestSelectedModel } from "../../types/GoogleGptPageRequestSelectedModel";
 import { GoogleGptPageRequestEmbeddingModel } from "../../types/GoogleGptPageRequestEmbeddingModel";
 import { GoogleGptPageRequestResponseFormatType } from "../../types/GoogleGptPageRequestResponseFormatType";
@@ -17,7 +17,7 @@ export const GoogleGptPageRequest: core.serialization.Schema<
     serializers.GoogleGptPageRequest.Raw,
     Omit<Gooey.GoogleGptPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(GoogleGptPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     searchQuery: core.serialization.property("search_query", core.serialization.string()),
     siteFilter: core.serialization.property("site_filter", core.serialization.string()),
@@ -51,7 +51,7 @@ export const GoogleGptPageRequest: core.serialization.Schema<
 
 export declare namespace GoogleGptPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: GoogleGptPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         search_query: string;
         site_filter: string;

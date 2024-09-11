@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { RelatedQnAPageRequestFunctionsItem } from "../../types/RelatedQnAPageRequestFunctionsItem";
 import { RelatedQnAPageRequestSelectedModel } from "../../types/RelatedQnAPageRequestSelectedModel";
 import { RelatedQnAPageRequestEmbeddingModel } from "../../types/RelatedQnAPageRequestEmbeddingModel";
 import { RelatedQnAPageRequestResponseFormatType } from "../../types/RelatedQnAPageRequestResponseFormatType";
@@ -17,7 +17,7 @@ export const RelatedQnAPageRequest: core.serialization.Schema<
     serializers.RelatedQnAPageRequest.Raw,
     Omit<Gooey.RelatedQnAPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(RelatedQnAPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     searchQuery: core.serialization.property("search_query", core.serialization.string()),
     siteFilter: core.serialization.property("site_filter", core.serialization.string()),
@@ -51,7 +51,7 @@ export const RelatedQnAPageRequest: core.serialization.Schema<
 
 export declare namespace RelatedQnAPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: RelatedQnAPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         search_query: string;
         site_filter: string;

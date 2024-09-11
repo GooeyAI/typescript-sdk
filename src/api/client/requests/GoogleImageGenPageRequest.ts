@@ -13,7 +13,7 @@ import * as Gooey from "../../index";
  */
 export interface GoogleImageGenPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.GoogleImageGenPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     serpSearchLocation?: Gooey.SerpSearchLocation;

@@ -12,7 +12,7 @@ import * as Gooey from "../../index";
  */
 export interface DocSearchPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.DocSearchPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     searchQuery: string;

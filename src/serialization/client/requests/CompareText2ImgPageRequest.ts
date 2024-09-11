@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { CompareText2ImgPageRequestFunctionsItem } from "../../types/CompareText2ImgPageRequestFunctionsItem";
 import { CompareText2ImgPageRequestSelectedModelsItem } from "../../types/CompareText2ImgPageRequestSelectedModelsItem";
 import { CompareText2ImgPageRequestScheduler } from "../../types/CompareText2ImgPageRequestScheduler";
 import { RunSettings } from "../../types/RunSettings";
@@ -14,7 +14,7 @@ export const CompareText2ImgPageRequest: core.serialization.Schema<
     serializers.CompareText2ImgPageRequest.Raw,
     Omit<Gooey.CompareText2ImgPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(CompareText2ImgPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     textPrompt: core.serialization.property("text_prompt", core.serialization.string()),
     negativePrompt: core.serialization.property("negative_prompt", core.serialization.string().optional()),
@@ -39,7 +39,7 @@ export const CompareText2ImgPageRequest: core.serialization.Schema<
 
 export declare namespace CompareText2ImgPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: CompareText2ImgPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         text_prompt: string;
         negative_prompt?: string | null;

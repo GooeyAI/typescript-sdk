@@ -13,7 +13,7 @@ import * as Gooey from "../../index";
  */
 export interface GoogleGptPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.GoogleGptPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     searchQuery: string;

@@ -12,7 +12,7 @@ import * as Gooey from "../../index";
  */
 export interface SocialLookupEmailPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.SocialLookupEmailPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     emailAddress: string;

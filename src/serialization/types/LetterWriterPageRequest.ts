@@ -5,21 +5,21 @@
 import * as serializers from "../index";
 import * as Gooey from "../../api/index";
 import * as core from "../../core";
-import { RecipeFunction } from "./RecipeFunction";
-import { TrainingDataModel } from "./TrainingDataModel";
+import { LetterWriterPageRequestFunctionsItem } from "./LetterWriterPageRequestFunctionsItem";
+import { LetterWriterPageRequestExampleLettersItem } from "./LetterWriterPageRequestExampleLettersItem";
 import { RunSettings } from "./RunSettings";
 
 export const LetterWriterPageRequest: core.serialization.ObjectSchema<
     serializers.LetterWriterPageRequest.Raw,
     Gooey.LetterWriterPageRequest
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(LetterWriterPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     actionId: core.serialization.property("action_id", core.serialization.string()),
     promptHeader: core.serialization.property("prompt_header", core.serialization.string().optional()),
     exampleLetters: core.serialization.property(
         "example_letters",
-        core.serialization.list(TrainingDataModel).optional()
+        core.serialization.list(LetterWriterPageRequestExampleLettersItem).optional()
     ),
     lmSelectedApi: core.serialization.property("lm_selected_api", core.serialization.string().optional()),
     lmSelectedEngine: core.serialization.property("lm_selected_engine", core.serialization.string().optional()),
@@ -40,11 +40,11 @@ export const LetterWriterPageRequest: core.serialization.ObjectSchema<
 
 export declare namespace LetterWriterPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: LetterWriterPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         action_id: string;
         prompt_header?: string | null;
-        example_letters?: TrainingDataModel.Raw[] | null;
+        example_letters?: LetterWriterPageRequestExampleLettersItem.Raw[] | null;
         lm_selected_api?: string | null;
         lm_selected_engine?: string | null;
         num_outputs?: number | null;

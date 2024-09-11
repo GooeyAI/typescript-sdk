@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { GoogleImageGenPageRequestFunctionsItem } from "../../types/GoogleImageGenPageRequestFunctionsItem";
 import { SerpSearchLocation } from "../../types/SerpSearchLocation";
 import { GoogleImageGenPageRequestSelectedModel } from "../../types/GoogleImageGenPageRequestSelectedModel";
 import { RunSettings } from "../../types/RunSettings";
@@ -14,7 +14,7 @@ export const GoogleImageGenPageRequest: core.serialization.Schema<
     serializers.GoogleImageGenPageRequest.Raw,
     Omit<Gooey.GoogleImageGenPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(GoogleImageGenPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     serpSearchLocation: core.serialization.property("serp_search_location", SerpSearchLocation.optional()),
     scaleserpLocations: core.serialization.property(
@@ -37,7 +37,7 @@ export const GoogleImageGenPageRequest: core.serialization.Schema<
 
 export declare namespace GoogleImageGenPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: GoogleImageGenPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         serp_search_location?: SerpSearchLocation.Raw | null;
         scaleserp_locations?: string[] | null;

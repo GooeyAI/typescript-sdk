@@ -5,8 +5,8 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
-import { AnimationPrompt } from "../../types/AnimationPrompt";
+import { DeforumSdPageRequestFunctionsItem } from "../../types/DeforumSdPageRequestFunctionsItem";
+import { DeforumSdPageRequestAnimationPromptsItem } from "../../types/DeforumSdPageRequestAnimationPromptsItem";
 import { DeforumSdPageRequestSelectedModel } from "../../types/DeforumSdPageRequestSelectedModel";
 import { RunSettings } from "../../types/RunSettings";
 
@@ -14,9 +14,12 @@ export const DeforumSdPageRequest: core.serialization.Schema<
     serializers.DeforumSdPageRequest.Raw,
     Omit<Gooey.DeforumSdPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(DeforumSdPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    animationPrompts: core.serialization.property("animation_prompts", core.serialization.list(AnimationPrompt)),
+    animationPrompts: core.serialization.property(
+        "animation_prompts",
+        core.serialization.list(DeforumSdPageRequestAnimationPromptsItem)
+    ),
     maxFrames: core.serialization.property("max_frames", core.serialization.number().optional()),
     selectedModel: core.serialization.property("selected_model", DeforumSdPageRequestSelectedModel.optional()),
     animationMode: core.serialization.property("animation_mode", core.serialization.string().optional()),
@@ -33,9 +36,9 @@ export const DeforumSdPageRequest: core.serialization.Schema<
 
 export declare namespace DeforumSdPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: DeforumSdPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
-        animation_prompts: AnimationPrompt.Raw[];
+        animation_prompts: DeforumSdPageRequestAnimationPromptsItem.Raw[];
         max_frames?: number | null;
         selected_model?: DeforumSdPageRequestSelectedModel.Raw | null;
         animation_mode?: string | null;

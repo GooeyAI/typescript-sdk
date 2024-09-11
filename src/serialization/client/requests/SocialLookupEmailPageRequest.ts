@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { SocialLookupEmailPageRequestFunctionsItem } from "../../types/SocialLookupEmailPageRequestFunctionsItem";
 import { SocialLookupEmailPageRequestSelectedModel } from "../../types/SocialLookupEmailPageRequestSelectedModel";
 import { SocialLookupEmailPageRequestResponseFormatType } from "../../types/SocialLookupEmailPageRequestResponseFormatType";
 import { RunSettings } from "../../types/RunSettings";
@@ -14,7 +14,7 @@ export const SocialLookupEmailPageRequest: core.serialization.Schema<
     serializers.SocialLookupEmailPageRequest.Raw,
     Omit<Gooey.SocialLookupEmailPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(SocialLookupEmailPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     emailAddress: core.serialization.property("email_address", core.serialization.string()),
     inputPrompt: core.serialization.property("input_prompt", core.serialization.string().optional()),
@@ -33,7 +33,7 @@ export const SocialLookupEmailPageRequest: core.serialization.Schema<
 
 export declare namespace SocialLookupEmailPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: SocialLookupEmailPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         email_address: string;
         input_prompt?: string | null;

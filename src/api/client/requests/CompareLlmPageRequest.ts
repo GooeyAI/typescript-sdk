@@ -10,7 +10,7 @@ import * as Gooey from "../../index";
  */
 export interface CompareLlmPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.CompareLlmPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     inputPrompt?: string;

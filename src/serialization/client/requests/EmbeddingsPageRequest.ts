@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { EmbeddingsPageRequestFunctionsItem } from "../../types/EmbeddingsPageRequestFunctionsItem";
 import { EmbeddingsPageRequestSelectedModel } from "../../types/EmbeddingsPageRequestSelectedModel";
 import { RunSettings } from "../../types/RunSettings";
 
@@ -13,7 +13,7 @@ export const EmbeddingsPageRequest: core.serialization.Schema<
     serializers.EmbeddingsPageRequest.Raw,
     Omit<Gooey.EmbeddingsPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(EmbeddingsPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     texts: core.serialization.list(core.serialization.string()),
     selectedModel: core.serialization.property("selected_model", EmbeddingsPageRequestSelectedModel.optional()),
@@ -22,7 +22,7 @@ export const EmbeddingsPageRequest: core.serialization.Schema<
 
 export declare namespace EmbeddingsPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: EmbeddingsPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         texts: string[];
         selected_model?: EmbeddingsPageRequestSelectedModel.Raw | null;

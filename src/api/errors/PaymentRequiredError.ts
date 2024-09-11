@@ -3,9 +3,10 @@
  */
 
 import * as errors from "../../errors/index";
+import * as Gooey from "../index";
 
 export class PaymentRequiredError extends errors.GooeyError {
-    constructor(body?: unknown) {
+    constructor(body: Gooey.GenericErrorResponse) {
         super({
             message: "PaymentRequiredError",
             statusCode: 402,

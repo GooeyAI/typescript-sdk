@@ -37,7 +37,7 @@ following namespace:
 ```typescript
 import { Gooey } from "gooeyai";
 
-const request: Gooey.CreateStreamRequest = {
+const request: Gooey.CopilotCompletionRequest = {
     ...
 };
 ```

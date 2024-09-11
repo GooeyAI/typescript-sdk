@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { EmailFaceInpaintingPageRequestFunctionsItem } from "../../types/EmailFaceInpaintingPageRequestFunctionsItem";
 import { EmailFaceInpaintingPageRequestSelectedModel } from "../../types/EmailFaceInpaintingPageRequestSelectedModel";
 import { RunSettings } from "../../types/RunSettings";
 
@@ -13,7 +13,7 @@ export const EmailFaceInpaintingPageRequest: core.serialization.Schema<
     serializers.EmailFaceInpaintingPageRequest.Raw,
     Omit<Gooey.EmailFaceInpaintingPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(EmailFaceInpaintingPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     emailAddress: core.serialization.property("email_address", core.serialization.string().optional()),
     twitterHandle: core.serialization.property("twitter_handle", core.serialization.string().optional()),
@@ -46,7 +46,7 @@ export const EmailFaceInpaintingPageRequest: core.serialization.Schema<
 
 export declare namespace EmailFaceInpaintingPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: EmailFaceInpaintingPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         email_address?: string | null;
         twitter_handle?: string | null;

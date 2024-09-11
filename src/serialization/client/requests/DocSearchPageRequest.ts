@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { DocSearchPageRequestFunctionsItem } from "../../types/DocSearchPageRequestFunctionsItem";
 import { DocSearchPageRequestKeywordQuery } from "../../types/DocSearchPageRequestKeywordQuery";
 import { DocSearchPageRequestEmbeddingModel } from "../../types/DocSearchPageRequestEmbeddingModel";
 import { DocSearchPageRequestSelectedModel } from "../../types/DocSearchPageRequestSelectedModel";
@@ -17,7 +17,7 @@ export const DocSearchPageRequest: core.serialization.Schema<
     serializers.DocSearchPageRequest.Raw,
     Omit<Gooey.DocSearchPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(DocSearchPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     searchQuery: core.serialization.property("search_query", core.serialization.string()),
     keywordQuery: core.serialization.property("keyword_query", DocSearchPageRequestKeywordQuery.optional()),
@@ -46,7 +46,7 @@ export const DocSearchPageRequest: core.serialization.Schema<
 
 export declare namespace DocSearchPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: DocSearchPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         search_query: string;
         keyword_query?: DocSearchPageRequestKeywordQuery.Raw | null;

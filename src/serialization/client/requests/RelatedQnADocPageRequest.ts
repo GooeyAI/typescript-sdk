@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { RelatedQnADocPageRequestFunctionsItem } from "../../types/RelatedQnADocPageRequestFunctionsItem";
 import { RelatedQnADocPageRequestKeywordQuery } from "../../types/RelatedQnADocPageRequestKeywordQuery";
 import { RelatedQnADocPageRequestEmbeddingModel } from "../../types/RelatedQnADocPageRequestEmbeddingModel";
 import { RelatedQnADocPageRequestSelectedModel } from "../../types/RelatedQnADocPageRequestSelectedModel";
@@ -19,7 +19,7 @@ export const RelatedQnADocPageRequest: core.serialization.Schema<
     serializers.RelatedQnADocPageRequest.Raw,
     Omit<Gooey.RelatedQnADocPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(RelatedQnADocPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     searchQuery: core.serialization.property("search_query", core.serialization.string()),
     keywordQuery: core.serialization.property("keyword_query", RelatedQnADocPageRequestKeywordQuery.optional()),
@@ -55,7 +55,7 @@ export const RelatedQnADocPageRequest: core.serialization.Schema<
 
 export declare namespace RelatedQnADocPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: RelatedQnADocPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         search_query: string;
         keyword_query?: RelatedQnADocPageRequestKeywordQuery.Raw | null;

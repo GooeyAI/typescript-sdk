@@ -12,7 +12,7 @@ import * as Gooey from "../../index";
  */
 export interface CompareText2ImgPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.CompareText2ImgPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     textPrompt: string;

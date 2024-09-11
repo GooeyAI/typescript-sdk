@@ -5,12 +5,12 @@
 import * as Gooey from "../index";
 
 export interface LetterWriterPageRequest {
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.LetterWriterPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     actionId: string;
     promptHeader?: string;
-    exampleLetters?: Gooey.TrainingDataModel[];
+    exampleLetters?: Gooey.LetterWriterPageRequestExampleLettersItem[];
     lmSelectedApi?: string;
     lmSelectedEngine?: string;
     numOutputs?: number;

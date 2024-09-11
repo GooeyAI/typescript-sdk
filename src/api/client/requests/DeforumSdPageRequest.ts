@@ -15,10 +15,10 @@ import * as Gooey from "../../index";
  */
 export interface DeforumSdPageRequest {
     exampleId?: string;
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.DeforumSdPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
-    animationPrompts: Gooey.AnimationPrompt[];
+    animationPrompts: Gooey.DeforumSdPageRequestAnimationPromptsItem[];
     maxFrames?: number;
     selectedModel?: Gooey.DeforumSdPageRequestSelectedModel;
     animationMode?: string;

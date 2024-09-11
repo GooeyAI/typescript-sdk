@@ -5,7 +5,7 @@
 import * as Gooey from "../index";
 
 export interface ChyronPlantPageRequest {
-    functions?: Gooey.RecipeFunction[];
+    functions?: Gooey.ChyronPlantPageRequestFunctionsItem[];
     /** Variables to be used as Jinja prompt templates and in functions as arguments */
     variables?: Record<string, unknown>;
     midiNotes: string;

@@ -5,7 +5,7 @@
 import * as serializers from "../../index";
 import * as Gooey from "../../../api/index";
 import * as core from "../../../core";
-import { RecipeFunction } from "../../types/RecipeFunction";
+import { TextToSpeechPageRequestFunctionsItem } from "../../types/TextToSpeechPageRequestFunctionsItem";
 import { TextToSpeechPageRequestTtsProvider } from "../../types/TextToSpeechPageRequestTtsProvider";
 import { TextToSpeechPageRequestOpenaiVoiceName } from "../../types/TextToSpeechPageRequestOpenaiVoiceName";
 import { TextToSpeechPageRequestOpenaiTtsModel } from "../../types/TextToSpeechPageRequestOpenaiTtsModel";
@@ -15,7 +15,7 @@ export const TextToSpeechPageRequest: core.serialization.Schema<
     serializers.TextToSpeechPageRequest.Raw,
     Omit<Gooey.TextToSpeechPageRequest, "exampleId">
 > = core.serialization.object({
-    functions: core.serialization.list(RecipeFunction).optional(),
+    functions: core.serialization.list(TextToSpeechPageRequestFunctionsItem).optional(),
     variables: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     textPrompt: core.serialization.property("text_prompt", core.serialization.string()),
     ttsProvider: core.serialization.property("tts_provider", TextToSpeechPageRequestTtsProvider.optional()),
@@ -50,7 +50,7 @@ export const TextToSpeechPageRequest: core.serialization.Schema<
 
 export declare namespace TextToSpeechPageRequest {
     interface Raw {
-        functions?: RecipeFunction.Raw[] | null;
+        functions?: TextToSpeechPageRequestFunctionsItem.Raw[] | null;
         variables?: Record<string, unknown> | null;
         text_prompt: string;
         tts_provider?: TextToSpeechPageRequestTtsProvider.Raw | null;
